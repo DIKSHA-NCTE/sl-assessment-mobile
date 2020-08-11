@@ -1,0 +1,53 @@
+<ion-header>
+  <header
+    [title]="'headings.programList'|translate"
+    [hideBack]="false"
+  ></header>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="programList?.length">
+    <ion-item-group
+      *ngFor="let program of programList;let programIndex = index"
+      (click)="goToProgSol(programIndex)"
+    >
+      <ion-item>
+        <h3>
+          <ion-icon name="list-box" margin-right></ion-icon>
+          {{program?.programName}}
+          <span float-right>
+            <ion-icon
+              name="arrow-forward"
+              class="_progressIcon"
+              margin-left
+            ></ion-icon>
+          </span>
+        </h3>
+      </ion-item>
+      <!-- removed to show program in one page and solution in one page -->
+      <!-- <ng-container *ngFor="let solution of program?.solutions;let j = index">
+        <ion-item
+          (click)="getReportsAccordingToSolution(program.programId,solution.solutionId, solution.solutionName)"
+        >
+          <h3>
+            <ion-icon name="list-box" margin-right></ion-icon>
+            {{solution?.solutionName}}
+            <span float-right *ngIf="!isIos" class="_flex-box">
+              <ion-icon
+                name="arrow-forward"
+                class="_progressIcon"
+                margin-left
+              ></ion-icon>
+            </span>
+          </h3>
+        </ion-item>
+      </ng-container> -->
+    </ion-item-group>
+  </div>
+  <div
+    *ngIf="programList&&!programList?.length"
+    class="_flex-box _justify-content-center"
+  >
+    {{ 'message.noProgramsFound' | translate}}
+  </div>
+</ion-content>

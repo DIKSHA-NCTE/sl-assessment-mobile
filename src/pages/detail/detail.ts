@@ -71,10 +71,11 @@ export class DetailPage {
             this.localStorage.deleteAllStorage().then(success => {
               this.auth.doLogout().then(success => {
                 this.utils.stopLoader();
-                this.currentUser.removeUser();
-                let nav = this.app.getRootNav();
-                this.notifictnProvider.stopNotificationPooling();
-                nav.setRoot(WelcomePage);
+                this.currentUser.removeUser().then(success => {
+                  let nav = this.app.getRootNav();
+                  this.notifictnProvider.stopNotificationPooling();
+                  nav.setRoot(WelcomePage);
+                })
               }).catch(error => {
                 this.utils.stopLoader();
 

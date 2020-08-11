@@ -1,0 +1,49 @@
+page-program-observation-submission {
+  background: $white-color;
+  .segment-button {
+    text-transform: capitalize !important;
+    color: $black-color !important;
+    font-size: 16px !important;
+    font-family: "SourceSansPro-Regular";
+    margin: 20px 0;
+  }
+
+  .segment-md .segment-button.activated,
+  .segment-md .segment-button.segment-activated {
+    font-family: "SourceSansPro-Bold";
+  }
+
+  .cardWrapper {
+    margin: 0;
+    width: 100%;
+  }
+
+  .observationTitle {
+    font-family: "SourceSansPro-Regular";
+    font-size: 18px;
+  }
+  .time {
+    font-family: "SourceSansPro-Regular";
+  }
+  .viewReport {
+    text-transform: capitalize;
+    padding: 5px 15px;
+  }
+  .submissionCard {
+    box-shadow: 0 5px 5px $medium-grey-color;
+  }
+
+  .footerButton {
+    font-family: "SourceSansPro-Regular";
+    text-transform: capitalize;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+
+  .basicButton {
+    background-color: $white-color;
+  }
+  .scroll-content {
+    margin-bottom: 116px !important;
+  }
+}

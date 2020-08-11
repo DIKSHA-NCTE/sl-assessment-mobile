@@ -42,7 +42,7 @@ export class BarChartComponent implements OnInit {
         plotBackgroundColor: null,
         plotBorderWidth: null,
         plotShadow: false,
-        type: 'bar'
+        type: this.data.chart.type ? this.data.chart.type :'bar'
       },
       title: {
         text: " "

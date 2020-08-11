@@ -1,0 +1,60 @@
+<ion-header>
+  <header
+    [title]="type!='observation'?('headings.assessmentForm'|translate):'headings.observationSolutions'|translate"
+    [hideBack]="false"
+  ></header>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="template">
+    <ion-card>
+      <ion-card-content>
+        {{template.name}}
+      </ion-card-content>
+    </ion-card>
+    <div class="questionBlock">
+      <p class="_tip">
+        <span class="firstWord">Creator:</span>
+        <span> {{template.creator||'__'}}</span>
+      </p>
+      <p class="_tip">
+        <span class="firstWord">Description:</span>
+        <span> {{template.description||'Not Found'}}</span>
+      </p>
+      <p class="_tip" *ngIf="type=='observation'">
+        <span class="firstWord">Questions:</span>
+      </p>
+      <p
+        *ngFor="let q of template.questions;let i=index"
+        class="_tip questions"
+      >
+        <span class="firstWord">Q.{{i+1}}:</span>
+        <span> {{q}}</span>
+      </p>
+      <div *ngFor="let ecm of template.ecmQuestions;let ecmIndex=index">
+        <p class="_tip">
+          <span class="firstWord">{{ecmIndex+1+'.'+ecm.name}}</span>
+        </p>
+        <p *ngFor="let q of ecm.questions;let i=index" class="_tip questions">
+          <span class="firstWord">Q.{{i+1}}:</span>
+          <span> {{q}}</span>
+        </p>
+      </div>
+      <div *ngIf="type!='observation'&&template.linkTitle.length">
+        <button ion-button round color="light" full (click)="downloadPdf()">
+          {{template.linkTitle}}
+        </button>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer no-shadow>
+  <ion-toolbar class="_toolbar-background-md" position="bottom">
+    <div class="_flex-box _justify-content-center">
+      <button ion-button round (click)="goToUseTemplate()">
+        {{'buttons.useForm' | translate}}
+      </button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

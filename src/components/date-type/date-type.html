@@ -1,48 +1,97 @@
-<ion-col class="_flex-box _justify-content-center _flex-direction-column ">
-  <h4 [ngClass]="{'_validQuestion': data?.value}"  class="flexbox">
+<ion-col class="_flex-box _justify-content-center _flex-direction-column">
+  <h4 [ngClass]="{'_validQuestion': data?.value}" class="flexbox">
     <!-- <div class="noWrap">{{inputIndex}} .</div> <div padding-left>
       <div *ngFor="let question of data.question"> 
       {{question}} 
     </div> 
     </div> -->
-    <question-heading [inputIndex]="inputIndex" [data]="data" [enableQuestionReadOut] ="enableQuestionReadOut"></question-heading>
-
+    <question-heading
+      [inputIndex]="inputIndex"
+      [data]="data"
+      [enableQuestionReadOut]="enableQuestionReadOut"
+    ></question-heading>
   </h4>
 </ion-col>
 
-<div class="_tip _flex-box "> {{data?.tip}}</div>
+<div class="_tip _flex-box">{{data?.tip}}</div>
 
-<div margin-top style="position: relative">
+<div margin-top style="position: relative;">
   <ion-item>
     <ion-label floating>{{'ionLabel.date'| translate}}</ion-label>
-    <ion-datetime [disabled]="data?.autoCapture" displayFormat="{{data?.dateFormat}}" *ngIf="data?.validation.max && !data?.validation.min"
-      [max]='data?.validation.max ? data?.validation.max : ""' (ionCancel)="canceled()" [(ngModel)]="data.value"
-      (ngModelChange)="checkForValidation()"></ion-datetime>
-
-    <ion-datetime [disabled]="data?.autoCapture" displayFormat="{{data?.dateFormat}}" *ngIf="data?.validation.min && !data?.validation.max"
-      [min]='(data?.validation.min) ? data?.validation.min : ""' [max]="futureDate" (ionCancel)="canceled()" [(ngModel)]="data.value"
+    <ion-datetime
+      [disabled]="data?.autoCapture || (data.isEditable!=undefined && !data.isEditable)"
+      displayFormat="{{data?.dateFormat}}"
+      *ngIf="data?.validation.max && !data?.validation.min"
+      [max]='data?.validation.max ? data?.validation.max : ""'
+      (ionCancel)="canceled()"
+      [(ngModel)]="data.value"
       (ngModelChange)="checkForValidation()"
-      ></ion-datetime>
+    ></ion-datetime>
 
-    <ion-datetime [disabled]="data?.autoCapture" displayFormat="{{data?.dateFormat}}" *ngIf="data?.validation.min && data?.validation.max"
-      [min]='(data?.validation.min) ? data?.validation.min : ""' (ionCancel)="canceled()" [(ngModel)]="data.value"
-      (ngModelChange)="checkForValidation()"></ion-datetime>
+    <ion-datetime
+      [disabled]="data?.autoCapture || (data.isEditable!=undefined && !data.isEditable)"
+      displayFormat="{{data?.dateFormat}}"
+      *ngIf="data?.validation.min && !data?.validation.max"
+      [min]='(data?.validation.min) ? data?.validation.min : ""'
+      [max]="futureDate"
+      (ionCancel)="canceled()"
+      [(ngModel)]="data.value"
+      (ngModelChange)="checkForValidation()"
+    ></ion-datetime>
 
-      <ion-datetime [disabled]="data?.autoCapture" displayFormat="{{data?.dateFormat}}" *ngIf="!data?.validation.min && !data?.validation.max"
-       (ionCancel)="canceled()" [(ngModel)]="data.value" [max]="futureDate"
-      (ngModelChange)="checkForValidation()"></ion-datetime>
+    <ion-datetime
+      [disabled]="data?.autoCapture || (data.isEditable!=undefined && !data.isEditable)"
+      displayFormat="{{data?.dateFormat}}"
+      *ngIf="data?.validation.min && data?.validation.max"
+      [min]='(data?.validation.min) ? data?.validation.min : ""'
+      (ionCancel)="canceled()"
+      [(ngModel)]="data.value"
+      (ngModelChange)="checkForValidation()"
+    ></ion-datetime>
 
+    <ion-datetime
+      [disabled]="data?.autoCapture  || (data.isEditable!=undefined && !data.isEditable)"
+      displayFormat="{{data?.dateFormat}}"
+      *ngIf="!data?.validation.min && !data?.validation.max"
+      (ionCancel)="canceled()"
+      [(ngModel)]="data.value"
+      [max]="futureDate"
+      (ngModelChange)="checkForValidation()"
+    ></ion-datetime>
   </ion-item>
-  <button ion-button icon-start float-right clear color="primary" class="capture" (click)="captureTime()" *ngIf="!data?.value && data?.autoCapture">
+  <button
+    ion-button
+    icon-start
+    float-right
+    clear
+    color="primary"
+    class="capture"
+    (click)="captureTime()"
+    *ngIf="!data?.value && data?.autoCapture"
+  >
     {{'buttons.capture'| translate}}
   </button>
-  <button ion-button icon-start float-right clear color="primary" class="capture" (click)="captureTime()" *ngIf="!data?.autoCapture">
-      {{'buttons.today'| translate}}
-    </button>
-  <div style="width: 100%">
+  <button
+    ion-button
+    icon-start
+    float-right
+    clear
+    color="primary"
+    class="capture"
+    (click)="captureTime()"
+    *ngIf="!data?.autoCapture"
+  >
+    {{'buttons.today'| translate}}
+  </button>
+  <div style="width: 100%;">
     <remarks *ngIf="data?.showRemarks" [data]="data"></remarks>
   </div>
-  <image-upload  [data]="data" [submissionId]="submissionId" [generalQuestion]="generalQuestion" [imageLocalCopyId]="imageLocalCopyId"
-    [evidenceId]="evidenceId" [schoolId]="schoolId"></image-upload>
-
+  <image-upload
+    [data]="data"
+    [submissionId]="submissionId"
+    [generalQuestion]="generalQuestion"
+    [imageLocalCopyId]="imageLocalCopyId"
+    [evidenceId]="evidenceId"
+    [schoolId]="schoolId"
+  ></image-upload>
 </div>

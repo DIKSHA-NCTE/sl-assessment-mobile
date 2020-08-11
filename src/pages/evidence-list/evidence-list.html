@@ -1,6 +1,5 @@
 <ion-header>
-  <header [title]="'headings.surveyEcm'|translate" [hideBack]="false">
-  </header>
+  <header [title]="'headings.surveyEcm'|translate" [hideBack]="false"></header>
 </ion-header>
 
 <ion-content>
@@ -12,14 +11,21 @@
       </h3>
     </ion-item-divider>
 
-
-    <button ion-item [disabled]="evidence?.notApplicable" *ngFor="let evidence of entityEvidences; let i= index"
-      (click)="navigateToEvidence(i)" text-wrap>
-      <div class="_flex-box" style="flex-wrap: wrap">
+    <button
+      ion-item
+      [disabled]="evidence?.notApplicable"
+      *ngFor="let evidence of entityEvidences; let i= index"
+      (click)="navigateToEvidence(i)"
+      text-wrap
+    >
+      <div class="_flex-box" style="flex-wrap: wrap;">
         <ion-icon name="albums" margin-right></ion-icon>
-        <div style="flex: 1">{{ evidence?.name }}</div>
-        <div float-right *ngIf="evidence.progressStatus === 'completed' && !evidence?.notApplicable"
-          class="_completed _flex-box progressWidth">
+        <div style="flex: 1;">{{ evidence?.name }}</div>
+        <div
+          float-right
+          *ngIf="evidence.progressStatus === 'completed' && !evidence?.notApplicable"
+          class="_completed _flex-box progressWidth"
+        >
           <progress-bar [progress]="100" class="_full-width"></progress-bar>
           <!-- {{'labels.completed'|translate}} <ion-icon name="checkmark-circle" class="_progressIcon" margin-left>
           </ion-icon> -->
@@ -27,13 +33,19 @@
         <div float-right *ngIf="!evidence.progressStatus && !evidence?.notApplicable && !isIos" class="_flex-box">
           <ion-icon name="arrow-forward" class="_progressIcon" margin-left></ion-icon>
         </div>
-        <div float-right *ngIf="evidence.progressStatus === 'inProgress' && !evidence?.notApplicable"
-          class="_inProgress _flex-box progressWidth">
-          <progress-bar [progress] = "evidence?.completePercentage" class="_full-width"></progress-bar>
+        <div
+          float-right
+          *ngIf="evidence.progressStatus === 'inProgress' && !evidence?.notApplicable"
+          class="_inProgress _flex-box progressWidth"
+        >
+          <progress-bar [progress]="evidence?.completePercentage" class="_full-width"></progress-bar>
           <!-- {{'labels.inprogress'|translate}} <ion-icon name="contrast" class="_progressIcon" margin-left></ion-icon> -->
         </div>
-        <div float-right *ngIf="evidence.progressStatus === 'submitted' && !evidence?.notApplicable"
-          class="_submitted _flex-box">
+        <div
+          float-right
+          *ngIf="evidence.progressStatus === 'submitted' && !evidence?.notApplicable"
+          class="_submitted _flex-box"
+        >
           {{'labels.submitted'|translate}} <ion-icon name="cloud-done" class="_progressIcon" margin-left></ion-icon>
         </div>
         <div float-right *ngIf="evidence?.notApplicable" class="_na _flex-box">
@@ -47,3 +59,16 @@
     </button>
   </ion-item-group>
 </ion-content>
+
+<ion-footer no-shadow *ngIf="canShowManualRating">
+  <ion-toolbar class="_toolbar-background-md" position="bottom">
+    <ion-row>
+      <ion-col>
+        <button ion-button full (click)="goToManualRating(evidence)" class="btnText">
+          <ion-icon name="stats" margin-right></ion-icon>
+          {{'ionLabel.manualRating' | translate}}
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

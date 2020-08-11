@@ -2,34 +2,28 @@
   <button ion-button menuToggle *ngIf="showMenu">
     <ion-icon name="menu"></ion-icon>
   </button>
-  <div class="_flex-box">
-    <ion-title class="_ellipsis titleAdj textCapital">{{ title  }} </ion-title>
-    <!-- <ion-icon name="chatboxes" isActive="true" class="_headerIcon" (click)="feedback()" margin-right float-right></ion-icon> -->
-    <ion-icon name="close" isActive="true" class="_headerIcon margin" (click)="closeDashboard()" *ngIf="showClose"
-      float-right></ion-icon>
+  <ion-title class="_ellipsis titleAdj textCapital">{{ title  }} </ion-title>
+  <!-- <ion-icon name="chatboxes" isActive="true" class="_headerIcon" (click)="feedback()" margin-right float-right></ion-icon> -->
 
-    <ion-icon name="map" isActive="true" *ngIf="enableDashboard" class="_headerIcon margin" (click)="openDashboard()"
-      float-right></ion-icon>
+  <ion-buttons end>
+    <button ion-button icon-only (click)="closeDashboard()" *ngIf="showClose">
+      <ion-icon name="close" isActive="true" class="_headerIcon margin" float-right>
+      </ion-icon>
+    </button>
+    <button ion-button icon-only *ngIf="enableDashboard" (click)="openDashboard()">
+      <ion-icon name="map" isActive="true" class="_headerIcon margin" float-right></ion-icon>
+    </button>
+    <button ion-button icon-only>
+      <ion-icon name="wifi" class="_headerIcon margin" *ngIf="!disableNetwork"
+        [ngClass]="{'_disconnectedConnection': !networkAvailable}"></ion-icon>
+    </button>
+    <button ion-button icon-only (click)="onNotificationClick($event)" *ngIf="!hideNotification">
+      <ion-icon name="notifications" class="_headerIcon notificationIcon "></ion-icon>
+      <span class="dot _flex-box"
+        *ngIf="newNotificationPresent && notificationData.count < 100">{{notificationData.count}}</span>
+      <span class="dot _flex-box" *ngIf="newNotificationPresent && notificationData.count >= 100">99+</span>
 
+    </button>
 
-    <!-- <div class="margin relative" (click)="onNotificationClick($event)">
-      <ion-icon name="notifications" class="_headerIcon notificationIcon " float-right></ion-icon>
-      <span class="dot _flex-box" *ngIf="newNotificationPresent">{{notificationData.count}}</span>
-    </div> -->
-    <ion-buttons end>
-      <button ion-button icon-only>
-        <ion-icon name="wifi" class="_headerIcon margin" *ngIf="!disableNetwork"
-          [ngClass]="{'_disconnectedConnection': !networkAvailable}"></ion-icon>
-      </button>
-      <button ion-button icon-only (click)="onNotificationClick($event)" *ngIf="!hideNotification">
-        <ion-icon name="notifications" class="_headerIcon notificationIcon "></ion-icon>
-        <span class="dot _flex-box"
-          *ngIf="newNotificationPresent && notificationData.count < 100">{{notificationData.count}}</span>
-        <span class="dot _flex-box" *ngIf="newNotificationPresent && notificationData.count >= 100">99+</span>
-
-      </button>
-
-    </ion-buttons>
-    <!-- <ion-icon name="log-out" isActive="true" style="color: white !important ;font-size: 24px;padding-right: 10px" (click)="logout()" float-right></ion-icon> -->
-  </div>
+  </ion-buttons>
 </ion-navbar>

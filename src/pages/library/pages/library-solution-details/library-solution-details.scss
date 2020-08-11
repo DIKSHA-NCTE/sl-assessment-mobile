@@ -1,0 +1,18 @@
+page-library-solution-details {
+  .firstWord {
+    font-weight: 700;
+    font-size: 1.6rem;
+    // margin-right: 16px;
+  }
+  .card {
+    margin: 0;
+    width: 100%;
+  }
+  .questionBlock {
+    width: 90%;
+    margin: auto;
+  }
+  .questions {
+    display: flex;
+  }
+}

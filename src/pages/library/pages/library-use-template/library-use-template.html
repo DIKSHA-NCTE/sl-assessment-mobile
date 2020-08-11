@@ -1,0 +1,86 @@
+<ion-header>
+  <header
+    [title]="type!='observation'?('headings.assessmentForm'|translate):'headings.observationSolutions'|translate"
+    [hideBack]="false"
+  ></header>
+</ion-header>
+
+<ion-content padding>
+  <dynamic-form
+    [formFields]="metaForm"
+    [form]="addObservationForm"
+  ></dynamic-form>
+  <div *ngIf="privateProgramList?.length">
+    <ion-item>
+      <ion-label>{{'labels.createNewProgram'| translate}}</ion-label>
+      <ion-toggle [(ngModel)]="createNew"></ion-toggle>
+    </ion-item>
+  </div>
+  <div *ngIf="!createNew">
+    <ion-item *ngIf="privateProgramList.length">
+      <ion-label color="primary" floating>
+        {{'labels.chooseExistingProgram'| translate}}
+        <span class="_requiredClass">*</span></ion-label
+      >
+      <ion-select [(ngModel)]="selectedPrivate._id" interface="action-sheet">
+        <ion-option
+          [value]="pp._id"
+          *ngFor="let pp of privateProgramList"
+          (ionSelect)="ionChange(pp.name)"
+          >{{pp.name}}</ion-option
+        >
+      </ion-select>
+    </ion-item>
+  </div>
+
+  <div *ngIf="createNew">
+    <ion-item>
+      <ion-label stacked
+        >{{'ionLabel.programName' | translate}}
+        <span class="_requiredClass">*</span>
+      </ion-label>
+      <ion-input type="text" [(ngModel)]="obervationProgramName"></ion-input>
+    </ion-item>
+  </div>
+  <div *ngIf="addObservationForm&&type!='individual'">
+    <ion-item>
+      <button
+        ion-button
+        class="selectAll capitalize"
+        (click)="openEntityModel()"
+      >
+        {{'buttons.addEntity' | translate}}
+      </button>
+    </ion-item>
+  </div>
+
+  <div *ngFor="let item of entityList">
+    <ion-item *ngIf="item.selected">
+      {{item.name}}
+    </ion-item>
+  </div>
+</ion-content>
+
+<ion-footer no-shadow>
+  <ion-toolbar class="_toolbar-background-md" position="bottom">
+    <ion-row>
+      <ion-col>
+        <button ion-button full (click)="saveToDraft()" class="btnText">
+          {{'buttons.draft' | translate}}
+        </button>
+      </ion-col>
+
+      <ion-col>
+        <button
+          ion-button
+          full
+          (click)="createOA()"
+          class="btnText"
+          [disabled]="!addObservationForm?.valid || !(entityList?.length ||type=='individual')|| !(obervationProgramName ||selectedPrivate?.name) "
+        >
+          {{'buttons.publish' | translate}}
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

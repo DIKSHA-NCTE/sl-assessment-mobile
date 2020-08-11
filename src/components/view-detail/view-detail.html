@@ -1,0 +1,41 @@
+<!-- Generated template for the ViewDetailComponent component -->
+<ion-header>
+  <header
+    [title]="'headings.submissionListPage'|translate"
+    [showMenu]="false"
+    [hideBack]="false"
+    [showClose]="true"
+    [disableNetwork]="true"
+    [hideNotification]="true"
+  ></header>
+  <!-- <ion-navbar color="primary">
+    <ion-title>{{'headings.submissionListPage'|translate}}</ion-title>
+    <ion-icon
+      name="close"
+      isActive="true"
+      class="_headerIcon margin"
+      (click)="closeDashboard()"
+      float-right
+    ></ion-icon> -->
+
+  <!-- <ion-buttons right>Close</ion-buttons> -->
+  <!-- </ion-navbar> -->
+</ion-header>
+
+<ion-content>
+  <ion-card class="observationTitle">
+    <ion-card-content>
+      {{submission?.entityName}}
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card-content>
+    <h5>{{submission?.title}}</h5>
+    <p>Created On : {{submission?.createdAt | date}}</p>
+    <p *ngIf="submission?.submissionDate">
+      Submitted On :
+      <!-- {{submission?.evidencesStatus[0]?.submissions[0]?.submissionDate | date}} -->
+      {{submission?.submissionDate | date}}
+    </p>
+  </ion-card-content>
+</ion-content>

@@ -1,0 +1,11 @@
+<ion-list>
+  <button ion-item (click)="presentAlert()">
+    {{'buttons.edit'|translate}}
+  </button>
+  <button ion-item (click)="viewCntrlr.dismiss({action: 'delete'})">
+    {{'buttons.delete'|translate}}
+  </button>
+  <button ion-item (click)="presentModal()">
+    {{'buttons.viewDetails'|translate}}
+  </button>
+</ion-list>

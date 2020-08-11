@@ -1,0 +1,37 @@
+page-library {
+  .card-container {
+    justify-content: center;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+
+    .cardDetails {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .cardImg {
+        width: 50%;
+      }
+    }
+  }
+
+  .card-md {
+    width: calc(100% - 100px);
+    border-radius: 20%;
+    width: -webkit-calc(100% - 100px);
+    width: -moz-calc(100% - 100px);
+  }
+
+  .iconName {
+    width: min-content;
+    text-align: center;
+    line-height: 1.4;
+    font-weight: 500;
+  }
+
+  .ionCard {
+    height: 20vw;
+    width: 20vw;
+    border-radius: 20%;
+  }
+}

@@ -1,0 +1,50 @@
+<ion-header>
+  <header
+    [title]="'headings.myInstitutions'|translate"
+    [hideBack]="false"
+  ></header>
+</ion-header>
+
+<ion-content>
+  <div>
+    <ion-list>
+      <ion-item>
+        <ion-label>Select Entity</ion-label>
+        <ion-select [(ngModel)]="entityKeySelected" interface="popover">
+          <ion-option
+            [value]="entityType.key"
+            *ngFor="let entityType of institutionsList?.entityTypes"
+            >{{entityType.name}}</ion-option
+          >
+        </ion-select>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <!-- if program presenet -->
+  <!-- <div *ngFor="let entityType of institutionsList?.entityTypes"> -->
+  <div
+    *ngFor="let entity of institutionsList?.entities[entityKeySelected]; let entityIndex = index"
+  >
+    <ion-card>
+      <ion-item
+        text-wrap
+        (click)="goToInstitutionSol(entityKeySelected,entityIndex)"
+      >
+        <div class="_flex-box">
+          <div style="flex: 1;">
+            {{entity.name}}
+          </div>
+        </div>
+      </ion-item>
+    </ion-card>
+  </div>
+  <!-- </div> -->
+
+  <!-- if program not present -->
+  <!-- <div *ngIf="institutionsList &&  !institutionsList.length">
+    <div class="ion-diagnostics-sheet-title">
+      <h3>{{'message.noProgramsFound' | translate}}</h3>
+    </div>
+  </div> -->
+</ion-content>

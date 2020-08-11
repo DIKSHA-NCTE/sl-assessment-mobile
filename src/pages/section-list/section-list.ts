@@ -1,3 +1,4 @@
+import { EvidenceAllListComponent } from './../../components/evidence-all-list/evidence-all-list';
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, App, Events, Platform, AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
@@ -197,6 +198,7 @@ export class SectionListPage {
   viewReport() {
     this.navCtrl.push(ObservationReportsPage, { submissionId: this.submissionId })
   }
+ 
 
 
   goToImageListing() {

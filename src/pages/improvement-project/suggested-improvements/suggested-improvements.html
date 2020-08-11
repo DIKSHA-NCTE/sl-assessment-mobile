@@ -1,0 +1,64 @@
+<!--
+  Generated template for the ImprovementProjectPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <header
+    [title]="'headings.improvementProjetcs'|translate"
+    [hideBack]="false"
+  ></header>
+</ion-header>
+
+<ion-content>
+  <!-- if program presenet -->
+  <div *ngIf="improvementProject?.length">
+    <ion-item-divider color="light">
+      <h4 class="bold" text-wrap>{{solName}}</h4>
+    </ion-item-divider>
+    <div *ngFor="let Ip of improvementProject;let i=index">
+      <ion-card *ngIf="Ip.criteriaName">
+        <ion-item text-wrap>
+          <div class="_flex-box" (click)="item=i">
+            <!-- <ion-icon name="play" class="logoIcon"></ion-icon> -->
+            <div style="flex: 1;">
+              {{Ip.criteriaName}}
+            </div>
+            <div class="_flex-box _justify-content-center">
+              <p padding-right>{{Ip.label}}</p>
+              <ion-icon name="md-arrow-dropdown"></ion-icon>
+            </div>
+          </div>
+        </ion-item>
+      </ion-card>
+      <!-- Improvement list in drop-down -->
+      <div style="margin: 0 22px;" class="panel" [ngClass]="{hide: item!=i}">
+        <ion-item-group>
+          <ion-item-divider>
+            <ion-label *ngIf="Ip.improvementProjects.length"
+              >{{'labels.suggestedIMPs'|translate}}</ion-label
+            >
+            <ion-label *ngIf="!Ip.improvementProjects.length"
+              >{{'labels.noSuggestedIMPs'|translate}}</ion-label
+            >
+          </ion-item-divider>
+
+          <ion-item *ngFor="let project of Ip.improvementProjects">
+            <ion-label (click)="openUnnati(project.projectId)">
+              <p>{{project.projectName}}</p>
+              <small>{{project.projectGoal}}</small>
+            </ion-label>
+          </ion-item>
+        </ion-item-group>
+      </div>
+    </div>
+  </div>
+
+  <!-- if program not present -->
+  <div *ngIf="improvementProject && !improvementProject?.length">
+    <div class="ion-diagnostics-sheet-title">
+      <h3>{{'message.noImpovementProjectFound' | translate}}</h3>
+    </div>
+  </div>
+</ion-content>

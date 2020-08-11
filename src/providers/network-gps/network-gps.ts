@@ -86,10 +86,13 @@ export class NetworkGpsProvider {
               // this.utils.openToast(location)
               resolve(location)
             }).catch((error) => {
-              this.translate.get(['toastMessage.unableToFetchGps']).subscribe(translations => {
-                this.utils.openToast(translations.unableToFetchGps);
-              });
+              // this.translate.get(['toastMessage.unableToFetchGps']).subscribe(translations => {
+              //   this.utils.openToast(translations.unableToFetchGps);
+              // });
               this.errorObj.text = `getCurrentPosition error. ${JSON.stringify(error)}`;
+              this.translate.get(['toastMessage.reEnableGPS']).subscribe(translations => {
+                this.utils.openToast(translations['toastMessage.reEnableGPS']);
+              })
               this.slackService.pushException(this.errorObj);
               // this.getGpsStatus();
               // this.utils.openToast("Something went wrnog. Please try again.")

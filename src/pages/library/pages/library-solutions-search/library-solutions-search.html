@@ -1,0 +1,53 @@
+<!--
+  Generated template for the LibrarySolutionsSearchPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <header [hideBack]="false"></header>
+</ion-header>
+
+<ion-content padding>
+  <!-- TODO - Search to be fixed -->
+  <ion-searchbar
+    [(ngModel)]="searchText"
+    placeholder="Search for solutions"
+    (ionInput)="onInput()"
+    [debounce]="1500"
+    #searchbar
+  ></ion-searchbar>
+
+  <div padding>
+    <ion-item text-wrap *ngIf="solutionsList?.length">
+      <div
+        class="_flex-box"
+        *ngFor="let solution of solutionsList"
+        (click)="goToSolutionDetails(solution._id,solution.type)"
+      >
+        <img
+          width="16"
+          height="16"
+          [src]="libraryProvider?.getImgContent(iconData[solution?.type])"
+          *ngIf="iconData && iconData[solution?.type]"
+        />
+
+        <div padding>
+          <p>
+            {{solution.name}}
+          </p>
+        </div>
+      </div>
+    </ion-item>
+    <div *ngIf="this.solutionsList && !solutionsList?.length">
+      <div class="ion-diagnostics-sheet-title">
+        <h3>{{'message.noSolutionFound'|translate}}</h3>
+      </div>
+    </div>
+    <div *ngIf="count>solutionsList?.length">
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </div>
+  </div>
+</ion-content>

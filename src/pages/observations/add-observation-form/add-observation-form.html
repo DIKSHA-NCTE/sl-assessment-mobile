@@ -1,12 +1,19 @@
 <ion-header>
-  <header [title]="'headings.addObservation'|translate" [hideBack]="false" [showClose]="false" [disableNetwork]="true"
-    [showMenu]="false">
-  </header>
+  <header
+    [title]="'headings.addObservation'|translate"
+    [hideBack]="false"
+    [showClose]="false"
+    [disableNetwork]="true"
+    [showMenu]="false"
+  ></header>
 </ion-header>
 
 <ion-content padding-top>
-  <ion-stepper [mode]="'horizontal'" #stepper (selectIndexChange)="selectChange($event)">
-
+  <ion-stepper
+    [mode]="'horizontal'"
+    #stepper
+    (selectIndexChange)="selectChange($event)"
+  >
     <!-- <ion-step label="Type" >
     <ion-step label="Type" >
         <h4>Observation Type</h4> \
@@ -50,79 +57,153 @@
     </ng-template>
     </ion-step> -->
 
-
     <ion-step label="Solution">
       <!-- <h4>Solution List</h4> -->
       <div class="fixBox" *ngIf="listOfSolution">
-        <ion-label>{{'ionLabel.selectSolution' | translate}}</ion-label>
-        <ion-searchbar debounce="1000" (ionClear)="clearSolution()" autofocus (ionChange)="searchSolution($event)"
-          placeholder="{{'message.startSearchSolution' | translate}}"></ion-searchbar>
+        <div class="_flex-box">
+          <ion-label>{{'ionLabel.selectSolution' | translate}} </ion-label>
+          <div>
+            <ion-item *ngIf="observableEntityList?.length">
+              <ion-label>Choose Entity </ion-label>
+              <ion-select
+                [(ngModel)]="selectedEntity"
+                (ionChange)="selectedFrameWork=null;getSolutionList();"
+              >
+                <ion-option value="" selected>All</ion-option>
+                <ion-option
+                  [value]="e._id"
+                  *ngFor="let e of observableEntityList"
+                  >{{e.name}}</ion-option
+                >
+              </ion-select>
+            </ion-item>
+          </div>
+        </div>
+
+        <ion-searchbar
+          debounce="1000"
+          (ionClear)="clearSolution()"
+          autofocus
+          (ionChange)="searchSolution($event)"
+          placeholder="{{'message.startSearchSolution' | translate}}"
+        ></ion-searchbar>
         <ion-list margin-top *ngFor="let frameWork of listOfSolution">
-          <ion-item (click)="selectSolution(frameWork)" [ngClass]="{'active': frameWork._id === selectedFrameWork}">
-            <ion-icon name="list-box" item-start [ngClass]="{'whiteColor': frameWork._id === selectedFrameWork}">
+          <ion-item
+            (click)="selectSolution(frameWork)"
+            [ngClass]="{'active': frameWork._id === selectedFrameWork}"
+          >
+            <ion-icon
+              name="list-box"
+              item-start
+              [ngClass]="{'whiteColor': frameWork._id === selectedFrameWork}"
+            >
             </ion-icon>
-            <h2 [ngClass]="{'whiteColor': frameWork._id === selectedFrameWork}">{{frameWork.name}} </h2>
-            <p [ngClass]="{'whiteColor': frameWork._id === selectedFrameWork}">{{frameWork.description}}</p>
-            <button ion-button clear item-end (click)="showDetails(frameWork)"
-              [ngClass]="{'whiteColor': frameWork._id === selectedFrameWork}">View</button>
+            <h2 [ngClass]="{'whiteColor': frameWork._id === selectedFrameWork}">
+              {{frameWork.name}}
+            </h2>
+            <p [ngClass]="{'whiteColor': frameWork._id === selectedFrameWork}">
+              {{frameWork.description}}
+            </p>
+            <button
+              ion-button
+              clear
+              item-end
+              (click)="showDetails(frameWork)"
+              [ngClass]="{'whiteColor': frameWork._id === selectedFrameWork}"
+            >
+              View
+            </button>
           </ion-item>
         </ion-list>
         <div *ngIf="listOfSolution?.length == 0" class="_flex-box msgContainer">
           {{'message.noSolutionFound' | translate}}
         </div>
       </div>
-      <ion-infinite-scroll [enabled]="!(this.listOfSolution?.length === totalCount) && this.listOfSolution?.length > 0"
-        (ionInfinite)="doInfinite($event)">
-        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+      <ion-infinite-scroll
+        [enabled]="!(this.listOfSolution?.length === totalCount) && this.listOfSolution?.length > 0"
+        (ionInfinite)="doInfinite($event)"
+      >
+        <ion-infinite-scroll-content
+          loadingSpinner="bubbles"
+          loadingText="Loading more data..."
+        >
         </ion-infinite-scroll-content>
       </ion-infinite-scroll>
     </ion-step>
-
 
     <ion-step label="Details">
       <!-- <h4>Observation Details</h4> -->
 
       <div class="fixBox">
-        <dynamic-form [formFields]="addObservationData" [form]="addObservationForm"></dynamic-form>
-
+        <dynamic-form
+          [formFields]="addObservationData"
+          [form]="addObservationForm"
+        ></dynamic-form>
       </div>
     </ion-step>
-    <ion-step label="Add Schools">
+    <ion-step
+      [label]="selectedEntityName?'Select ' +selectedEntityName:'Select Entities'"
+    >
       <div class="fixBox" *ngIf="entityList">
-        <ion-label class="header _flex-box ">
+        <ion-label class="header _flex-box">
           <!-- {{'ionLabel.selectSchool' | translate}} -->
-          <ion-select [(ngModel)]="selectedState" class="whiteSelection" *ngIf="selectedState && !isProfileAssignedWithState" (ionChange)="getEntityList();onStateChange($event)" >
+          <ion-select
+            [(ngModel)]="selectedState"
+            class="whiteSelection"
+            *ngIf="selectedState && !isProfileAssignedWithState"
+            (ionChange)="getEntityList();onStateChange($event)"
+          >
             <ion-option *ngFor="let state of allStates" [value]="state._id">
               <b>{{state?.name}}</b>
             </ion-option>
           </ion-select>
-          <button ion-button class="selectAll" (click)="selectUnselectAllEntity(selectAll ? false : true)"
-            [ngClass]="{'undo': selectAll}">
-            {{!selectAll ? ('buttons.selectAll' | translate) : ('buttons.undo' | translate)}}
-            </button>
+          <button
+            ion-button
+            class="selectAll capitalize"
+            (click)="selectUnselectAllEntity(selectAll ? false : true)"
+            [ngClass]="{'undo': selectAll}"
+          >
+            {{!selectAll ? ('buttons.selectAll' | translate) +' '+
+            selectedEntityName : ('buttons.undo' | translate)}}
+          </button>
         </ion-label>
+        <!-- placeholder="{{'message.startSearchSchool' | translate}}" -->
         <div>
-          <ion-searchbar debounce="500" 
-            (ionChange)="searchEntities($event ,'entity')" placeholder="{{'message.startSearchSchool' | translate}}">
+          <ion-searchbar
+            debounce="500"
+            (ionChange)="searchEntities($event ,'entity')"
+            placeholder="{{'Search ' + selectedEntityName}}"
+          >
           </ion-searchbar>
         </div>
 
         <ion-list margin-top *ngFor="let entity of entityList">
           <ion-item>
             <ion-label text-wrap>{{entity.name}}</ion-label>
-            <ion-checkbox color="dark" [checked]="entity.selected"
-              (click)="countEntity(entity);entity.selected = !entity.selected"></ion-checkbox>
+            <ion-checkbox
+              color="dark"
+              [checked]="entity.selected"
+              (click)="countEntity(entity);entity.selected = !entity.selected"
+            ></ion-checkbox>
           </ion-item>
         </ion-list>
         <div *ngIf="entityList?.length == 0" class="_flex-box msgContainer">
           {{'message.noSchoolFound' | translate}}
         </div>
-        <div class="_flex-box _justify-content-center" *ngIf="(entityList?.length && (entityList?.length <= entityListTotalCount)) && (entityListTotalCount > entityListLimit)">
-          <button ion-button full  class="btnText" color="light" (click)="doInfinite($event,'entity')">
+        <div
+          class="_flex-box _justify-content-center"
+          *ngIf="(entityList?.length && (entityList?.length <= entityListTotalCount)) && (entityListTotalCount > entityListLimit)"
+        >
+          <button
+            ion-button
+            full
+            class="btnText"
+            color="light"
+            (click)="doInfinite($event,'entity')"
+          >
             {{'buttons.loadMore' | translate}}
           </button>
         </div>
-  
       </div>
       <!-- <ion-infinite-scroll
         [enabled]="!(this.entityList?.length === entityListTotalCount) && this.entityList?.length > 0"
@@ -130,7 +211,6 @@
         <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
         </ion-infinite-scroll-content>
       </ion-infinite-scroll> -->
-
 
       <ion-fab bottom right>
         <!-- <button ion-fab mini color="secondary" (click)="addObservation()">
@@ -150,29 +230,39 @@
 </ion-infinite-scroll> -->
 </ion-content>
 
-
-
 <ion-footer no-shadow>
   <ion-toolbar class="_toolbar-background-md" position="bottom">
     <ion-row>
       <ion-col *ngIf="selectedIndex !== 0">
-        <button ion-button full (click)="stepper1.previousStep()" class="btnText">
+        <button
+          ion-button
+          full
+          (click)="stepper1.previousStep()"
+          class="btnText"
+        >
           {{'buttons.previous' | translate}}
         </button>
       </ion-col>
-      <ion-col *ngIf="selectedIndex === 0">
-
-      </ion-col>
+      <ion-col *ngIf="selectedIndex === 0"> </ion-col>
       <ion-col *ngIf="selectedIndex !== 2">
-        <button ion-button full
+        <button
+          ion-button
+          full
           (click)=" doAction() ; selectedIndex === 0  ?  selectedFrameWork ? stepper1.nextStep() : tmpFunc() : addObservationForm.valid ? stepper1.nextStep() : tmpFunc() "
-          class="btnText">
+          class="btnText"
+        >
           {{'buttons.next' | translate}}
         </button>
       </ion-col>
 
       <ion-col *ngIf="selectedIndex === 2">
-        <button ion-button full (click)="publishObservation()" class="btnText" [disabled]=" !(entityCount > 0)">
+        <button
+          ion-button
+          full
+          (click)="publishObservation()"
+          class="btnText"
+          [disabled]=" !(entityCount > 0)"
+        >
           <!-- <ion-icon name="pause" margin-right></ion-icon> -->
           {{'buttons.publish' | translate}}
         </button>

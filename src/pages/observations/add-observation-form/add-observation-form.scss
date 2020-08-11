@@ -1,39 +1,43 @@
 page-add-observation-form {
-    .header {
-        justify-content: space-between;
+  .header {
+    justify-content: space-between;
+  }
 
-    }
-
-    .selectAll {
-        background: $white-color;
-        color: $black-color;
-        text-transform: capitalize;
-    }
-    .undo {
-        background: $primary-color;
-        color: $white-color;
-    }
-
+  .selectAll {
+    background: $white-color;
+    color: $black-color;
+    text-transform: capitalize;
+  }
+  .undo {
+    background: $primary-color;
+    color: $white-color;
+  }
 }
 
 .fixBox {
-    height: calc(70vh);
-    overflow-y: auto;
+  height: calc(70vh);
+  overflow-y: auto;
 }
 
 .active {
-    background-color: $primary-color;
+  background-color: $primary-color;
 }
 
 .whiteColor {
-    color: $white-color !important;
+  color: $white-color !important;
+}
+
+.capitalize,
+.searchbar-input,
+.ionic-step-header-label {
+  text-transform: capitalize;
 }
 
 .whiteSelection {
-    // background: $white-color;
-    // min-width: 100px;
-    // font-weight: 500;
-    // border-radius: 2px;
-    // border: 2px solid $medium-grey-color;
-    // padding: 10px 10px 5px 10px ;
+  // background: $white-color;
+  // min-width: 100px;
+  // font-weight: 500;
+  // border-radius: 2px;
+  // border: 2px solid $medium-grey-color;
+  // padding: 10px 10px 5px 10px ;
 }

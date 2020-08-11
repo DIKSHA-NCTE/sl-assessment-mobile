@@ -1,0 +1,34 @@
+<ion-header>
+  <header [title]="'headings.library'|translate" [hideBack]="false"></header>
+</ion-header>
+
+<ion-content padding>
+  <ion-searchbar
+    [(ngModel)]="searchText"
+    (ionFocus)="checkFocus()"
+  ></ion-searchbar>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col
+        col-6
+        *ngFor="let item of libraryComponents"
+        (click)="goToComponent(item?.type)"
+      >
+        <div class="card-container">
+          <ion-card class="ionCard">
+            <ion-card-content class="cardDetails">
+              <img [src]="libraryProvider?.getImgContent(item?.localUrl)" alt=""  style="width: 100%;" />
+            </ion-card-content>
+          </ion-card>
+          <p class="iconName">{{item?.name}}</p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-fab bottom right>
+    <button ion-fab mini (click)="refreshCategories()">
+      <ion-icon name="refresh"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>

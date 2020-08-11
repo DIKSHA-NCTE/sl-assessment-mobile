@@ -1,0 +1,62 @@
+<ion-header>
+  <header [title]="'headings.solutions'|translate" [hideBack]="false"></header>
+</ion-header>
+
+<ion-content>
+  <!-- if program presenet -->
+
+  <div *ngIf="entity">
+    <ion-item-divider color="light">
+      <h4 class="bold" text-wrap>{{entity?.name}}</h4>
+    </ion-item-divider>
+    <!-- (click)="checkDownload(solutionIndex,sol?.submissionId)" -->
+    <div *ngFor="let sol of entity?.solutions; let solutionIndex = index">
+      <ion-card *ngIf="!sol?.allowMultipleAssessemts">
+        <ion-item
+          text-wrap
+          (click)="(sol?.type=='observation')? goToObservationSubmission(sol.programId,sol._id):sol?.submissions[0]?.downloaded ? goToEcm(solutionIndex,sol?.submissions[0]._id) : getAssessmentDetails(solutionIndex)"
+        >
+          <div class="_flex-box">
+            <div style="flex: 1;">
+              <h3>
+                {{sol.name}}
+              </h3>
+              <p>{{sol.programName}}</p>
+            </div>
+            <ion-icon
+              padding-right
+              padding-left
+              name="cloud-download"
+              class="downloadIcon"
+              (click)="getAssessmentDetails(solutionIndex)"
+              *ngIf="!sol?.submissions[0]?.downloaded && sol?.type!='observation'"
+            ></ion-icon>
+            <ion-icon padding-right padding-left name="arrow-forward" *ngIf="sol?.type=='observation'"></ion-icon>
+          </div>
+        </ion-item>
+      </ion-card>
+
+      <!-- if type =assessment and allowMultipleAssessemts=true  -->
+      <ion-card *ngIf="sol?.allowMultipleAssessemts">
+        <ion-item text-wrap (click)="goToAssessmentSubmission(sol.programId,sol._id)">
+          <div class="_flex-box">
+            <div style="flex: 1;">
+              <h3>
+                {{sol.name}}
+              </h3>
+              <p>{{sol.programName}}</p>
+            </div>
+            <ion-icon padding-right padding-left name="arrow-forward"></ion-icon>
+          </div>
+        </ion-item>
+      </ion-card>
+    </div>
+  </div>
+
+  <!-- if program not present -->
+  <div *ngIf="programEntity && !programEntity?.length">
+    <div class="ion-diagnostics-sheet-title">
+      <h3>{{'message.noEntity' | translate}}</h3>
+    </div>
+  </div>
+</ion-content>

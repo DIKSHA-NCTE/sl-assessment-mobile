@@ -1,0 +1,98 @@
+<!-- Generated template for the LibrarayEntityListComponent component -->
+<ion-header>
+  <header
+    [title]="'Add '+editData?.entityType"
+    [hideBack]="false"
+    [showMenu]="false"
+    [showClose]="true"
+    [disableNetwork]="true"
+    [hideNotification]="true"
+  ></header>
+</ion-header>
+<ion-content padding>
+  <!-- <div class="fixBox" *ngIf="entityList"> -->
+  <div *ngIf="allStates">
+    <ion-label class="header _flex-box">
+      <!-- {{'ionLabel.selectSchool' | translate}} -->
+      <ion-select
+        [(ngModel)]="selectedState"
+        class="whiteSelection"
+        *ngIf="selectedState && !isProfileAssignedWithState"
+        (ionChange)="getEntityList();onStateChange($event)"
+      >
+        <ion-option *ngFor="let state of allStates" [value]="state._id">
+          <b>{{state?.name}}</b>
+        </ion-option>
+      </ion-select>
+      <button
+        ion-button
+        class="selectAll capitalize"
+        (click)="selectUnselectAllEntity(selectAll ? false : true)"
+        [ngClass]="{'undo': selectAll}"
+      >
+        {{!selectAll ? ('buttons.selectAll' | translate) +' '+
+        editData?.entityType : ('buttons.undo' | translate)}}
+      </button>
+    </ion-label>
+    <!-- placeholder="{{'message.startSearchSchool' | translate}}" -->
+    <div *ngIf="entityList?.length">
+      <div>
+        <ion-searchbar
+          debounce="500"
+          (ionChange)="searchEntities($event ,'entity')"
+          placeholder="{{'Search ' + editData?.entityType}}"
+        >
+        </ion-searchbar>
+      </div>
+      <ion-list margin-top *ngFor="let entity of entityList">
+        <ion-item>
+          <ion-label text-wrap>{{entity.name}}</ion-label>
+          <ion-checkbox
+            color="dark"
+            [checked]="entity.selected"
+            (click)="countEntity(entity);entity.selected = !entity.selected"
+          ></ion-checkbox>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <div
+      *ngIf="!entityList||entityList?.length == 0"
+      class="_flex-box msgContainer"
+    >
+      {{'message.noSchoolFound' | translate}}
+    </div>
+    <div
+      class="_flex-box _justify-content-center"
+      *ngIf="(entityList?.length && (entityList?.length <= entityListTotalCount)) && (entityListTotalCount > entityListLimit)"
+    >
+      <button
+        ion-button
+        full
+        class="btnText"
+        color="light"
+        (click)="doInfinite($event,'entity')"
+      >
+        {{'buttons.loadMore' | translate}}
+      </button>
+    </div>
+  </div>
+</ion-content>
+<ion-footer no-shadow>
+  <ion-toolbar class="_toolbar-background-md" position="bottom">
+    <ion-row>
+      <ion-col>
+        <button ion-button full (click)="cancel()" class="btnText">
+          <ion-icon name="close" margin-right></ion-icon>
+          {{'buttons.cancel' | translate}}
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button full (click)="addSchools()" class="btnText">
+          <ion-icon name="add" margin-right></ion-icon>
+          {{'buttons.add' | translate}}
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

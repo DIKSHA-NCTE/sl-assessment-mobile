@@ -1,0 +1,39 @@
+<!--
+  Generated template for the ImprovementProjectPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <header
+    [title]="'headings.solutionList'|translate"
+    [hideBack]="false"
+  ></header>
+</ion-header>
+
+<ion-content>
+  <!-- if solution presenet -->
+  <div *ngIf="programEntitySol?.length">
+    <ion-item-divider color="light">
+      <h4 class="bold" text-wrap>{{entityName}}</h4>
+    </ion-item-divider>
+    <div *ngFor="let s of programEntitySol; let i = index">
+      <ion-card>
+        <ion-item text-wrap (click)="goToImpSugg(s.solutionId,s.solutionName)">
+          <div class="_flex-box">
+            <div style="flex: 1;">
+              {{s.solutionName}}
+            </div>
+          </div>
+        </ion-item>
+      </ion-card>
+    </div>
+  </div>
+
+  <!-- if solution not present -->
+  <div *ngIf="programEntitySol && !programEntitySol?.length">
+    <div class="ion-diagnostics-sheet-title">
+      <h3>{{'message.noSolutionFound' | translate}}</h3>
+    </div>
+  </div>
+</ion-content>

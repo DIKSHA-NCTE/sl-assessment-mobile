@@ -1,0 +1,23 @@
+<ion-header>
+  <header
+    [title]="'headings.mySolutions'|translate"
+    [hideBack]="false"
+  ></header>
+</ion-header>
+
+<ion-content padding>
+  <div *ngFor="let solution of program?.solutions; let solutionIndex = index">
+    <program-solution
+      [solutionMeta]="solution"
+      [solutionIndex]="solutionIndex"
+      [programIndex]="programIndex"
+      [programList]="programList"
+    ></program-solution>
+  </div>
+
+  <div *ngIf="program?.solutions && !program?.solutions?.length">
+    <div class="ion-diagnostics-sheet-title">
+      <h3>{{'message.noSolutionFound' | translate}}</h3>
+    </div>
+  </div>
+</ion-content>

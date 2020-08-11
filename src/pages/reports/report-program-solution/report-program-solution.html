@@ -1,0 +1,82 @@
+<ion-header>
+  <header
+    [title]="'headings.solutionList'|translate"
+    [hideBack]="false"
+  ></header>
+</ion-header>
+
+<ion-content>
+  <div padding>
+    <ion-item-divider color="light">
+      <h2 class="headerText">
+        <span class="_wrap-text">{{programName}}</span>
+      </h2>
+    </ion-item-divider>
+    <ion-segment [(ngModel)]="selectedTab">
+      <ion-segment-button value="my" (click)="onTabChange('my')">
+        {{'tabs.mySolutions' | translate}}
+      </ion-segment-button>
+      <ion-segment-button value="all" (click)="onTabChange('all')">
+        {{'tabs.allSolutions' | translate}}
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="selectedTab">
+    <div *ngSwitchCase="'my'">
+      <ng-container
+        *ngFor="let solution of solutionList?.mySolutions;let solutionIndex = index"
+      >
+        <ion-item
+          (click)="getReportsAccordingToSolution(solution.solutionId, solution.solutionName,solution.type,solution.scoring)"
+        >
+          <h3>
+            <ion-icon name="list-box" margin-right></ion-icon>
+            {{solution?.solutionName}}
+            <span float-right *ngIf="!isIos" class="_flex-box">
+              <ion-icon
+                name="arrow-forward"
+                class="_progressIcon"
+                margin-left
+              ></ion-icon>
+            </span>
+          </h3>
+        </ion-item>
+      </ng-container>
+      <div
+        *ngIf="solutionList && !solutionList?.mySolutions?.length"
+        class="_flex-box _justify-content-center"
+      >
+        {{ 'message.noSolutionFound' | translate}}
+      </div>
+    </div>
+
+    <div *ngSwitchCase="'all'">
+      <ng-container
+        *ngFor="let solution of solutionList?.allSolutions;let solutionIndex = index"
+      >
+        <ion-item
+          (click)="getReportsAccordingToSolution(solution.solutionId, solution.solutionName,solution.type,solution.scoring)"
+        >
+          <h3>
+            <ion-icon name="list-box" margin-right></ion-icon>
+            {{solution?.solutionName}}
+            <span float-right *ngIf="!isIos" class="_flex-box">
+              <ion-icon
+                name="arrow-forward"
+                class="_progressIcon"
+                margin-left
+              ></ion-icon>
+            </span>
+          </h3>
+        </ion-item>
+      </ng-container>
+      <div
+        *ngIf="solutionList && !solutionList?.allSolutions?.length"
+        class="_flex-box _justify-content-center"
+      >
+        {{ 'message.noSolutionFound' | translate}}
+      </div>
+    </div>
+  </div>
+</ion-content>

@@ -1,7 +1,6 @@
 <!-- Generated template for the InputTypeComponent component -->
-<ion-col class="_flex-box _justify-content-center _flex-direction-column ">
-
-  <h4 [ngClass]="{'_validQuestion': data?.value}" class="flexbox" >
+<ion-col class="_flex-box _justify-content-center _flex-direction-column">
+  <h4 [ngClass]="{'_validQuestion': data?.value}" class="flexbox">
     <!-- {{inputIndex}}. 
 
    <div padding-left>
@@ -10,22 +9,42 @@
     </div>
       
   </div>   -->
-  <question-heading [inputIndex]="inputIndex" [data]="data" [enableQuestionReadOut] ="enableQuestionReadOut"></question-heading>
-
-</h4>
+    <question-heading
+      [inputIndex]="inputIndex"
+      [data]="data"
+      [enableQuestionReadOut]="enableQuestionReadOut"
+    ></question-heading>
+  </h4>
 </ion-col>
-<div class="_tip _flex-box "> {{data?.tip}}</div>
+<div class="_tip _flex-box">{{data?.tip}}</div>
 <div margin-top>
   <ion-item text-center no-padding *ngIf="data?.responseType != 'text'">
-    <ion-input type="{{data?.responseType}}" (input)="isaNumber()" (keyup.enter) = "keyboard.hide()" [(ngModel)]="data.value" (ngModelChange)="checkForValidation()"></ion-input>
+    <ion-input
+      type="{{data?.responseType}}"
+      (input)="isaNumber()"
+      (keyup.enter)="keyboard.hide()"
+      [(ngModel)]="data.value"
+      (ngModelChange)="checkForValidation()"
+      [disabled]="data.isEditable!=undefined && !data.isEditable"
+    ></ion-input>
   </ion-item>
   <ion-item text-center no-padding *ngIf="data?.responseType == 'text'">
-    <ion-textarea (keyup.enter) = "keyboard.hide()" [(ngModel)]="data.value" (ngModelChange)="checkForValidation()"></ion-textarea>
+    <ion-textarea
+      (keyup.enter)="keyboard.hide()"
+      [(ngModel)]="data.value"
+      (ngModelChange)="checkForValidation()"
+      [disabled]="data.isEditable!=undefined && !data.isEditable"
+    ></ion-textarea>
   </ion-item>
   <div *ngIf="!notNumber" class="_errorMsg">{{getErrorMsg()}}</div>
 
   <remarks *ngIf="data?.showRemarks" [data]="data"></remarks>
-  <image-upload  [data]="data" [generalQuestion]="generalQuestion" [imageLocalCopyId]="imageLocalCopyId" [evidenceId]="evidenceId" [submissionId]="submissionId"></image-upload>
-
+  <image-upload
+    [data]="data"
+    [generalQuestion]="generalQuestion"
+    [imageLocalCopyId]="imageLocalCopyId"
+    [evidenceId]="evidenceId"
+    [submissionId]="submissionId"
+  ></image-upload>
 </div>
 <!-- <footer-buttons *ngIf="!hideButton" [isFirst]="isFirst" [isLast]="isLast" (nextAction)="next()" (backAction)="back()"></footer-buttons> -->

@@ -5,15 +5,26 @@
 
 
 <ion-content padding>
-  <ion-list *ngIf="solutionList?.length" text-wrap>
-    <ion-item *ngFor="let solution of solutionList" 
-    (click)="solution?.scoring ?  presentActionSheet(solution?.solutionId) : goToReportsOfSolution(solution?.solutionId)"
-    >
-      <ion-icon name="eye" item-start></ion-icon>
-      {{solution?.solutionName}}
-    </ion-item>
-  </ion-list>
-  <div *ngIf="!solutionList?.length" class="_errorBox _flex-box _justify-content-center">
-    {{'message.noSolutionFound' | translate}}
+  <ion-segment [(ngModel)]="solutionType">
+    <ion-segment-button value="my" (click)="onTabChange('my')">
+      {{'tabs.myObservation' | translate}}
+
+    </ion-segment-button>
+    <ion-segment-button value="all" (click)="onTabChange('all')">
+      {{'tabs.allObservation' | translate}}
+    </ion-segment-button>
+  </ion-segment>
+
+  <div>
+    <ion-list *ngIf="solutionList?.length" text-wrap>
+      <ion-item *ngFor="let solution of solutionList"
+        (click)="solution?.scoring ?  presentActionSheet(solution?.solutionId) : goToReportsOfSolution(solution?.solutionId)">
+        <ion-icon name="eye" item-start></ion-icon>
+        {{solution?.solutionName}}
+      </ion-item>
+    </ion-list>
+    <div *ngIf="!solutionList?.length" class="_errorBox _flex-box _justify-content-center">
+      {{'message.noSolutionFound' | translate}}
+    </div>
   </div>
 </ion-content>

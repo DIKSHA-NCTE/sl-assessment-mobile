@@ -1,0 +1,102 @@
+<ion-header>
+  <header [title]="'headings.submissionListPage'|translate" [hideBack]="false"></header>
+</ion-header>
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="refreshLocalObservationList($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-card *ngIf="submissionList" class="cardWrapper submissionCard">
+    <ion-card-content class="observationTitle">
+      {{selectedSolution.entities[ this.entityIndex ].name}}
+    </ion-card-content>
+  </ion-card>
+  <ion-segment [(ngModel)]="currentTab" (ionChange)="tabChange($event.value)">
+    <ion-segment-button value="all">
+      {{'tabs.view'|translate}}
+    </ion-segment-button>
+    <ion-segment-button value="inProgress">
+      {{'tabs.inProgress'|translate}}
+    </ion-segment-button>
+    <ion-segment-button value="completed">
+      {{'tabs.completed'|translate}}
+    </ion-segment-button>
+  </ion-segment>
+  <ion-card *ngFor="let submission of submissions ; let i = index" class="submissionCard">
+    <ion-card-content style="position: relative;">
+      <div
+        class="_flex-box"
+        (click)="submission?.downloaded === true ? goToEcm(submission) : getAssessmentDetails(submission)"
+      >
+        <div style="flex: 1;" text-capitalize>
+          <div class="observationTitle">
+            {{submission?.title }}
+          </div>
+          <div class="time">
+            {{submission?.createdAt | date :'medium'}}
+            <ion-icon
+              padding-left
+              name="information-circle"
+              *ngIf="(submission?.status === 'completed') || (submission?.status === 'ratingPending')"
+              (click)="$event.stopPropagation() ; openInfo(submission)"
+            ></ion-icon>
+          </div>
+        </div>
+
+        <button
+          *ngIf="(submission?.status === 'completed') || (submission?.status === 'ratingPending')"
+          class="viewReport"
+          ion-button
+          round
+          (click)="$event.stopPropagation() ; openMenu($event,submission, i)"
+        >
+          {{'buttons.viewReport'|translate}}
+        </button>
+
+        <button
+          icon-only
+          color="light"
+          class="basicButton"
+          *ngIf="(submission.status !== 'completed' && submission?.status !== 'ratingPending')"
+          (click)="$event.stopPropagation();openActionMenu($event,submission, i)"
+        >
+          <ion-icon name="more"></ion-icon>
+        </button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+  <div *ngIf="selectedSolution?.entities[ this.entityIndex ].totalSubmissionCount!=submissionList?.length">
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+  <div *ngIf="!(submissions?.length > 0)" class="_flex-box _justify-content-center">
+    {{'message.noSubmission'|translate}}
+  </div>
+  <ion-fab bottom right>
+    <button ion-fab mini (click)="refreshLocalObservationList(null,true)">
+      <ion-icon name="refresh"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>
+<ion-footer no-shadow>
+  <ion-toolbar position="bottom">
+    <ion-row>
+      <ion-col>
+        <button ion-button full (click)="observeAgain()" class="footerButton">
+          {{'buttons.observeAgain'|translate}}
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button full (click)="entityActions($event)" class="footerButton" [disabled]="!submissions?.length">
+          {{'buttons.viewEntityReport'|translate}}
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

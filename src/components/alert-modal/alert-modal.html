@@ -1,9 +1,14 @@
-<!-- Generated template for the AlertModalComponent component -->
 <div class="modalContainer _flex-box _justify-content-center">
   <ion-card class="modalBody _flex-box _justify-content-center">
     <ion-icon name="close-circle" class="closeBtn" (click)="close()"></ion-icon>
-    <div class="boldText title _full-width" >{{notificationMeta?.title}}</div>
+    <div class="boldText title _full-width">{{notificationMeta?.title}}</div>
     <div class="boldText description"> {{notificationMeta?.text}}</div>
+    <div *ngIf="releaseNote?.length">
+      <p>Release note</p>
+      <ul >
+        <li *ngFor="let note of releaseNote">{{note}}</li>
+      </ul>
+    </div>
     <button ion-button class="actionButton" (click)="openAppStore()">{{'buttons.update'| translate}}</button>
   </ion-card>
 </div>

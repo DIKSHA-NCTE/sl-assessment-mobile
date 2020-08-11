@@ -1,0 +1,34 @@
+page-manual-rating {
+  .headerText {
+    font-weight: 500 !important;
+    font-size: 1.5rem !important;
+    display: flex;
+    align-items: center;
+  }
+
+  .range-md .range-pin {
+    padding: 13px 6px;
+    white-space: pre;
+    top: -23px;
+    min-width: 21px;
+    height: 30px;
+    font-size: 9px;
+  }
+
+  .critetiaLabelWhite {
+    border: 1px solid $grey-color;
+    padding: 2px 5px;
+  }
+
+  .critetiaLabel {
+    border: 1px solid $primary-color;
+    padding: 2px 5px;
+    .tempLabel {
+      font-weight: 800;
+    }
+  }
+
+  .item-range ion-range {
+    width: 80%;
+  }
+}

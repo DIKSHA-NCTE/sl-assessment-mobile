@@ -1,0 +1,54 @@
+<ion-header>
+  <header [title]="'headings.myEntities'|translate" [hideBack]="false"></header>
+</ion-header>
+
+<ion-content padding>
+  <div *ngFor="let entity of program?.solutions[solutionIndex]?.entities; let i = index">
+    <!-- (click)="entity?.downloaded ? goToEcm(entity?.submissionId,entity?.name,entity?._id) : getAssessmentDetails(i)" -->
+    <!-- "checkDownload(entity?.submissionId,i) -->
+    <ion-card>
+      <ion-item text-wrap>
+        <div class="_flex-box" *ngIf="!program?.solutions[solutionIndex]?.allowMultipleAssessemts">
+          <div
+            style="flex: 1;"
+            (click)="entity?.submissions[0]?.downloaded ? goToEcm(entity?.submissions[0]._id,entity?.name,entity?._id) : getAssessmentDetails(i)"
+          >
+            {{entity.name}}
+          </div>
+          <ion-icon
+            padding-right
+            padding-left
+            name="cloud-download"
+            class="downloadIcon"
+            (click)="getAssessmentDetails(i)"
+            *ngIf="!entity?.submissions[0]?.downloaded"
+          ></ion-icon>
+          <ion-icon
+            padding-right
+            padding-left
+            name="more"
+            class="menuIcon"
+            (click)="openMenu($event,i)"
+            *ngIf="entity?.submissions[0]?.downloaded "
+          ></ion-icon>
+        </div>
+        <div
+          class="_flex-box"
+          *ngIf="program?.solutions[solutionIndex]?.allowMultipleAssessemts"
+          (click)="goToAssessmentSubmission(i)"
+        >
+          <div style="flex: 1;">
+            {{entity.name}}
+          </div>
+          <ion-icon padding-right padding-left name="arrow-forward"></ion-icon>
+        </div>
+      </ion-item>
+    </ion-card>
+  </div>
+
+  <div *ngIf="program?.solutions[solutionIndex]?.entities && !program?.solutions[solutionIndex]?.entities.length">
+    <div class="ion-diagnostics-sheet-title">
+      <h3>{{'message.noEntity' | translate}}</h3>
+    </div>
+  </div>
+</ion-content>

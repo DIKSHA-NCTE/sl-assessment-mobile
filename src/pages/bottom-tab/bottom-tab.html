@@ -1,0 +1,12 @@
+<ion-tabs [tabsHighlight]="true" (ionChange)="selectedTab()">
+  <ion-tab [root]="homeRoot" tabTitle="{{'bottomNav.home' | translate}}" tabIcon="home"></ion-tab>
+  <ion-tab [root]="institutionRoot" tabTitle="{{'bottomNav.institution' | translate}}" tabIcon="school"></ion-tab>
+  <ion-tab [root]="libraryRoot" tabTitle="{{'bottomNav.library' | translate}}" tabIcon="bookmarks"></ion-tab>
+  <ion-tab
+    [root]="reportsRoot"
+    [rootParams]="data"
+    tabTitle="{{'bottomNav.reports' | translate}}"
+    tabIcon="list-box"
+    *ngIf="showReport"
+  ></ion-tab>
+</ion-tabs>

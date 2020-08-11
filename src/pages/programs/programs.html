@@ -1,0 +1,40 @@
+<ion-header>
+  <header [title]="'headings.myPrograms'|translate" [hideBack]="false"></header>
+</ion-header>
+
+<ion-content padding>
+  <ion-refresher
+    slot="fixed"
+    (ionRefresh)="refreshLocalObservationList($event)"
+  >
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+  <div *ngFor="let program of programList; let i = index">
+    <ion-card (click)="goToProgramSol(i)">
+      <ion-item text-wrap>
+        <div class="_flex-box">
+          <div style="flex: 1;">
+            {{program.name}}
+          </div>
+          <ion-icon name="arrow-forward" class="menuIcon"></ion-icon>
+        </div>
+      </ion-item>
+    </ion-card>
+  </div>
+  <ion-fab bottom right>
+    <button ion-fab mini (click)="refreshLocalObservationList()">
+      <ion-icon name="refresh"></ion-icon>
+    </button>
+  </ion-fab>
+  <div *ngIf="programList && !programList?.length">
+    <div class="ion-diagnostics-sheet-title">
+      <h3>{{'message.noProgramsFound' | translate}}</h3>
+    </div>
+  </div>
+</ion-content>

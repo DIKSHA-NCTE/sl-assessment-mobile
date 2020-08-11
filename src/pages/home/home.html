@@ -1,12 +1,11 @@
 <ion-header>
-  <header [title]="'headings.home'|translate" [hideBack]="true">
-  </header>
+  <header [title]="'headings.home'|translate" [hideBack]="true"></header>
 </ion-header>
 
 <ion-content>
   <ion-card>
     <ion-card-content>
-      <h2 class="bold">{{'labels.welcome'|translate}} {{userData?.name}}! </h2>
+      <h2 class="bold">{{'labels.welcome'|translate}} {{userData?.name}}!</h2>
     </ion-card-content>
   </ion-card>
 
@@ -45,7 +44,6 @@
   <expansion-panel ></expansion-panel> -->
   <!-- <button (click)="speechFromText()">speech</button> -->
 
-
   <!-- <div margin *ngIf="recentlyModifiedAssessment">
     <h2 margin-bottom>{{'headings.myActiveAssessment' | translate}}</h2>
       <ion-card  class="_flex-box" *ngFor="let assessment of recentlyModifiedAssessment;let i = index"
@@ -68,36 +66,77 @@
     </ion-card>
   </div> -->
 
-
-  <div>
-    <h2 margin>{{'headings.myActiveAssessment' | translate}}</h2>
+  <div margin>
+    <h2>{{'headings.myActiveAssessment' | translate}}</h2>
+    <!-- 
+      flow changed below
+     -->
     <!--institutional assessment  List -->
-
-    <program-listing *ngIf="institutionalAssessments?.length" [programList]="institutionalAssessments" [homePage]="true"
-      [assessmentlocalStorageName]="institutionalList" [entityType]="'institutional'" (refreshEvent)="refresh($event)">
-    </program-listing>
+    <!-- 
+    <program-listing
+      *ngIf="institutionalAssessments?.length"
+      [programList]="institutionalAssessments"
+      [homePage]="true"
+      [assessmentlocalStorageName]="institutionalList"
+      [entityType]="'institutional'"
+      (refreshEvent)="refresh($event)"
+    >
+    </program-listing> -->
 
     <!--Individual assessment Listing -->
 
-    <program-listing *ngIf="individualAssessments?.length" [programList]="individualAssessments" [homePage]="true"
-      [assessmentlocalStorageName]="'individualList'" [entityType]="'individual'">
-    </program-listing>
-
+    <!--   <program-listing
+      *ngIf="individualAssessments?.length"
+      [programList]="individualAssessments"
+      [homePage]="true"
+      [assessmentlocalStorageName]="'individualList'"
+      [entityType]="'individual'"
+    >
+    </program-listing> -->
 
     <!-- Observation List-->
 
-
-    <div style="padding: 0 0 60px 0">
+    <!-- <div style="padding: 0 0 60px 0;">
       <span *ngFor="let observation of observations; let i=index">
-        <ion-card *ngIf="observation.status !== 'completed'" text-capitalize padding margin-right
-          class="_flex-box _justify-content-space-between">
+        <ion-card
+          *ngIf="observation.status !== 'completed'"
+          text-capitalize
+          padding
+          margin-right
+          class="_flex-box _justify-content-space-between"
+        >
           <ion-icon name="eye" class="observationIcon"></ion-icon>
 
-          <div style="flex:1" (click)="navigateToCreatedObservationDetails(i)"> {{ observation?.name }}</div>
-          <ion-icon name="more" class="menuIcon" (click)="openMenu($event,i)"></ion-icon>
+          <div
+            style="flex: 1;"
+            (click)="navigateToCreatedObservationDetails(i)"
+          >
+            {{ observation?.name }}
+          </div>
+          <ion-icon
+            name="more"
+            class="menuIcon"
+            (click)="openMenu($event,i)"
+          ></ion-icon>
         </ion-card>
       </span>
-    </div>
-
+    </div> -->
+    <!-- flow change till above -->
   </div>
+  <div *ngFor="let program of programList; let programIndex = index">
+    <div *ngFor="let solution of program?.solutions; let solutionIndex = index">
+      <program-solution
+        [solutionMeta]="solution"
+        [solutionIndex]="solutionIndex"
+        [programIndex]="programIndex"
+        [showProgram]="true"
+        [programList]="programList"
+      ></program-solution>
+    </div>
+  </div>
+  <ion-fab bottom right>
+    <button ion-fab mini (click)="refreshLists()">
+      <ion-icon name="refresh"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>

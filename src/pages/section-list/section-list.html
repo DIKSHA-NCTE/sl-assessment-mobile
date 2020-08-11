@@ -72,7 +72,7 @@
   </ion-toolbar>
 </ion-footer>
 
-<ion-footer no-shadow *ngIf="((allAnsweredForEvidence && !currentEvidence.isSubmitted) || currentEvidence?.enableSubmit)">
+<ion-footer no-shadow *ngIf="((allAnsweredForEvidence && !currentEvidence.isSubmitted && sectionData?.observation) || currentEvidence?.enableSubmit)">
   <ion-toolbar position="bottom">
     <ion-row>
       <button ion-button full (click)="previewSubmission()">
@@ -85,7 +85,8 @@
   <ion-toolbar position="bottom">
     <ion-row>
       <button ion-button full (click)="viewReport()">
-        {{'buttons.viewReports'|translate}}</button>
+        {{'buttons.viewReports'|translate}} </button>
+      
     </ion-row>
   </ion-toolbar>
 </ion-footer>

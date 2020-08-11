@@ -32,13 +32,17 @@ export class AboutPage {
     private network: Network) {
     this.isIos = this.platform.is('ios') ? true : false;
     this.localStorage.getLocalStorage('staticLinks').then(data => {
-      for (const link of data) {
-        const obj = {
-          heading:link.title,
-          link:link.link
-        };
-        this.staticLinks.push(obj);
-        this.setMenuItems();
+      
+      for (const link in data) {
+        if(data[link].link != ''){
+          const obj = {
+            heading:data[link].title,
+            link:data[link].link
+          };
+          this.staticLinks.push(obj);
+          this.setMenuItems();
+        }
+        
       }
     }).catch(error => {
 

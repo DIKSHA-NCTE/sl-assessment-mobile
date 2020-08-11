@@ -1,0 +1,102 @@
+<!--
+  Generated template for the ManualRatingPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <header [title]="'headings.manualRating'|translate" [hideBack]="false"></header>
+</ion-header>
+
+<ion-content>
+  <ion-item-divider color="light">
+    <h3 class="headerText">
+      <ion-icon name="book" margin-right></ion-icon>
+      <span class="_wrap-text">{{entityName}}</span>
+    </h3>
+  </ion-item-divider>
+
+  <!-- <div *ngIf="allCriterias?.length" class="_flex-box _justify-content-end"> -->
+
+  <div *ngIf="data?.criteriaQuestions && data?.criteriaQuestions?.length">
+    <div class="_flex-box _justify-content-end">
+      <button ion-button icon-start (click)="openCriteriaFilter()" margin>
+        <ion-icon name="options"></ion-icon>
+        {{'buttons.filter'|translate}}
+      </button>
+    </div>
+
+    <div>
+      <ion-card *ngFor="let criteria of data.criteriaQuestions|criteriaPipe:filteredCriterias;let criteriaIndex=index">
+        <ion-card-header text-wrap>
+          <h1>{{criteria?.name}}</h1>
+        </ion-card-header>
+
+        <ion-item-group *ngFor="let question of criteria.questions;let quesIndex=index" text-wrap>
+          <div *ngFor="let q of question.question;let lingualIndex=index">
+            <ion-item-divider color="light" *ngIf="q.length">
+              <ion-row>
+                <ion-col col-2>
+                  <p *ngIf="lingualIndex==0">Q:{{quesIndex+1}}</p>
+                </ion-col>
+                <ion-col>
+                  <p>{{q}}</p>
+                </ion-col>
+              </ion-row>
+              <div></div>
+            </ion-item-divider>
+          </div>
+          <ion-item>
+            <div *ngFor="let ans of question.value;let answerIndex=index">
+              <ion-row>
+                <ion-col col-2>
+                  <p *ngIf="answerIndex==0">Ans</p>
+                </ion-col>
+                <ion-col>
+                  <p>{{ans}}</p>
+                </ion-col>
+              </ion-row>
+
+              <small
+                *ngIf="answerIndex==question.value.length-1 && (question.evidences|| question.remarks.length)"
+                class="pull-right text-ios-primary"
+                (click)="allEvidence(criteriaIndex,quesIndex)"
+                >{{'labels.viewAllEvidences' | translate}}</small
+              >
+            </div>
+          </ion-item>
+        </ion-item-group>
+        <ion-item>
+          <ion-label *ngIf="!criteria.score" class="critetiaLabelWhite">Select Criteria Score</ion-label>
+          <ion-label class="critetiaLabel" *ngIf="criteria.score">
+            <span>Criteria Score:</span>
+            <span class="tempLabel">{{criteria.tempLabel}}</span>
+          </ion-label>
+
+          <ion-range
+            padding
+            (ionChange)="slideChange(criteriaIndex,criteria.selectedRange,$event)"
+            [(ngModel)]="criteria.selectedRange"
+            [step]="1"
+            snaps="true"
+            color="primary"
+            pin="true"
+            [max]="range"
+          ></ion-range>
+        </ion-item>
+      </ion-card>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer no-shadow>
+  <ion-toolbar class="_toolbar-background-md" position="bottom">
+    <ion-row>
+      <ion-col>
+        <button ion-button full class="viewReportBtn" (click)="submitRating()">
+          {{'buttons.submitRating' | translate}}
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

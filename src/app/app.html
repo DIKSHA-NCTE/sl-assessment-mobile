@@ -1,3 +1,4 @@
+<ion-nav [root]="rootPage" #content swipeBackEnabled="true"></ion-nav>
 <ion-menu side="start" swipeGesture="true" [content]="content">
   <ion-header>
     <ion-toolbar color="primary">
@@ -9,9 +10,31 @@
   <ion-content class="whiteBg">
     <ion-list no-lines>
       <ng-container *ngFor="let page of allPages; let i = index">
-        <ion-item (click)="goToPage(i)" [ngClass]="{activePage: page.active}" *ngIf="page?.show">
-          <ion-icon name="{{page.icon}}" size="large" slot="start" class="sizeAdj" margin-right></ion-icon>
-          <span>{{'tabs.'+page.name | translate}}</span>
+        <ion-item
+          (click)="goToPage(i)"
+          [ngClass]="{activePage: page.active}"
+          *ngIf="page?.show"
+        >
+          <ion-icon
+            *ngIf="page.icon"
+            name="{{page.icon}}"
+            size="large"
+            slot="start"
+            class="sizeAdj"
+            margin-right
+          ></ion-icon>
+          <div *ngIf="page.image" class="_flex-box">
+            <div margin-right>
+              <img width="27" src="assets/imgs/unnati.png" />
+            </div>
+            <div>
+              <span style="margin-left: 6px;"
+                >{{'tabs.'+page.name | translate}}</span
+              >
+            </div>
+          </div>
+
+          <span *ngIf="page.icon">{{'tabs.'+page.name | translate}}</span>
         </ion-item>
       </ng-container>
 
@@ -21,7 +44,9 @@
       <!-- <ion-item>Menu Item</ion-item> -->
       <ion-item class="info">
         <div class="appVersion _flex-box _justify-content-space-between">
-          <span *ngIf="appEnvironment !== 'Production'" margin-right>{{appEnvironment}} </span>
+          <span *ngIf="appEnvironment !== 'Production'" margin-right
+            >{{appEnvironment}}
+          </span>
           <span>{{appVersion}}</span>
         </div>
         <!-- <div>hii</div> -->
@@ -29,5 +54,8 @@
     </ion-list>
   </ion-content>
 </ion-menu>
-<ion-nav [root]="rootPage" #content swipeBackEnabled="true"></ion-nav>
-<alert-modal *ngIf="appUpdateData" [notificationMeta]="appUpdateData" (closeModal)="closeModal()"></alert-modal>
+<alert-modal
+  *ngIf="appUpdateData"
+  [notificationMeta]="appUpdateData"
+  (closeModal)="closeModal()"
+></alert-modal>

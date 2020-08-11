@@ -1,28 +1,39 @@
+//TODO:THIS PAGE IS NOT USED NOW
 <ion-header>
-  <header [title]="'headings.dashboardAssessmentListing'|translate" [hideBack]="false">
-  </header>
+  <header
+    [title]="'headings.dashboardAssessmentListing'|translate"
+    [hideBack]="false"
+  ></header>
 </ion-header>
 
-
 <ion-content padding>
-  <h3 class="_flex-box _justify-content-center" margin >
+  <h3 class="_flex-box _justify-content-center" margin>
     {{'headings.selectAssessment' |translate}}
   </h3>
-  <ion-card class="_flex-box _justify-content-space-between" (click)="onAssessmentClick('institutional')" >
+  <ion-card
+    class="_flex-box _justify-content-space-between"
+    (click)="onAssessmentClick('institutional')"
+  >
     <div padding class="_flex-box _justify-content-center">
       <ion-icon name="book" class="sizeAdj"></ion-icon>
       <div margin-left>{{'tabs.institutional'|translate}}</div>
     </div>
     <ion-icon *ngIf="!isIos" name="arrow-forward" margin-right></ion-icon>
   </ion-card>
-  <ion-card class="_flex-box _justify-content-space-between" (click)="onAssessmentClick('individual')">
+  <ion-card
+    class="_flex-box _justify-content-space-between"
+    (click)="onAssessmentClick('individual')"
+  >
     <div padding class="_flex-box _justify-content-center">
       <ion-icon name="person" class="sizeAdj"></ion-icon>
       <div margin-left>{{'tabs.individual'|translate}}</div>
     </div>
     <ion-icon *ngIf="!isIos" name="arrow-forward" margin-right></ion-icon>
   </ion-card>
-  <ion-card class="_flex-box _justify-content-space-between" (click)="onAssessmentClick('observation')">
+  <ion-card
+    class="_flex-box _justify-content-space-between"
+    (click)="onAssessmentClick('observation')"
+  >
     <div padding class="_flex-box _justify-content-center">
       <ion-icon name="eye" class="sizeAdj"></ion-icon>
       <div margin-left>{{'tabs.observations'|translate}}</div>

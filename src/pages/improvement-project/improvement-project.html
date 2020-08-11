@@ -1,0 +1,36 @@
+<!--
+  Generated template for the ImprovementProjectPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <header
+    [title]="'headings.programList'|translate"
+    [hideBack]="false"
+  ></header>
+</ion-header>
+
+<ion-content>
+  <!-- if program presenet -->
+  <div *ngIf="programList?.length">
+    <div *ngFor="let p of programList; let i = index">
+      <ion-card>
+        <ion-item text-wrap (click)="goToIpEntity(p.programId,p.programName)">
+          <div class="_flex-box">
+            <div style="flex: 1;">
+              {{p.programName}}
+            </div>
+          </div>
+        </ion-item>
+      </ion-card>
+    </div>
+  </div>
+
+  <!-- if program not present -->
+  <div *ngIf="programList &&  !programList.length">
+    <div class="ion-diagnostics-sheet-title">
+      <h3>{{'message.noProgramsFound' | translate}}</h3>
+    </div>
+  </div>
+</ion-content>

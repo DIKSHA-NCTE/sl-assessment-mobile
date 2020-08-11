@@ -1,0 +1,41 @@
+<ion-header>
+  <header
+    [title]="type!='observation'?('headings.assessmentForm'|translate):'headings.observationSolutions'|translate"
+    [hideBack]="false"
+  ></header>
+</ion-header>
+
+<ion-content padding>
+  <ion-searchbar
+    [(ngModel)]="search"
+    placeholder="Search for solutions"
+    (ionInput)="onInput($event)"
+    [debounce]="1500"
+  ></ion-searchbar>
+  <div>
+    <ion-card
+      *ngFor="let sol of solutionList"
+      (click)="goToSolutionDetails(sol?._id)"
+    >
+      <ion-item text-wrap>
+        <div class="_flex-box">
+          <div style="flex: 1;">
+            <p>
+              {{sol?.name}}
+            </p>
+          </div>
+          <ion-icon
+            name="arrow-forward"
+            class="menuIcon"
+            *ngIf="!homePage"
+          ></ion-icon>
+        </div>
+      </ion-item>
+    </ion-card>
+  </div>
+  <div *ngIf="count>solutionList.length">
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+</ion-content>
