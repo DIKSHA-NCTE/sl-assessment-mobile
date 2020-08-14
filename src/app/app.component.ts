@@ -49,7 +49,7 @@ export class MyApp {
   isAlertPresent: boolean = false;
   networkSubscription: any;
   networkAvailable: boolean;
-  appName: string = AppConfigs.appName;
+  appName: string = AppConfigs.appName.trim().toLowerCase().replace(" ", "-");
   appVersion = AppConfigs.appVersion;
   appEnvironment = AppConfigs.environment;
   subscription;
@@ -100,13 +100,13 @@ export class MyApp {
       active: false,
       show: false,
     },
-    {
-      name: "improvementProjects",
-      image: "clipboard",
-      component: ImprovementProjectPage,
-      active: false,
-      show: false,
-    },
+    // {
+    //   name: "improvementProjects",
+    //   image: "clipboard",
+    //   component: ImprovementProjectPage,
+    //   active: false,
+    //   show: false,
+    // },
     {
       name: "faqs",
       icon: "help",
