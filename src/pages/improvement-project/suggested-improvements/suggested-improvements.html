@@ -5,10 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <header
-    [title]="'headings.improvementProjetcs'|translate"
-    [hideBack]="false"
-  ></header>
+  <header [title]="'headings.improvementProjetcs'|translate" [hideBack]="false"></header>
 </ion-header>
 
 <ion-content>
@@ -22,9 +19,7 @@
         <ion-item text-wrap>
           <div class="_flex-box" (click)="item=i">
             <!-- <ion-icon name="play" class="logoIcon"></ion-icon> -->
-            <div style="flex: 1;">
-              {{Ip.criteriaName}}
-            </div>
+            <div style="flex: 1">{{Ip.criteriaName}}</div>
             <div class="_flex-box _justify-content-center">
               <p padding-right>{{Ip.label}}</p>
               <ion-icon name="md-arrow-dropdown"></ion-icon>
@@ -33,15 +28,11 @@
         </ion-item>
       </ion-card>
       <!-- Improvement list in drop-down -->
-      <div style="margin: 0 22px;" class="panel" [ngClass]="{hide: item!=i}">
+      <div style="margin: 0 22px" class="panel" [ngClass]="{hide: item!=i}">
         <ion-item-group>
           <ion-item-divider>
-            <ion-label *ngIf="Ip.improvementProjects.length"
-              >{{'labels.suggestedIMPs'|translate}}</ion-label
-            >
-            <ion-label *ngIf="!Ip.improvementProjects.length"
-              >{{'labels.noSuggestedIMPs'|translate}}</ion-label
-            >
+            <ion-label *ngIf="Ip.improvementProjects.length">{{'labels.suggestedIMPs'|translate}}</ion-label>
+            <ion-label *ngIf="!Ip.improvementProjects.length">{{'labels.noSuggestedIMPs'|translate}}</ion-label>
           </ion-item-divider>
 
           <ion-item *ngFor="let project of Ip.improvementProjects">
@@ -57,7 +48,7 @@
 
   <!-- if program not present -->
   <div *ngIf="improvementProject && !improvementProject?.length">
-    <div class="ion-diagnostics-sheet-title">
+    <div class="_flex-box _justify-content-center">
       <h3>{{'message.noImpovementProjectFound' | translate}}</h3>
     </div>
   </div>

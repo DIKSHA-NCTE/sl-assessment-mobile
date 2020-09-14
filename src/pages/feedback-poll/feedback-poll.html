@@ -1,0 +1,39 @@
+<ion-header>
+  <header [title]="'headings.polls'|translate" [hideBack]="false"></header>
+</ion-header>
+
+<ion-content padding>
+  <div class="_flex-box" style="text-align: center">
+    <div style="flex: 1">
+      <ion-card (click)="goToPage('create')">
+        <ion-card-header>
+          <ion-icon color="primary" name="add-circle"></ion-icon>
+        </ion-card-header>
+        <ion-card-content> {{'buttons.create'| translate}} </ion-card-content>
+      </ion-card>
+    </div>
+    <div style="flex: 1">
+      <ion-card (click)="goToPage('myCreations')">
+        <ion-card-header>
+          <ion-icon color="primary" name="briefcase"></ion-icon>
+        </ion-card-header>
+        <ion-card-content> {{'buttons.myCreation'| translate}} </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+  <div *ngIf="allPolls?.length">
+    <div margin>
+      <h2>{{'headings.myResults' | translate}}</h2>
+    </div>
+    <ion-card *ngFor="let poll of allPolls;let pollIndex=index " (click)="openResultModel(poll._id)">
+      <ion-item text-wrap>
+        <div class="_flex-box">
+          <div margin bg-dynamic-color></div>
+          <div style="flex: 1">
+            <p class="capitalize">{{poll.name}}</p>
+          </div>
+        </div>
+      </ion-item>
+    </ion-card>
+  </div>
+</ion-content>

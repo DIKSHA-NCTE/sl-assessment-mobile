@@ -1,0 +1,48 @@
+<ion-header>
+  <header
+    [title]="type=='create'?('headings.createPoll'|translate): 'headings.takePoll'|translate"
+    [hideBack]="false"
+  ></header>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="!linkExpired">
+    <ion-item-divider color="light" *ngIf="question">
+      <ion-row>
+        <ion-col>
+          <h2 text-wrap>{{question}}</h2>
+        </ion-col>
+      </ion-row>
+      <div></div>
+    </ion-item-divider>
+
+    <poll-option
+      [selectedResponseType]="selectedResponseType"
+      [options]="options"
+      [canSubmit]="true"
+      (response)="response=$event"
+    ></poll-option>
+    <div class="_flex-box _flex-direction-column padding" *ngIf="type==='submit'">
+      <button ion-button round (click)="submitResponse()">Submit Response</button>
+    </div>
+    <div class="_flex-box _flex-direction-column padding" *ngIf="pollLink">
+      <button ion-button round (click)="socialSharing()">Share Poll</button>
+    </div>
+    <div class="_flex-box _flex-direction-column padding" *ngIf="!pollLink && (type!='submit' && type!='create')">
+      <button ion-button round *ngIf="question">Poll Expired</button>
+    </div>
+  </div>
+  <div *ngIf="linkExpired">
+    <p class="_flex-box _justify-content-center">{{linkExpired}}</p>
+  </div>
+</ion-content>
+
+<ion-footer no-shadow *ngIf="type==='create'">
+  <ion-toolbar class="_toolbar-background-md" position="bottom">
+    <ion-row>
+      <ion-col>
+        <button ion-button full (click)="showConfirm()" class="btnText">{{'buttons.share' | translate}}</button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

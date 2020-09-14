@@ -1,8 +1,6 @@
 <ion-header>
-  <header [title]="'headings.tutorialvideo'|translate" [hideBack]="false">
-  </header>
+  <header [title]="'headings.tutorialvideo'|translate" [hideBack]="false"></header>
 </ion-header>
-
 
 <ion-content>
   <!-- if video presenet -->
@@ -12,23 +10,18 @@
         <ion-item text-wrap (click)="playVideo(video.link)">
           <div class="_flex-box">
             <ion-icon name="video" class="logoIcon"></ion-icon>
-            <div style="flex:1">
-              {{video.title}}
-            </div>
+            <div style="flex: 1">{{video.title}}</div>
             <ion-icon name="play" class="menuIcon"></ion-icon>
           </div>
         </ion-item>
       </ion-card>
     </div>
-
   </div>
-
 
   <!-- if video not present -->
   <div *ngIf="!videoList?.length">
-    <div class="ion-diagnostics-sheet-title">
+    <div class="_flex-box _justify-content-center">
       <h3>{{'message.noVideo' | translate}}</h3>
     </div>
   </div>
-
 </ion-content>

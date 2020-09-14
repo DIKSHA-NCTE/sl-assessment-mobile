@@ -33,14 +33,12 @@
         />
 
         <div padding>
-          <p>
-            {{solution.name}}
-          </p>
+          <p>{{solution.name}}</p>
         </div>
       </div>
     </ion-item>
     <div *ngIf="this.solutionsList && !solutionsList?.length">
-      <div class="ion-diagnostics-sheet-title">
+      <div class="_flex-box _justify-content-center">
         <h3>{{'message.noSolutionFound'|translate}}</h3>
       </div>
     </div>

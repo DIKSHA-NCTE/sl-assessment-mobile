@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { SwitchTemplateDirective } from './switch-template/switch-template';
 import { ImageResolverDirective } from './image-resolver/image-resolver';
+import { BgDynamicColorDirective } from './bg-dynamic-color/bg-dynamic-color';
 @NgModule({
 	declarations: [SwitchTemplateDirective,
-    ImageResolverDirective],
+    ImageResolverDirective,
+    BgDynamicColorDirective],
 	imports: [],
 	exports: [SwitchTemplateDirective,
-    ImageResolverDirective]
+    ImageResolverDirective,
+    BgDynamicColorDirective]
 })
 export class DirectivesModule {}

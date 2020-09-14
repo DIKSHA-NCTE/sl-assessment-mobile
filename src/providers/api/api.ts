@@ -163,14 +163,14 @@ export class ApiProvider {
     this.validateApiToken().then(response => {
       const gpsLocation = this.ngps.getGpsLocation()
       const obj = {
-        'x-auth-token': this.currentUser.curretUser.accessToken,
-        'x-authenticated-user-token': this.currentUser.curretUser.accessToken,
-        'gpsLocation': gpsLocation ? gpsLocation : '0,0',
-        'appVersion': AppConfigs.appVersion,
-        'appName': AppConfigs.appName,
-        'appType':"assessment",
-        'os': this.platform.is('ios') ? 'ios' : 'android'
-      }
+        "x-auth-token": this.currentUser.curretUser.accessToken,
+        "x-authenticated-user-token": this.currentUser.curretUser.accessToken,
+        gpsLocation: gpsLocation ? gpsLocation : "0,0",
+        appVersion: AppConfigs.appVersion,
+        appName: AppConfigs.appName.toLowerCase().replace(/([^a-zA-Z])/g, ""),
+        appType: "assessment",
+        os: this.platform.is("ios") ? "ios" : "android",
+      };
       // const apiUrl = AppConfigs.api_base_url + url;
       const apiUrl = this.getApiUrl(url, config);
 
@@ -210,14 +210,14 @@ export class ApiProvider {
     this.validateApiToken().then(response => {
       const gpsLocation = this.ngps.getGpsLocation();
       const obj = {
-        'x-auth-token': this.currentUser.curretUser.accessToken,
-        'x-authenticated-user-token': this.currentUser.curretUser.accessToken,
-        'gpsLocation': gpsLocation ? gpsLocation : '0,0',
-        'appVersion': AppConfigs.appVersion,
-        'appName': AppConfigs.appName,
-        'os': this.platform.is('ios') ? 'ios' : 'android',
-        'appType':"assessment",
-      }
+        "x-auth-token": this.currentUser.curretUser.accessToken,
+        "x-authenticated-user-token": this.currentUser.curretUser.accessToken,
+        gpsLocation: gpsLocation ? gpsLocation : "0,0",
+        appVersion: AppConfigs.appVersion,
+        appName: AppConfigs.appName.toLowerCase().replace(/([^a-zA-Z])/g, ""),
+        os: this.platform.is("ios") ? "ios" : "android",
+        appType: "assessment",
+      };
       this.http.setDataSerializer('json');
       const apiUrl = this.getApiUrl(url, config);
       console.log(apiUrl)

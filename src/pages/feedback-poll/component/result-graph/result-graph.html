@@ -1,0 +1,30 @@
+<!-- Generated template for the ResultGraphComponent component -->
+<ion-header>
+  <header
+    [title]="'headings.result'|translate"
+    [hideBack]="false"
+    [showMenu]="false"
+    [showClose]="true"
+    [disableNetwork]="true"
+    [hideNotification]="true"
+  ></header>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="chartObj?.title">
+    <highcharts-chart
+      [(update)]="updateFlag"
+      [Highcharts]="Highcharts"
+      [options]="chartObj"
+      [constructorType]="chartConstructor"
+      [oneToOne]="oneToOneFlag"
+      [runOutsideAngular]="runOutsideAngularFlag"
+      
+    >
+    </highcharts-chart>
+  </div>
+
+  <div *ngIf="!chartObj" class="_flex-box _justify-content-center">
+    {{ 'message.noReportsFound' | translate}}
+  </div>
+</ion-content>

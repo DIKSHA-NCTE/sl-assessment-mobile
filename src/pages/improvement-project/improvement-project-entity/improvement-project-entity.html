@@ -17,15 +17,10 @@
     </ion-item-divider>
     <div *ngFor="let e of programEntity; let i = index">
       <ion-card>
-        <ion-item
-          text-wrap
-          (click)="goToIpEntitySol(e.entityId,e.entityName,e.solutions,e.entityType)"
-        >
+        <ion-item text-wrap (click)="goToIpEntitySol(e.entityId,e.entityName,e.solutions,e.entityType)">
           <div class="_flex-box">
             <ion-icon name="video" class="logoIcon"></ion-icon>
-            <div style="flex: 1;">
-              {{e.entityName}}
-            </div>
+            <div style="flex: 1">{{e.entityName}}</div>
           </div>
         </ion-item>
       </ion-card>
@@ -34,7 +29,7 @@
 
   <!-- if program not present -->
   <div *ngIf="programEntity && !programEntity?.length">
-    <div class="ion-diagnostics-sheet-title">
+    <div class="_flex-box _justify-content-center">
       <h3>{{'message.noEntity' | translate}}</h3>
     </div>
   </div>

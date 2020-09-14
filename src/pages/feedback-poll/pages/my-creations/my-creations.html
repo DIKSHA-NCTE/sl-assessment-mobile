@@ -1,0 +1,67 @@
+<!--
+  Generated template for the MyCreationsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <header [title]="'headings.polls'|translate" [hideBack]="false"></header>
+</ion-header>
+
+<ion-content padding>
+  <ion-segment [(ngModel)]="selectedTab">
+    <ion-segment-button value="draft" (click)="onTabChange('draft')">
+      {{'labels.drafts' | translate}}
+    </ion-segment-button>
+    <ion-segment-button value="published" (click)="onTabChange('published')">
+      {{'labels.published' | translate}}
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="selectedTab">
+    <div *ngSwitchCase="'draft'">
+      <div *ngIf="allDrafts?.length">
+        <ion-card *ngFor="let draft of allDrafts;let draftIndex=index " (click)="goToCreatePoll(draft)">
+          <ion-item text-wrap>
+            <div class="_flex-box">
+              <div style="flex: 1">
+                <p class="capitalize">{{draft.name}}</p>
+                <p>{{draft.time|date:'medium'}}</p>
+              </div>
+              <ion-icon
+                name="trash"
+                class="menuIcon"
+                (click)="$event.stopPropagation();showConfirm(draft.time,draft.name)"
+              ></ion-icon>
+            </div>
+          </ion-item>
+        </ion-card>
+      </div>
+      <div *ngIf="allDrafts && !allDrafts?.length">
+        <div class="_flex-box _justify-content-center" padding>
+          <h3>{{'message.noDraft' | translate}}</h3>
+        </div>
+      </div>
+    </div>
+
+    <div *ngSwitchCase="'published'">
+      <div *ngIf="polls?.length">
+        <ion-card *ngFor="let poll of polls;let pollIndex=index " (click)="openPollPreview(poll._id)">
+          <ion-item text-wrap>
+            <div class="_flex-box">
+              <div margin bg-dynamic-color></div>
+              <div style="flex: 1">
+                <p class="capitalize">{{poll.name}}</p>
+              </div>
+            </div>
+          </ion-item>
+        </ion-card>
+      </div>
+      <div *ngIf="polls && !polls?.length">
+        <div class="_flex-box _justify-content-center" padding>
+          <h3>{{'message.noPolls' | translate}}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

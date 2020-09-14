@@ -1,0 +1,21 @@
+<!-- Generated template for the ThanksComponent component -->
+<ion-header>
+  <header
+    [title]="'headings.result'|translate"
+    [hideBack]="false"
+    [showMenu]="false"
+    [showClose]="true"
+    [disableNetwork]="true"
+    [hideNotification]="true"
+  ></header>
+</ion-header>
+<ion-content padding>
+  <div class="_flex-box _flex-direction-column">
+    <img src="../../assets/imgs/thanks.png" alt="Thanks" />
+    <h2>{{'message.thankyou' | translate}}</h2>
+    <h2 class="lightMessage">{{'message.responseSubmitted' | translate}}</h2>
+    <div class="_flex-box _flex-direction-column padding">
+      <button ion-button round (click)="goToResult()">{{'buttons.viewReport' | translate}}</button>
+    </div>
+  </div>
+</ion-content>

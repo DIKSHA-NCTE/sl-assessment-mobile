@@ -127,6 +127,7 @@ import { BottomTabPageModule } from "../pages/bottom-tab/bottom-tab.module";
 import { ReportsPageModule } from "../pages/reports/reports.module";
 import { LibraryPageModule } from "../pages/library/library.module";
 import { ManualRatingPageModule } from "../pages/manual-rating/manual-rating.module";
+import { FeedbackPollPageModule } from "../pages/feedback-poll/feedback-poll.module";
 @NgModule({
   declarations: [
     MyApp,
@@ -196,6 +197,7 @@ import { ManualRatingPageModule } from "../pages/manual-rating/manual-rating.mod
     ReportsPageModule,
     LibraryPageModule,
     ManualRatingPageModule,
+    FeedbackPollPageModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [

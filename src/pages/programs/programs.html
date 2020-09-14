@@ -3,10 +3,7 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-refresher
-    slot="fixed"
-    (ionRefresh)="refreshLocalObservationList($event)"
-  >
+  <ion-refresher slot="fixed" (ionRefresh)="refreshLocalObservationList($event)">
     <ion-refresher-content
       pullingIcon="arrow-dropdown"
       pullingText="Pull to refresh"
@@ -19,9 +16,7 @@
     <ion-card (click)="goToProgramSol(i)">
       <ion-item text-wrap>
         <div class="_flex-box">
-          <div style="flex: 1;">
-            {{program.name}}
-          </div>
+          <div style="flex: 1">{{program.name}}</div>
           <ion-icon name="arrow-forward" class="menuIcon"></ion-icon>
         </div>
       </ion-item>
@@ -33,7 +28,7 @@
     </button>
   </ion-fab>
   <div *ngIf="programList && !programList?.length">
-    <div class="ion-diagnostics-sheet-title">
+    <div class="_flex-box _justify-content-center">
       <h3>{{'message.noProgramsFound' | translate}}</h3>
     </div>
   </div>

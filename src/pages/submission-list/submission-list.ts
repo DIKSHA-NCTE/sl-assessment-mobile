@@ -290,7 +290,7 @@ export class SubmissionListPage {
   }
 
   observeAgain() {
-    this.utils.startLoader("Creating an Obseravation");
+    this.utils.startLoader("Creating an Observation");
     // this.getAssessmentDetails(this.submissionList.length , this.submissionList.length + 1)
     let submissionNumber =
       this.submissionList[this.submissionList.length - 1].submissionNumber + 1;

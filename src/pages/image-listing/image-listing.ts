@@ -15,6 +15,7 @@ import { LocalStorageProvider } from "../../providers/local-storage/local-storag
 import { ObservationProvider } from "../../providers/observation/observation";
 import { TranslateService } from "@ngx-translate/core";
 import { ProgramServiceProvider } from "../programs/program-service";
+import cloneDeep from "lodash/cloneDeep";
 
 declare var cordova: any;
 
@@ -23,6 +24,7 @@ declare var cordova: any;
   templateUrl: "image-listing.html",
 })
 export class ImageListingPage {
+  tempevidenceSections: any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -386,20 +388,25 @@ export class ImageListingPage {
       endTime: 0,
     };
     this.currentEvidence;
-    const currentEvidence = this.currentEvidence;
+    // const currentEvidence =   this.currentEvidence
+    /*
+    !deepclone to avoid structure change in the type:pageQuestion
+    !using to take the tempevidnceSections and pullout page questions
+    */
+    const currentEvidence = cloneDeep(this.currentEvidence);
     evidence.id = currentEvidence._id;
     evidence.externalId = currentEvidence.externalId;
     evidence.startTime = currentEvidence.startTime;
     evidence.endTime = Date.now();
-    this.evidenceSections = this.pullOutPageQuestion();
-    for (const section of this.evidenceSections) {
+    // this.evidenceSections = this.pullOutPageQuestion();
+    this.tempevidenceSections = currentEvidence.sections;
+    this.tempevidenceSections = this.pullOutPageQuestion();
+
+    for (const section of this.tempevidenceSections) {
       for (const question of section.questions) {
         let obj = {
           qid: question._id,
-          value:
-            question.responseType === "matrix"
-              ? this.constructMatrixObject(question)
-              : question.value,
+          value: question.responseType === "matrix" ? this.constructMatrixObject(question) : question.value,
           remarks: question.remarks,
           fileName: [],
           gpsLocation: question.gpsLocation,
@@ -432,20 +439,14 @@ export class ImageListingPage {
         if (question.responseType === "multiselect") {
           for (const val of question.value) {
             for (const option of question.options) {
-              if (
-                val === option.value &&
-                obj.payload.labels.indexOf(option.label) <= 0
-              ) {
+              if (val === option.value && obj.payload.labels.indexOf(option.label) <= 0) {
                 obj.payload.labels.push(option.label);
               }
             }
           }
         } else if (question.responseType === "radio") {
           for (const option of question.options) {
-            if (
-              obj.value === option.value &&
-              obj.payload.labels.indexOf(option.label) <= 0
-            ) {
+            if (obj.value === option.value && obj.payload.labels.indexOf(option.label) <= 0) {
               obj.payload.labels.push(option.label);
             }
           }
@@ -467,7 +468,8 @@ export class ImageListingPage {
   pullOutPageQuestion() {
     console.log("Pull Out page Questions");
     // console.log(JSON.stringify(this.evidenceSections))
-    let sections = this.evidenceSections;
+    // let sections = this.evidenceSections;
+    let sections = this.tempevidenceSections;
     sections.forEach((section, sectionIndex) => {
       let questionsArray = [];
       section.questions.forEach((question) => {
@@ -477,17 +479,19 @@ export class ImageListingPage {
             pageQuestion.gpsLocation = parentquestionGpsLocation;
             questionsArray.push(pageQuestion);
           });
-          questionsArray = [...questionsArray, ...question.pageQuestions];
+          // questionsArray = [...questionsArray, ...question.pageQuestions];
         } else {
           questionsArray.push(question);
         }
       });
-      this.evidenceSections[sectionIndex].questions = questionsArray;
+      this.tempevidenceSections[sectionIndex].questions = questionsArray;
     });
-
+    
+    
     console.log("After Pull Out page Questions");
     // console.log(JSON.stringify(this.evidenceSections))
-    return this.evidenceSections;
+    // return this.evidenceSections;
+    return this.tempevidenceSections;
   }
 
   constructMatrixObject(question) {

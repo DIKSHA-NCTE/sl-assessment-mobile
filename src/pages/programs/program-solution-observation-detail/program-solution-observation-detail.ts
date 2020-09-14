@@ -18,6 +18,7 @@ import { EntityListPage } from "../../observations/add-observation-form/entity-l
 import { AppConfigs } from "../../../providers/appConfig";
 import { ObservationReportsPage } from "../../observation-reports/observation-reports";
 import { ScoreReportMenusComponent } from "../../../components/score-report-menus/score-report-menus";
+import { StateModalComponent } from "../../../components/state-modal/state-modal";
 
 /**
  * Generated class for the ProgramSolutionObservationDetailPage page.
@@ -119,11 +120,22 @@ export class ProgramSolutionObservationDetailPage {
 
   addEntity(...params) {
     // console.log(JSON.stringify(params))
+    const type = this.selectedSolution.entities[0].entityType;
+    let entityListModal;
+    if (type == "state") {
+      
+      entityListModal = this.modalCtrl.create(StateModalComponent, {
+        data: this.selectedSolution._id,
+        solutionId: this.selectedSolution.solutionId,
+      });
+    } else {
+      
+      entityListModal = this.modalCtrl.create(EntityListPage, {
+        data: this.selectedSolution._id,
+        solutionId: this.selectedSolution.solutionId,
+      });
+    }
 
-    let entityListModal = this.modalCtrl.create(EntityListPage, {
-      data: this.selectedSolution._id,
-      solutionId: this.selectedSolution.solutionId,
-    });
     entityListModal.onDidDismiss((entityList) => {
       if (entityList) {
         // console.log(JSON.stringify(entityList));
@@ -131,7 +143,15 @@ export class ProgramSolutionObservationDetailPage {
           data: [],
         };
         entityList.forEach((element) => {
-          payload.data.push(element._id);
+
+          //if coming from state list page 
+          if (type == 'state' ) {
+           element.selected? payload.data.push(element._id):null;
+           return;
+          } 
+            
+            payload.data.push(element._id); // if coming from EntityListPage
+          
         });
         // this.utils.startLoader();
         this.apiProviders.httpPost(

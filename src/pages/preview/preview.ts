@@ -141,21 +141,31 @@ export class PreviewPage {
 
   goToImageListing() {
     if (this.networkAvailable) {
-      this.diagnostic.isLocationEnabled().then(success => {
-        if (success) {
-          const params = {
-            selectedEvidenceId: this.currentEvidence._id,
-            _id: this.submissionId,
-            name: this.entityName,
-            selectedEvidence: this.selectedEvidenceIndex,
-          }
-          this.navCtrl.push(ImageListingPage, params);
-        } else {
-          this.ngps.checkForLocationPermissions();
-        }
-      }).catch(error => {
-        this.ngps.checkForLocationPermissions();
-      })
+     this.diagnostic
+       .isLocationAuthorized()
+       .then((authorized) => {
+         if (authorized) {
+           return this.diagnostic.isLocationEnabled();
+         } else {
+           this.utils.openToast("Please enable location permission to continue.");
+         }
+       })
+       .then((success) => {
+         if (success) {
+           const params = {
+             selectedEvidenceId: this.currentEvidence._id,
+             _id: this.submissionId,
+             name: this.entityName,
+             selectedEvidence: this.selectedEvidenceIndex,
+           };
+           this.navCtrl.push(ImageListingPage, params);
+         } else {
+           this.ngps.checkForLocationPermissions();
+         }
+       })
+       .catch((error) => {
+         this.ngps.checkForLocationPermissions();
+       });
     } else {
       this.translate.get('toastMessage.connectToInternet').subscribe(translations => {
         this.utils.openToast(translations);

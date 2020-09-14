@@ -10,6 +10,7 @@ import { LibraryUseTemplatePage } from "./pages/library-use-template/library-use
 import { LibrarayEntityListComponent } from "./components/libraray-entity-list/libraray-entity-list";
 import { LibraryDraftPage } from "./pages/library-draft/library-draft";
 import { LibrarySolutionsSearchPage } from "./pages/library-solutions-search/library-solutions-search";
+import { StateModalComponent } from "../../components/state-modal/state-modal";
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { LibrarySolutionsSearchPage } from "./pages/library-solutions-search/lib
     LibrarayEntityListComponent,
     LibraryDraftPage,
     LibrarySolutionsSearchPage,
+    StateModalComponent
   ],
   providers: [LibraryProvider],
 })

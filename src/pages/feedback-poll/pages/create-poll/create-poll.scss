@@ -1,0 +1,16 @@
+page-create-poll {
+  button {
+    // font-size: 1rem !important;
+  }
+  h5 {
+    padding: 12px;
+    display: flex;
+    color: gray;
+    text-align: center;
+    align-items: center;
+  }
+  .highlight {
+    // color: green;
+    border-bottom: 1px solid $primary-color;
+  }
+}

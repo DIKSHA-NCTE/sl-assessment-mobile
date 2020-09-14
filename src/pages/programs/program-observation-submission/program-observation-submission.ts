@@ -307,7 +307,7 @@ export class ProgramObservationSubmissionPage {
     );
   }
   observeAgain() {
-    this.utils.startLoader("Creating an Obseravation");
+    this.utils.startLoader("Creating an Observation");
     // let submissionNumber =
     //   this.submissionList[this.submissionList.length - 1].submissionNumber + 1;
 

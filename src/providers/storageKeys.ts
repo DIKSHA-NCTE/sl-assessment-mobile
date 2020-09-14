@@ -13,4 +13,5 @@ export const storageKeys = {
   profileRole: "profileRole", //give all roles of current user
   libraryDraft: "libraryDraft", //draft(library) in localStorage
   libraryCategories: "libraryCategories",
+  pollDraft: "pollDraft",
 };

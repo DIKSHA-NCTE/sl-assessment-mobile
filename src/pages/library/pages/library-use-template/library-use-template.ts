@@ -6,6 +6,7 @@ import { UtilsProvider } from "../../../../providers/utils/utils";
 import { ProgramServiceProvider } from "../../../programs/program-service";
 import { ProgramsPage } from "../../../programs/programs";
 import { LibraryPage } from "../../library";
+import { StateModalComponent } from "../../../../components/state-modal/state-modal";
 
 /**
  * Generated class for the LibraryUseTemplatePage page.
@@ -90,9 +91,18 @@ export class LibraryUseTemplatePage {
       solutionId: this.solutionId,
       entityType: this.draft ? this.draft.entityType : this.template.entityType,
     };
-    let matrixModal = this.modalCntrl.create(LibrarayEntityListComponent, {
-      editData,
-    });
+    let matrixModal
+    if (editData.entityType == 'state') {
+      
+      matrixModal = this.modalCntrl.create(StateModalComponent, {
+        editData,
+      });
+    } else {
+      
+      matrixModal = this.modalCntrl.create(LibrarayEntityListComponent, {
+        editData,
+      });
+    }
     matrixModal.onDidDismiss((entityList) => {
       entityList ? (this.entityList = entityList) : null;
     });

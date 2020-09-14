@@ -4,7 +4,7 @@
   <h2 padding-left padding-right padding-top>
     {{datas?.chart?.title}}
   </h2>
-  <p padding-left padding-right>
+  <p padding-left padding-right *ngIf="datas?.chart?.totalSubmissions">
     {{'message.numberOfAssessmentsDone' | translate}}-{{
     datas?.chart?.totalSubmissions}}
   </p>

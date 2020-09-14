@@ -1,0 +1,66 @@
+<ion-header>
+  <header [title]="'headings.createPoll'|translate" [hideBack]="false"></header>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="pollForm">
+    <dynamic-form [formFields]="metaForm" [form]="pollForm"></dynamic-form>
+  </div>
+  <div>
+    <h5 (click)="showResponseType=!showResponseType">
+      {{'labels.selectedResponseType'|translate}}
+
+      <span padding>
+        <ion-icon *ngIf="!showResponseType" name="arrow-dropdown"></ion-icon>
+        <ion-icon *ngIf="showResponseType" name="arrow-dropup"></ion-icon>
+      </span>
+    </h5>
+    <div *ngIf="showResponseType">
+      <button
+        *ngFor="let item of responseTypeArr"
+        ion-button
+        icon-start
+        small
+        clear
+        (click)="responseTypeChange(item.type)"
+        [ngClass]="{highlight: selectedResponseType==item.type}"
+      >
+        <ion-icon [name]="item.ionicon" *ngIf="item.ionicon"></ion-icon>
+
+        {{item.icon + " "}}{{'labels.'+item.label|translate}}
+      </button>
+    </div>
+  </div>
+
+  <!-- add options -->
+  <div *ngIf="selectedResponseType">
+    <poll-option
+      [selectedResponseType]="selectedResponseType"
+      [options]="options"
+      [canEditOption]="true"
+      (editAction)="editOption($event)"
+    ></poll-option>
+    <ion-item>
+      <button ion-button icon-end (click)="addOption()">
+        {{'buttons.addNew' | translate}}
+        <ion-icon name="add-circle"></ion-icon>
+      </button>
+    </ion-item>
+  </div>
+</ion-content>
+
+<ion-footer no-shadow>
+  <ion-toolbar class="_toolbar-background-md" position="bottom">
+    <ion-row>
+      <ion-col>
+        <button ion-button full (click)="saveToDraft()" class="btnText">{{'buttons.draft' | translate}}</button>
+      </ion-col>
+
+      <ion-col>
+        <button ion-button full (click)="share()" class="btnText" [disabled]="!pollForm?.valid || !options?.length">
+          {{'buttons.share' | translate}}
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

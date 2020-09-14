@@ -64,7 +64,9 @@
     "saveForm": "Save the form",
     "userId": "User Id",
     "deleteDraft": "Delete Draft Item",
-    "ratingNotSaved": "Rating not saved "
+    "ratingNotSaved": "Rating not saved ",
+    "deletePreviosOptions": "Previous options will be erased",
+    "sharePoll": "Do you want to share the poll?"
   },
   "buttons": {
     "observeAgain": "Observe Again",
@@ -132,7 +134,13 @@
     "viewDetails": "View Details",
     "clickHereToImprove": "Click Here To Improve",
     "useForm": "Use Form",
-    "submitRating": "Submit Rating"
+    "submitRating": "Submit Rating",
+    "share": "Share",
+    "create": "Create",
+    "myCreation": "My Creations",
+    "myResults": "My Results"
+
+
   },
   "tabs": {
     "home": "Home",
@@ -159,7 +167,9 @@
     "improvementProjects": "Improvements Projects",
     "programs": "Programs",
     "mySolutions": "My Solutions",
-    "allSolutions": "All Solutions"
+    "allSolutions": "All Solutions",
+    "feedback": "Feedback",
+    "polls": "Polls"
   },
   "headings": {
     "zone": "Zones",
@@ -238,7 +248,13 @@
     "assessmentForm": "Assessment Form",
     "draft": "Drafts",
     "search": "Search",
-    "manualRating": "Manual Rating"
+    "manualRating": "Manual Rating",
+    "createPoll": "Create Poll",
+    "takePoll": "Take Poll",
+    "myCreations": "My Creations",
+    "result": "Result",
+    "myResults": "My Results",
+    "polls": "Polls"
   },
   "bottomNav": {
     "institution": "Institution",
@@ -274,7 +290,18 @@
     "suggestedIMPs": "Suggested IMP's",
     "noSuggestedIMPs": "No IMP's Found",
     "createNewProgram": " Create New Program",
-    "chooseExistingProgram": " Choose Existing Program"
+    "chooseExistingProgram": " Choose Existing Program",
+    "addNew": "Add New",
+    "selectEmoticon": "Select Emoticon",
+    "selectGesture": "Select Gesture",
+    "drafts": "Drafts",
+    "published": "Published",
+    "poll": "poll",
+    "singleSelect": "Single Select",
+    "multiSelect": "Multi Select",
+    "emoticons": "Emoticons",
+    "gestures": "Gestures",
+    "selectedResponseType": "Select Response Type"
 
   },
   "languages": {
@@ -291,6 +318,7 @@
     "noSubmission": "No Submissions",
     "startSearchSchool": "search school",
     "noSchoolFound": "No schools found",
+    "noStateFound": "No states found",
     "searchEntities": "Search for entities",
     "startSearchSolution": "Search for solutions",
     "dontCloseApp": "Please don't close the app or go back.",
@@ -318,7 +346,11 @@
     "noVideo": "No videos available",
     "selectCriteraFilter": "Select the criterias to filter Reports",
     "numberOfAssessmentsDone": "Number Of assessments done",
-    "ratingPending": "Rating is pending, please check later."
+    "ratingPending": "Rating is pending, please check later.",
+    "noPolls": "No Polls",
+    "noFeedbacks": "No Feedbacks",
+    "thankyou": "Thank You !",
+    "responseSubmitted": "Your Response is submitted"
 
   },
   "toastMessage": {

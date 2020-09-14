@@ -1,0 +1,40 @@
+<!-- Generated template for the PollOptionComponent component -->
+<div>
+  <ion-list *ngIf="selectedResponseType=='checkbox'">
+    <ion-item *ngFor="let opt of options" text-wrap>
+      <ion-label class="_flex-box _justify-content-space-between label"
+        >{{opt.label}} <ion-icon *ngIf="canEditOption" name="open" color="primary" (click)="editOption(opt)"></ion-icon
+      ></ion-label>
+      <ion-checkbox [(ngModel)]="opt.checked" (ionChange)="updateResponse(opt)" [disabled]="!canSubmit"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+  <ion-list
+    radio-group
+    [(ngModel)]="selectedResponse"
+    *ngIf="selectedResponseType=='radio'"
+    (ionChange)="emitResponse()"
+  >
+    <ion-item *ngFor="let opt of options" text-wrap>
+      <ion-label class="_flex-box _justify-content-space-between label"
+        >{{opt.label}} <ion-icon *ngIf="canEditOption" name="open" color="primary" (click)="editOption(opt)"></ion-icon
+      ></ion-label>
+      <ion-radio item-left [value]="opt" [disabled]="!canSubmit"></ion-radio>
+    </ion-item>
+  </ion-list>
+
+  <ion-list
+    radio-group
+    [(ngModel)]="selectedResponse"
+    *ngIf="selectedResponseType=='emoticons'||selectedResponseType=='gestures'"
+    (ionChange)="emitResponse()"
+  >
+    <ion-item *ngFor="let opt of options" text-wrap>
+      <ion-label class="_flex-box _justify-content-space-between label"
+        >{{(opt.unicode ? opt.unicode : opt.value )+ " " + opt.label}}
+        <ion-icon *ngIf="canEditOption" name="open" color="primary" (click)="editOption(opt)"></ion-icon
+      ></ion-label>
+      <ion-radio item-left [value]="opt" [disabled]="!canSubmit"></ion-radio>
+    </ion-item>
+  </ion-list>
+</div>

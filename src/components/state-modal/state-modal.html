@@ -1,0 +1,73 @@
+<!-- Generated template for the StateModalComponent component -->
+<ion-header>
+  <header
+    [title]="'Add State'"
+    [hideBack]="false"
+    [showMenu]="false"
+    [showClose]="true"
+    [disableNetwork]="true"
+    [hideNotification]="true"
+  ></header>
+</ion-header>
+
+<ion-content padding>
+ <button
+       
+        ion-button
+        class="selectAll capitalize"
+        (click)="selectUnselectAllEntity(selectAll ? false : true)"
+        [ngClass]="{'undo': selectAll,'pull-right':true}"
+      >
+        {{!selectAll ? ('buttons.selectAll' | translate) +' '+
+       'State' : ('buttons.undo' | translate)}}
+      </button>
+    
+    <!-- placeholder="{{'message.startSearchSchool' | translate}}" -->
+    <div *ngIf="entityList?.length">
+      <div>
+        <ion-searchbar
+          debounce="500"
+          placeholder="{{'Search ' + 'State'}}"
+          [(ngModel)]="search"
+        >
+        </ion-searchbar>
+      </div>
+      <ion-list margin-top *ngFor="let entity of entityList | search:search">
+        <ion-item>
+          <ion-label text-wrap>{{entity.name}}</ion-label>
+          <ion-checkbox
+            color="dark"
+            [checked]="entity.selected"
+            (click)="countEntity(entity);entity.selected = !entity.selected"
+          ></ion-checkbox>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <div
+      *ngIf="!entityList||entityList?.length == 0"
+      class="_flex-box msgContainer"
+    >
+      {{'message.noStateFound' | translate}}
+    </div>
+</ion-content>
+
+
+<ion-footer no-shadow>
+  <ion-toolbar class="_toolbar-background-md" position="bottom">
+    <ion-row>
+      <ion-col>
+        <button ion-button full (click)="cancel()" class="btnText">
+          <ion-icon name="close" margin-right></ion-icon>
+          {{'buttons.cancel' | translate}}
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button full (click)="addSchools()" class="btnText">
+          <ion-icon name="add" margin-right></ion-icon>
+          {{'buttons.add' | translate}}
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

@@ -1,12 +1,5 @@
 import { Component, ViewChild, OnInit } from "@angular/core";
-import {
-  Platform,
-  AlertController,
-  Nav,
-  App,
-  MenuController,
-  Events,
-} from "ionic-angular";
+import { Platform, AlertController, Nav, App, MenuController, Events } from "ionic-angular";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 
@@ -39,6 +32,8 @@ import { BottomTabPage } from "../pages/bottom-tab/bottom-tab";
 import { RoleListingPage } from "../pages/role-listing/role-listing";
 import { ReportEntityListingPage } from "../pages/reports/report-entity-listing/report-entity-listing";
 import { storageKeys } from "../providers/storageKeys";
+import { FeedbackPollPage } from "../pages/feedback-poll/feedback-poll";
+import { PollPreviewPage } from "../pages/feedback-poll/pages/poll-preview/poll-preview";
 
 @Component({
   templateUrl: "app.html",
@@ -108,6 +103,14 @@ export class MyApp {
     //   show: false,
     // },
     {
+      name: "polls",
+      icon: "stats",
+      component: FeedbackPollPage,
+      externalLink: false,
+      active: false,
+      show: true,
+    },
+    {
       name: "faqs",
       icon: "help",
       // component: FaqPage,
@@ -172,18 +175,13 @@ export class MyApp {
       this.goToPage(index);
     });
 
-    this.sideMenuSubscription = this.sideMenuProvide.$showDashboard.subscribe(
-      (showDashboard) => {
-        for (const page of this.allPages) {
-          if (
-            page["name"] === "dashboard" ||
-            page["name"] === "improvementProjects"
-          ) {
-            page["show"] = showDashboard;
-          }
+    this.sideMenuSubscription = this.sideMenuProvide.$showDashboard.subscribe((showDashboard) => {
+      for (const page of this.allPages) {
+        if (page["name"] === "dashboard" || page["name"] === "improvementProjects") {
+          page["show"] = showDashboard;
         }
       }
-    );
+    });
 
     this.events.subscribe("loginSuccess", (data) => {
       if (data == true) {
@@ -197,14 +195,7 @@ export class MyApp {
 
     platform.ready().then(() => {
       Highcharts.setOptions({
-        colors: [
-          "#D35400",
-          "#F1C40F",
-          "#3498DB",
-          "#8E44AD",
-          "#154360",
-          "#145A32",
-        ],
+        colors: ["#D35400", "#F1C40F", "#3498DB", "#8E44AD", "#154360", "#145A32"],
       });
 
       // Okay, so the platform is ready and our plugins are available.
@@ -245,8 +236,7 @@ export class MyApp {
         page["active"] = false;
       }
       this.allPages[0]["active"] = true;
-      if (this.allPages[index]["name"] == "dashboard")
-        return this.onDashboardClick();
+      if (this.allPages[index]["name"] == "dashboard") return this.onDashboardClick();
       if (this.allPages[index]["name"] !== "home") {
         this.nav.push(this.allPages[index]["component"]);
       }
@@ -317,16 +307,31 @@ export class MyApp {
             page["active"] = false;
           }
           this.allPages[0]["active"] = true;
-          const paths = {
-            "/about-us": AboutPage,
-            "/home": HomePage,
-            "/individual": IndividualListingPage,
-            "/institutional": InstitutionsEntityList,
-            "/faq": FaqPage,
-          };
+          let appName = AppConfigs.appName;
+          appName = appName.toLowerCase().replace(/([^a-zA-Z])/g, "");
+          const paths = {};
+          paths[`/${appName}/about-us`] = AboutPage;
+          paths[`/${appName}/faq`] = FaqPage;
+          paths[`/${appName}/take-poll/:pollId`] = PollPreviewPage;
+          // const paths = {
+          //   "/about-us": AboutPage,
+          //   "/home": HomePage,
+          //   "/individual": IndividualListingPage,
+          //   "/institutional": InstitutionsEntityList,
+          //   "/faq": FaqPage,
+          //   "/take-poll/:pollId": PollPreviewPage,
+          //   // "/appLink/take-poll/:pollId": PollPreviewPage,
+          // };
           this.deepLinks.route(paths).subscribe(
             (match) => {
-              this.rootPage = paths[match["$link"]["path"]];
+              // this.rootPage = paths[match["$link"]["path"]];
+              const argkey = Object.keys(match.$args)[0];
+              const matchPath = argkey
+                ? match["$link"]["path"].replace(match.$args[argkey], `:${argkey}`)
+                : match["$link"]["path"];
+              const path = paths[matchPath];
+
+              this.nav.push(path, match.$args);
               console.log(JSON.stringify(match));
               console.log("Successfully matched route", match);
             },

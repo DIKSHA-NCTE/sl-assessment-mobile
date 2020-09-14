@@ -5,10 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <header
-    [title]="'headings.solutionList'|translate"
-    [hideBack]="false"
-  ></header>
+  <header [title]="'headings.solutionList'|translate" [hideBack]="false"></header>
 </ion-header>
 
 <ion-content>
@@ -21,9 +18,7 @@
       <ion-card>
         <ion-item text-wrap (click)="goToImpSugg(s.solutionId,s.solutionName)">
           <div class="_flex-box">
-            <div style="flex: 1;">
-              {{s.solutionName}}
-            </div>
+            <div style="flex: 1">{{s.solutionName}}</div>
           </div>
         </ion-item>
       </ion-card>
@@ -32,7 +27,7 @@
 
   <!-- if solution not present -->
   <div *ngIf="programEntitySol && !programEntitySol?.length">
-    <div class="ion-diagnostics-sheet-title">
+    <div class="_flex-box _justify-content-center">
       <h3>{{'message.noSolutionFound' | translate}}</h3>
     </div>
   </div>
