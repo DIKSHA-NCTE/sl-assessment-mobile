@@ -257,4 +257,11 @@
         <variable name="DEEPLINK_5_HOST" value=" " />
     </plugin>
     <engine name="android" spec="latest" />
+    <plugin name="cordova-plugin-customtabs" spec="https://github.com/souvikmondal/cordova-plugin-customtabs.git">
+        <variable name="URL_SCHEME" value="in.gov.samiksha.diksha.app" />
+        <variable name="URL_HOST" value="mobile" />
+    </plugin>
+    <engine name="browser" spec="5.0.4" />
+    <engine name="ios" spec="^5.1.0" />
+    <engine name="android" spec="^9.0.0" />
 </widget>
