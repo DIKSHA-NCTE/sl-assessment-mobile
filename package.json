@@ -176,7 +176,7 @@
       "ionic-plugin-deeplinks": {
         "URL_SCHEME": "samiksha",
         "DEEPLINK_SCHEME": "https",
-        "DEEPLINK_HOST": "*.shikshalokam.org",
+        "DEEPLINK_HOST": "*pps.shikshalokam.org",
         "ANDROID_PATH_PREFIX": "/",
         "ANDROID_2_PATH_PREFIX": "/",
         "ANDROID_3_PATH_PREFIX": "/",
