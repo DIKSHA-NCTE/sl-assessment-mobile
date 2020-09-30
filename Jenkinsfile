@@ -28,7 +28,7 @@ node('mobile-build-slave') {
                     rm -f  $JENKINS_HOME/.gradle/caches/transforms-1/transforms-1.lock
                     rm -rf $JENKINS_HOME/.gradle/caches/*/fileHashes/
                     rm -rf \$HOME/.gradle/caches/*/plugin-resolution/
-                    ./build.sh
+                    sh ./build.sh
                 """
 
             }
