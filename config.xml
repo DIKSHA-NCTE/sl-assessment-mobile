@@ -23,6 +23,7 @@
     <feature name="CDVWKWebViewEngine">
         <param name="ios-package" value="CDVWKWebViewEngine" />
     </feature>
+    <preference name="AndroidLaunchMode" value="singleInstance" />
     <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
     <preference name="loadUrlTimeoutValue" value="700000" />
     <platform name="android">
@@ -248,6 +249,10 @@
         <variable name="DEEPLINK_4_HOST" value="qa.apps.shikshalokam.org" />
         <variable name="DEEPLINK_5_SCHEME" value=" " />
         <variable name="DEEPLINK_5_HOST" value=" " />
+    </plugin>
+    <plugin name="cordova-plugin-customtabs" spec="https://github.com/souvikmondal/cordova-plugin-customtabs.git">
+        <variable name="URL_SCHEME" value="in.gov.samiksha.diksha.app" />
+        <variable name="URL_HOST" value="mobile" />
     </plugin>
     <engine name="browser" spec="5.0.4" />
     <engine name="ios" spec="^5.1.0" />
