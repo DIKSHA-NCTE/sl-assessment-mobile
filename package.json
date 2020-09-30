@@ -174,9 +174,9 @@
       },
       "cordova-plugin-extended-device-information": {},
       "ionic-plugin-deeplinks": {
-        "URL_SCHEME": "samiksha",
+        "URL_SCHEME": "dikshasurvey",
         "DEEPLINK_SCHEME": "https",
-        "DEEPLINK_HOST": "*pps.shikshalokam.org",
+        "DEEPLINK_HOST": "*pps.diksha.gov.in",
         "ANDROID_PATH_PREFIX": "/",
         "ANDROID_2_PATH_PREFIX": "/",
         "ANDROID_3_PATH_PREFIX": "/",
