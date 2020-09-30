@@ -10,6 +10,7 @@ import { NetworkGpsProvider } from '../../providers/network-gps/network-gps';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { TranslateService } from '@ngx-translate/core';
 import { Network } from '@ionic-native/network';
+import { AppConfigs } from '../../providers/appConfig';
 
 @IonicPage()
 @Component({
@@ -281,6 +282,9 @@ export class QuestionerPage {
       this.diagnostic
         .isLocationAuthorized()
         .then((authorized) => {
+           if (!AppConfigs.enableGps) {
+             return true;
+           }
           if (authorized) {
             return this.diagnostic.isLocationEnabled();
           } else {

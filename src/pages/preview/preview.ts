@@ -7,6 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ImageListingPage } from '../image-listing/image-listing';
 import { NetworkGpsProvider } from '../../providers/network-gps/network-gps';
 import { Diagnostic } from '@ionic-native/diagnostic';
+import { AppConfigs } from '../../providers/appConfig';
 
 @Component({
   selector: 'page-preview',
@@ -144,6 +145,9 @@ export class PreviewPage {
      this.diagnostic
        .isLocationAuthorized()
        .then((authorized) => {
+          if (!AppConfigs.enableGps) {
+            return true;
+          }
          if (authorized) {
            return this.diagnostic.isLocationEnabled();
          } else {

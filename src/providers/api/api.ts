@@ -44,37 +44,42 @@ export class ApiProvider {
 
 
   validateApiToken(): Promise<any> {
-    this.http.setDataSerializer('json');
-    this.http.setRequestTimeout(300);
-    return new Promise((resolve, reject) => {
-      const userDetails = this.currentUser.getCurrentUserData();
-      if (userDetails.exp <= (Date.now() / 1000)) {
-        const body = new URLSearchParams();
-        body.set('grant_type', "refresh_token");
-        body.set('client_id', AppConfigs.clientId);
-        body.set('refresh_token', this.currentUser.curretUser.refreshToken);
-        const url = AppConfigs.app_url + AppConfigs.keyCloak.getAccessToken;
-        const header = {
-          'grant_type': "refresh_token",
-          'client_id': AppConfigs.clientId,
-          'refresh_token': this.currentUser.curretUser.refreshToken
-        }
-        this.http.post(url, body, header).then(data => {
-          let parsedData = JSON.parse(data['_body']);
-          let userTokens = {
-            accessToken: parsedData.access_token,
-            refreshToken: parsedData.refresh_token,
-            idToken: parsedData.id_token
-          };
-          this.currentUser.setCurrentUserDetails(userTokens);
-          resolve()
-        }).catch(error => {
-          reject({ status: '401' });
-        })
-      } else {
-        resolve();
-      }
-    })
+     this.http.setDataSerializer("urlencoded");
+     this.http.setRequestTimeout(300);
+     return new Promise((resolve, reject) => {
+       const userDetails = this.currentUser.getCurrentUserData();
+       if (userDetails.exp <= Date.now() / 1000) {
+         const url = AppConfigs.app_url + AppConfigs.keyCloak.getAccessToken;
+         const header = {
+         
+         };
+         let body = {
+           grant_type: "refresh_token",
+           client_id: AppConfigs.clientId,
+           refresh_token: this.currentUser.curretUser.refreshToken,
+         };
+
+         this.http
+           .post(url, body, header)
+           .then((data) => {
+             console.log(data);
+             // let parsedData = JSON.parse(data["_body"]);
+             let parsedData = JSON.parse(data["data"]);
+             let userTokens = {
+               accessToken: parsedData.access_token,
+               refreshToken: parsedData.refresh_token,
+               idToken: parsedData.id_token,
+             };
+             this.currentUser.setCurrentUserDetails(userTokens);
+             resolve();
+           })
+           .catch((error) => {
+             reject({ status: "401" });
+           });
+       } else {
+         resolve();
+       }
+     });
   }
 
   refershToken(): Promise<any> {
@@ -165,7 +170,7 @@ export class ApiProvider {
       const obj = {
         "x-auth-token": this.currentUser.curretUser.accessToken,
         "x-authenticated-user-token": this.currentUser.curretUser.accessToken,
-        gpsLocation: gpsLocation ? gpsLocation : "0,0",
+        gpsLocation: gpsLocation ? gpsLocation : "",
         appVersion: AppConfigs.appVersion,
         appName: AppConfigs.appName.toLowerCase().replace(/([^a-zA-Z])/g, ""),
         appType: "assessment",
@@ -212,7 +217,7 @@ export class ApiProvider {
       const obj = {
         "x-auth-token": this.currentUser.curretUser.accessToken,
         "x-authenticated-user-token": this.currentUser.curretUser.accessToken,
-        gpsLocation: gpsLocation ? gpsLocation : "0,0",
+        gpsLocation: gpsLocation ? gpsLocation : "",
         appVersion: AppConfigs.appVersion,
         appName: AppConfigs.appName.toLowerCase().replace(/([^a-zA-Z])/g, ""),
         os: this.platform.is("ios") ? "ios" : "android",
