@@ -6,7 +6,6 @@ import { Storage } from '@ionic/storage';
 import { Network } from '@ionic-native/network';
 import { NetworkGpsProvider } from '../../providers/network-gps/network-gps';
 import { AppConfigs } from '../../providers/appConfig';
-import { LoginProvider } from '../../providers/login/login';
 
 @Component({
   selector: 'page-welcome',
@@ -35,10 +34,7 @@ export class WelcomePage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage,
     private auth: AuthProvider,
     private events: Events,
-    private toastCtrl: ToastController,
-    private network: Network,
-    private netwrkGpsProvider: NetworkGpsProvider,
-    private loginProvider: LoginProvider) {
+    private toastCtrl: ToastController, private network: Network, private netwrkGpsProvider: NetworkGpsProvider) {
     this.subscription = this.network.onDisconnect().subscribe(() => {
       // this.presentToast('Network was disconnected :-(');
       this.networkAvailable = false
@@ -69,7 +65,7 @@ export class WelcomePage {
       position: 'bottom'
     });
 
-    toast.onDidDismiss(() => { });
+    toast.onDidDismiss(() => {});
     toast.present();
   }
 
@@ -80,7 +76,7 @@ export class WelcomePage {
       this.responseData = JSON.stringify(code);
       this.auth.doOAuthStepTwo(code).then(success => {
         this.auth.checkForCurrentUserLocalData(success);
-      }).catch(error => { })
+      }).catch(error => {})
     }).then(response => {
     })
   }
@@ -112,7 +108,4 @@ export class WelcomePage {
     this.slides.slideTo(2);
   }
 
-  onLoginClick() {
-    this.loginProvider.getFormApi();
-  }
 }
