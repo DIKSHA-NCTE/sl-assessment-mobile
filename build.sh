@@ -10,7 +10,7 @@ CORDOVA_COUNTER=0
 SUNBIRD_CORDOVA_COUNTER=0
 
 npm install
-npm install cordova@9.0.0
+npm install -g cordova@9.0.0
 
 # file="./build_config"
 # while IFS="=" read -r key value; do
