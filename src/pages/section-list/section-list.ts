@@ -206,6 +206,9 @@ export class SectionListPage {
       this.diagnostic
         .isLocationAuthorized()
         .then((authorized) => {
+           if (!AppConfigs.enableGps) {
+             return true;
+           }
           if (authorized) {
             return this.diagnostic.isLocationEnabled();
           } else {

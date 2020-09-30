@@ -128,8 +128,6 @@ import { ReportsPageModule } from "../pages/reports/reports.module";
 import { LibraryPageModule } from "../pages/library/library.module";
 import { ManualRatingPageModule } from "../pages/manual-rating/manual-rating.module";
 import { FeedbackPollPageModule } from "../pages/feedback-poll/feedback-poll.module";
-import { LoginProvider } from '../providers/login/login';
-import { WebviewRunnerProvider } from '../providers/webview-runner/webview-runner';
 @NgModule({
   declarations: [
     MyApp,
@@ -300,8 +298,6 @@ import { WebviewRunnerProvider } from '../providers/webview-runner/webview-runne
     PhotoViewer,
     StreamingMedia,
     AppAvailability,
-    LoginProvider,
-    WebviewRunnerProvider,
   ],
 })
 export class AppModule {}

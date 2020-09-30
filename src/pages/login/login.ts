@@ -10,6 +10,7 @@ import { Diagnostic } from '@ionic-native/diagnostic';
 import { UtilsProvider } from '../../providers/utils/utils';
 import { HomePage } from '../home/home';
 import { TranslateService } from '@ngx-translate/core';
+import { AppConfigs } from '../../providers/appConfig';
 
 
 @IonicPage()
@@ -90,6 +91,9 @@ export class LoginPage {
   }
 
   checkForLocationPermissions(): void {
+    if (!AppConfigs.enableGps) {
+      return;
+    }
     //console.log('Check permissions');
     this.permissions.checkPermission(this.permissions.PERMISSION.ACCESS_FINE_LOCATION).then(
       result => {
