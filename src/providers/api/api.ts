@@ -88,7 +88,7 @@ export class ApiProvider {
     body.set('grant_type', "refresh_token");
     // body.set('refresh_token', this.currentUser.curretUser.refreshToken);
     body.set('client_id', AppConfigs.clientId);
-    body.set('client_secret', AppConfigs.api_key);
+    // body.set('client_secret', AppConfigs.api_key);
     return new Promise((resolve, reject) => {
       const obj = 'grant_type=refresh_token&refresh_token=' + this.currentUser.curretUser.refreshToken + "&client_id=" + AppConfigs.clientId;
       const url = AppConfigs.app_url + AppConfigs.keyCloak.getAccessToken;
