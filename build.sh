@@ -9,7 +9,7 @@ rm -rf www
 CORDOVA_COUNTER=0
 SUNBIRD_CORDOVA_COUNTER=0
 
-rm package-lock.json && npm install
+npm install
 
 file="./build_config"
 while IFS="=" read -r key value; do
