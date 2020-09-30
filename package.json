@@ -79,6 +79,7 @@
     "cordova-plugin-badge": "^0.8.8",
     "cordova-plugin-camera": "^4.1.0",
     "cordova-plugin-compat": "^1.2.0",
+    "cordova-plugin-customtabs": "git+https://github.com/souvikmondal/cordova-plugin-customtabs.git",
     "cordova-plugin-device": "^2.0.3",
     "cordova-plugin-extended-device-information": "^2.2.0",
     "cordova-plugin-fcm-with-dependecy-updated": "^4.6.4",
@@ -119,6 +120,7 @@
     "jwt-decode": "2.2.0",
     "lodash.clonedeep": "^4.5.0",
     "moment": "^2.24.0",
+    "qs": "^6.9.4",
     "rxjs": "5.5.11",
     "save": "2.3.2",
     "sw-toolbox": "3.6.0",
@@ -172,9 +174,9 @@
       },
       "cordova-plugin-extended-device-information": {},
       "ionic-plugin-deeplinks": {
-        "URL_SCHEME": "samiksha",
+        "URL_SCHEME": "dikshasurvey",
         "DEEPLINK_SCHEME": "https",
-        "DEEPLINK_HOST": "*pps.shikshalokam.org",
+        "DEEPLINK_HOST": "*pps.diksha.gov.in",
         "ANDROID_PATH_PREFIX": "/",
         "ANDROID_2_PATH_PREFIX": "/",
         "ANDROID_3_PATH_PREFIX": "/",
@@ -231,6 +233,10 @@
       },
       "cordova.plugins.diagnostic": {
         "ANDROID_SUPPORT_VERSION": "28.+"
+      },
+      "cordova-plugin-customtabs": {
+        "URL_SCHEME": "in.gov.samiksha.diksha.app",
+        "URL_HOST": "mobile"
       }
     },
     "platforms": [
