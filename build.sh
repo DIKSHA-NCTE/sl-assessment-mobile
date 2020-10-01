@@ -36,13 +36,13 @@ npm install -g cordova@9.0.0
 #   ionic cordova plugin add $cordova_plugin
 # done
 
-ionic cordova plugin add cordova-plugin-inappbrowser
-ionic cordova plugin add https://github.com/Sunbird-Ed/sb-cordova-plugin-customtabs.git --variable URL_SCHEME=in.gov.samiksha.diksha.app  --variable URL_HOST=mobile
+# ionic cordova plugin add cordova-plugin-inappbrowser
+# ionic cordova plugin add https://github.com/Sunbird-Ed/sb-cordova-plugin-customtabs.git --variable URL_SCHEME=in.gov.samiksha.diksha.app  --variable URL_HOST=mobile
 
 rm -rf platforms
 
 #Temporary Workaround to generate build as webpack was complaining of Heap Space
 #need to inspect on webpack dependdencies at the earliest
-NODE_OPTIONS=--max-old-space-size=4096 ionic cordova platforms add android@8.1.0
+NODE_OPTIONS=--max-old-space-size=4096 ionic cordova platforms add android@9.0.0
 
 NODE_OPTIONS=--max-old-space-size=4096 ionic cordova build android --prod --release --buildConfig build.json

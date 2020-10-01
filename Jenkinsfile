@@ -17,6 +17,7 @@ node('mobile-build-slave') {
                     cp /opt/jenkins/build.json $WORKSPACE/build.json
                     cp /opt/jenkins/diksha.jks $WORKSPACE/diksha.jks
                     cp /opt/jenkins/appConfig.ts $WORKSPACE/src/providers/appConfig.ts
+                    cp /opt/jenkins/google-services.json $WORKSPACE/google-services.json
                     export ANDROID_HOME=/home/ops/android-sdk-linux
                     export PATH=/home/ops/android-sdk-linux:/home/ops/android-sdk-linux/platform-tools:$PATH
                     export PATH=$PATH:/usr/lib/gradle/4.7/bin
