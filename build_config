@@ -1,0 +1,3 @@
+cordova-plugin=cordova-plugin-inappbrowser
+cordova-plugin=ionic-plugin-keyboard
+sunbird-cordova-plugin=https://github.com/Sunbird-Ed/sb-cordova-plugin-customtabs.git --variable URL_SCHEME=in.gov.samiksha.diksha.app  --variable URL_HOST=mobile

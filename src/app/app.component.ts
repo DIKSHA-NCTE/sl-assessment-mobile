@@ -230,7 +230,16 @@ export class MyApp {
     // if ( this.allPages[index]['name'] != 'home'){
     this.menuCntrl.close();
     if (this.allPages[index]["externalLink"]) {
-      this.utils.openExternalLinkOnBrowser(AppConfigs.externalLinks.faq);
+     
+      this.localStorage.getLocalStorage(storageKeys.staticLinks).then((links) => {
+        if (!links.faq.link) {
+          this.utils.openToast("No FAQs Found!")
+          return
+        }
+        this.utils.openExternalLinkOnBrowser(links.faq.link);
+      }).catch(err => {
+        
+      });
     } else {
       for (const page of this.allPages) {
         page["active"] = false;
