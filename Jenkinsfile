@@ -35,7 +35,7 @@ node('mobile-build-slave') {
             }
             stage('ArchiveArtifacts') {
                 archiveArtifacts "platforms/android/app/build/outputs/apk/release/app-*.apk"
-                currentBuild.description = "Built from ${branch_or_tag}"
+                currentBuild.description = "Built from master"
             }
         }
 
