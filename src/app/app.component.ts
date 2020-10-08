@@ -34,6 +34,7 @@ import { ReportEntityListingPage } from "../pages/reports/report-entity-listing/
 import { storageKeys } from "../providers/storageKeys";
 import { FeedbackPollPage } from "../pages/feedback-poll/feedback-poll";
 import { PollPreviewPage } from "../pages/feedback-poll/pages/poll-preview/poll-preview";
+import { OnboardingPage } from "../pages/onboarding/onboarding";
 
 @Component({
   templateUrl: "app.html",
@@ -111,6 +112,13 @@ export class MyApp {
       show: true,
     },
     {
+      name: "profile",
+      icon: "contact",
+      component: OnboardingPage,
+      active: false,
+      show: true,
+    },
+    {
       name: "faqs",
       icon: "help",
       // component: FaqPage,
@@ -140,6 +148,7 @@ export class MyApp {
       active: false,
       show: false,
     },
+
   ];
   profileRoles = [];
   currentPage;

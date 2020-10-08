@@ -130,6 +130,9 @@ import { ManualRatingPageModule } from "../pages/manual-rating/manual-rating.mod
 import { FeedbackPollPageModule } from "../pages/feedback-poll/feedback-poll.module";
 import { LoginProvider } from '../providers/login/login';
 import { WebviewRunnerProvider } from '../providers/webview-runner/webview-runner';
+import { OnboardingPageModule } from "../pages/onboarding/onboarding.module";
+import { OnboardingProvider } from '../providers/onboarding/onboarding';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -200,6 +203,7 @@ import { WebviewRunnerProvider } from '../providers/webview-runner/webview-runne
     LibraryPageModule,
     ManualRatingPageModule,
     FeedbackPollPageModule,
+    OnboardingPageModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -302,6 +306,7 @@ import { WebviewRunnerProvider } from '../providers/webview-runner/webview-runne
     AppAvailability,
     LoginProvider,
     WebviewRunnerProvider,
+    OnboardingProvider,
   ],
 })
 export class AppModule {}

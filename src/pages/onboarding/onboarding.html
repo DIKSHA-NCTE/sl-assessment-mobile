@@ -1,0 +1,73 @@
+<ion-header>
+  <header [title]="'headings.profile'| translate" [hideBack]="false">
+
+  </header>
+</ion-header>
+
+<ion-content padding>
+
+  <div class="profile-form fullWidth" *ngIf="!showPreview">
+    <div *ngIf="formGroup">
+
+      <form [formGroup]="formGroup">
+        <ion-list>
+          <div *ngFor="let form_elem of dynamicForm;let i = index">
+            <ion-item *ngIf="form_elem?.input ==='text'">
+              <ion-label>{{form_elem?.label}} <span *ngIf="form_elem?.validation?.required" style="color: red;">*</span>
+              </ion-label>
+              <ion-select formControlName="{{form_elem.field}}">
+                <ion-option *ngFor="let option of form_elem.options" [value]="option._id">
+                  {{option.name || option?.title}} </ion-option>
+              </ion-select>
+            </ion-item>
+            <div *ngIf="form_elem?.input !=='text'" class="selection" (click)="openDialog(i, form_elem?.field)">
+              <div>{{form_elem?.label}} <span *ngIf="form_elem?.validation?.required" style="color: red;">*</span></div>
+              <div class="chipContainer">
+                <ion-chip *ngFor="let option of form_elem?.options" color="primary">
+                  <ion-label>{{option?.name}}</ion-label>
+                  <button ion-button clear color="light" (click)="removeChip(i)">
+                    <ion-icon name="close-circle"></ion-icon>
+                  </button>
+                </ion-chip>
+              </div>
+            </div>
+          </div>
+
+        </ion-list>
+      </form>
+      <ion-list>
+        <ion-item text-wrap>
+          <ion-label>I agree to share the information with Diksha <span style="color: red;">*</span> </ion-label>
+          <ion-checkbox [(ngModel)]="tc" required></ion-checkbox>
+        </ion-item>
+      </ion-list>
+
+      <button ion-button color="primary" full (click)="submitForm()" [disabled]="!formGroup?.valid || !tc">Save</button>
+
+    </div>
+  </div>
+
+
+
+
+
+
+  <div class="fullWidth innerContainer" *ngIf="showPreview">
+    <h3>
+      {{userName}}
+    </h3>
+    <p *ngIf="userState"><b style="color: #999;">( State: {{userState}} )</b> </p>
+    <div style="width: 100%;">
+      <ion-list>
+        <ng-container *ngFor="let role of profileRoles">
+          <div mat-subheader>{{role?.title}}</div>
+          <ion-item *ngFor="let entity of role?.entities">
+            <ion-icon name="home" style="margin-right: 10px;"></ion-icon>{{entity.name}}
+          </ion-item>
+          <!-- <ion-divider></ion-divider> -->
+
+        </ng-container>
+      </ion-list>
+    </div>
+  </div>
+</ion-content>
