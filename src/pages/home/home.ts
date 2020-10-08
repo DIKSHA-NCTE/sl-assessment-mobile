@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { NavController, Events, Platform, PopoverController } from "ionic-angular";
+import { NavController, Events, Platform, PopoverController, App } from "ionic-angular";
 import { CurrentUserProvider } from "../../providers/current-user/current-user";
 import { Network } from "@ionic-native/network";
 import { InstitutionsEntityList } from "../institutions-entity-list/institutions-entity-list";
@@ -21,7 +21,8 @@ import { ObservationProvider } from "../../providers/observation/observation";
 import { SidemenuProvider } from "../../providers/sidemenu/sidemenu";
 import { storageKeys } from "../../providers/storageKeys";
 import { ProgramServiceProvider } from "../programs/program-service";
-import { error } from "highcharts";
+import { AlertController } from 'ionic-angular';
+import { OnboardingProvider } from "../../providers/onboarding/onboarding";
 
 declare var cordova: any;
 
@@ -101,7 +102,10 @@ export class HomePage {
     private assessmentService: AssessmentServiceProvider,
     private observationService: ObservationProvider,
     private sidemenuProvider: SidemenuProvider,
-    private programService: ProgramServiceProvider
+    private programService: ProgramServiceProvider,
+    private alertCtrl: AlertController,
+    private onBoardServ: OnboardingProvider,
+    private app: App
   ) {
     this.isIos = this.platform.is("ios") ? true : false;
   }
@@ -285,6 +289,41 @@ export class HomePage {
       },
       (error) => {}
     );
+    this.onBoardServ.getProfile().then(data => {
+      if(data.result.roles && !data.result.roles.length){
+        this.openUpdateProfileAlert();
+      }
+    }).catch(error => {
+
+    })
+  }
+
+  openUpdateProfileAlert() {
+    let updateClick = false;
+    let alert = this.alertCtrl.create({
+      title: 'Profile Update',
+      subTitle: 'Please update your profile to continue.',
+      buttons: [
+        {
+          text: 'Update Profile',
+          handler: data => {
+            updateClick = true;
+            this.app.getRootNav().push('OnboardingPage')
+            console.log('Cancel clicked');
+          }
+        },
+      ],
+      enableBackdropDismiss: false
+    });
+    alert.onWillDismiss(success => {
+      if(updateClick){
+        updateClick = false;
+      } else {
+        this.openUpdateProfileAlert()
+      }
+    })
+    alert.present();
+
   }
 
   goToRecentlyUpdatedAssessment(assessment) {

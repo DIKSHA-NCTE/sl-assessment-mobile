@@ -1,0 +1,41 @@
+<!--
+  Generated template for the OnboardingEntityListingModalPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-searchbar [(ngModel)]="search" [showCancelButton]="shouldShowCancel" (ionInput)="onSearch()"
+      [debounce]="500" (ionCancel)="onSearch()">
+    </ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list radio-group  >
+    <ion-item *ngFor="let entity of entityList" (click)="onSelection(entity)">
+      <ion-label>{{entity?.label}}</ion-label>
+      <ion-radio (click)="onSelection(entity)" [value]="entity?._id"></ion-radio>
+    </ion-item>
+  </ion-list>
+  <button ion-button color="primary" full (click)="loadMore()" *ngIf="enableLoader">Load More</button>
+
+  <div class="noData" *ngIf="!entityList?.length">
+    No data found
+  </div>
+</ion-content>
+
+<ion-footer no-border>
+  <ion-toolbar>
+    <ion-row>
+      <ion-col>
+        <button ion-button color="light" full (click)="close()">Cancel</button>
+      </ion-col>
+      <ion-col>
+        <button ion-button color="primary" full [disabled]="!selection?._id" (click)="close(selection)">Save</button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>
