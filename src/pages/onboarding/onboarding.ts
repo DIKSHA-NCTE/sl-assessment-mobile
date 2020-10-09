@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { IonicPage, ModalController, NavController, NavParams } from 'ionic-angular';
+import { CurrentUserProvider } from '../../providers/current-user/current-user';
 import { OnboardingProvider } from '../../providers/onboarding/onboarding';
 import { SidemenuProvider } from '../../providers/sidemenu/sidemenu';
 import { UtilsProvider } from '../../providers/utils/utils';
@@ -40,7 +41,9 @@ export class OnboardingPage {
     private modal: ModalController,
     private utils: UtilsProvider,
     private sidemenuProvider: SidemenuProvider,
+    private currentUSer: CurrentUserProvider,
     public fb: FormBuilder) {
+      this.userName = this.currentUSer.getCurrentUserData().name;
   }
 
   ionViewDidLoad() {

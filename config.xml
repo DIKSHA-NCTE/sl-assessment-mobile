@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="in.gov.diksha.survey.app" version="3.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="in.gov.diksha.survey.app" version="3.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Diksha Survey</name>
     <description>A survey app for school development</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
@@ -49,7 +49,7 @@
         <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
             <application android:usesCleartextTraffic="true" />
         </edit-config>
-        <uses-sdk android:minSdkVersion="18" android:targetSdkVersion="21" />
+        <uses-sdk android:minSdkVersion="22" android:targetSdkVersion="29" />
     </platform>
     <platform name="ios">
         <preference name="ScrollEnabled" value="true" />
@@ -236,8 +236,6 @@
         <variable name="URL_SCHEME" value="in.gov.diksha.survey.app" />
         <variable name="URL_HOST" value="mobile" />
     </plugin>
-    <engine name="browser" spec="5.0.4" />
-    <engine name="ios" spec="^5.1.0" />
     <plugin name="ionic-plugin-deeplinks" spec="^1.0.20">
         <variable name="URL_SCHEME" value="dikshasurvey" />
         <variable name="DEEPLINK_SCHEME" value="https" />
@@ -256,12 +254,11 @@
         <variable name="DEEPLINK_5_SCHEME" value=" " />
         <variable name="DEEPLINK_5_HOST" value=" " />
     </plugin>
-    <engine name="android" spec="latest" />
     <plugin name="cordova-plugin-customtabs" spec="https://github.com/souvikmondal/cordova-plugin-customtabs.git">
         <variable name="URL_SCHEME" value="in.gov.samiksha.diksha.app" />
         <variable name="URL_HOST" value="mobile" />
     </plugin>
     <engine name="browser" spec="5.0.4" />
     <engine name="ios" spec="^5.1.0" />
-    <engine name="android" spec="^9.0.0" />
+    <engine name="android" spec="~9.0.0" />
 </widget>
