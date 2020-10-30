@@ -1,6 +1,6 @@
 <ion-header>
   <header
-    [title]="type!='observation'?('headings.assessmentForm'|translate):'headings.observationSolutions'|translate"
+    [title]="type=='survey'?('headings.surveyFeedback'|translate):type!='observation'?('headings.assessmentForm'|translate):'headings.observationSolutions'|translate"
     [hideBack]="false"
   ></header>
 </ion-header>
@@ -13,22 +13,13 @@
     [debounce]="1500"
   ></ion-searchbar>
   <div>
-    <ion-card
-      *ngFor="let sol of solutionList"
-      (click)="goToSolutionDetails(sol?._id)"
-    >
+    <ion-card *ngFor="let sol of solutionList" (click)="goToSolutionDetails(sol?._id)">
       <ion-item text-wrap>
         <div class="_flex-box">
-          <div style="flex: 1;">
-            <p>
-              {{sol?.name}}
-            </p>
+          <div style="flex: 1">
+            <p>{{sol?.name}}</p>
           </div>
-          <ion-icon
-            name="arrow-forward"
-            class="menuIcon"
-            *ngIf="!homePage"
-          ></ion-icon>
+          <ion-icon name="arrow-forward" class="menuIcon" *ngIf="!homePage"></ion-icon>
         </div>
       </ion-item>
     </ion-card>

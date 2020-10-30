@@ -1,0 +1,13 @@
+
+<!-- <ion-header>
+  <ion-navbar>
+    <ion-title>solutionAction</ion-title>
+  </ion-navbar>
+</ion-header> -->
+
+<ion-content>
+  <ion-list>
+    <button ion-item (click)="presentConfirm()"> {{'buttons.removeFromHome'| translate}}</button>
+    <button ion-item (click)="presentConfirm(true)" *ngIf="isAPrivateProgram"> {{'buttons.delete'| translate}}</button>
+  </ion-list>
+</ion-content>

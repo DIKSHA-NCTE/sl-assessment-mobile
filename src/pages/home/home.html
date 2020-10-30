@@ -131,6 +131,8 @@
         [programIndex]="programIndex"
         [showProgram]="true"
         [programList]="programList"
+        *ngIf="solution?.showInHomeScreen"
+        (rereshList)="refreshLists()"
       ></program-solution>
     </div>
   </div>

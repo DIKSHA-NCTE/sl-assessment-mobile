@@ -31,7 +31,6 @@ export class LibraryProvider {
     public file: File,
     private platform: Platform,
     private sanitizer: DomSanitizer
-
   ) {
     console.log("Hello LibraryProvider Provider");
     this.isIos = this.platform.is("ios") ? true : false;
@@ -45,17 +44,15 @@ export class LibraryProvider {
   getUrl(type, list?) {
     switch (type) {
       case "observation":
-        return list
-          ? AppConfigs.library.observationSolutionsList
-          : AppConfigs.library.observationTemplateDetail;
+        return list ? AppConfigs.library.observationSolutionsList : AppConfigs.library.observationTemplateDetail;
       case "individual":
-        return list
-          ? AppConfigs.library.individualSolutionsList
-          : AppConfigs.library.individualTemplateDetail;
+        return list ? AppConfigs.library.individualSolutionsList : AppConfigs.library.individualTemplateDetail;
       case "institutional":
-        return list
-          ? AppConfigs.library.institutionalSolutionsList
-          : AppConfigs.library.institutionalTemplateDetail;
+        return list ? AppConfigs.library.institutionalSolutionsList : AppConfigs.library.institutionalTemplateDetail;
+      case "survey":
+        return list 
+          ? AppConfigs.library.surveySolutionsList
+          : AppConfigs.library.surveyTemplateDetail;
 
       default:
         break;
@@ -63,8 +60,7 @@ export class LibraryProvider {
   }
   getObservationSolutionsList(type, search, page) {
     search.length ? null : this.utils.startLoader();
-    const url =
-      this.getUrl(type, "list") + `?search=${search}&page=${page}&limit=10`;
+    const url = this.getUrl(type, "list") + `?search=${search}&page=${page}&limit=10`;
     return new Promise((resolve, reject) => {
       this.apiService.httpGet(
         url,
@@ -180,7 +176,7 @@ export class LibraryProvider {
     return this.getLibraryDraft()
       .then((allDraft) => allDraft.filter((d) => d.time !== draftTime))
       .then((allDraft) => this.saveLibraryDraft(allDraft))
-      .catch((err) => { });
+      .catch((err) => {});
   }
 
   getLibraryCategories() {
@@ -213,9 +209,7 @@ export class LibraryProvider {
         url,
         async (successData) => {
           for (const element of successData["result"]) {
-            await this.download(element.url, element.type).then(
-              (safeurl) => (element.localUrl = safeurl)
-            );
+            await this.download(element.url, element.type).then((safeurl) => (element.localUrl = safeurl));
           }
           resolve(successData.result);
         },
@@ -229,24 +223,19 @@ export class LibraryProvider {
   download(url, name) {
     const fileTransfer: FileTransferObject = this.transfer.create();
 
-    return fileTransfer
-      .download(url, this.filePath + name + ".png")
-      .then(
-        (entry) => {
-          return this.win.Ionic.WebView.convertFileSrc(entry.nativeURL);
-        },
-        (error) => {
-          console.log("error!");
-        }
-      );
+    return fileTransfer.download(url, this.filePath + name + ".png").then(
+      (entry) => {
+        return this.win.Ionic.WebView.convertFileSrc(entry.nativeURL);
+      },
+      (error) => {
+        console.log("error!");
+      }
+    );
   }
 
   getLibrarySearchSolutions(solutionName, page) {
     return new Promise((resolve, reject) => {
-      const url =
-        AppConfigs.library.searchSolutions +
-        solutionName +
-        `&page=${page}&limit=15`;
+      const url = AppConfigs.library.searchSolutions + solutionName + `&page=${page}&limit=15`;
 
       this.apiService.httpGet(
         url,

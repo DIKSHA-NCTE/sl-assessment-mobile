@@ -1,0 +1,18 @@
+<!-- Generated template for the SimpleListComponent component -->
+<ion-card>
+  <ion-item text-wrap>
+    <div class="_flex-box" text-capitalize style="justify-content: flex-end">
+      <div class="_flex-box" style="flex-grow:1">
+        <span class="dot"  [style.background-color]="color" *ngIf="color"></span>
+        <div style="flex: 1">
+          <h2>{{heading}}</h2>
+          <p *ngIf="subheading">{{subheading}}</p>
+        </div>
+      </div>
+      <ion-icon name="arrow-forward" class="menuIcon" *ngIf="forwardIcon"></ion-icon>
+      <button ion-button round *ngIf="viewReport" (click)="$event.stopPropagation();onViewReport()">
+        {{'buttons.viewReport'|translate}}
+      </button>
+    </div>
+  </ion-item>
+</ion-card>

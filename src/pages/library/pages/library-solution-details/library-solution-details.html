@@ -8,9 +8,7 @@
 <ion-content>
   <div *ngIf="template">
     <ion-card>
-      <ion-card-content>
-        {{template.name}}
-      </ion-card-content>
+      <ion-card-content> {{template.name}} </ion-card-content>
     </ion-card>
     <div class="questionBlock">
       <p class="_tip">
@@ -24,10 +22,7 @@
       <p class="_tip" *ngIf="type=='observation'">
         <span class="firstWord">Questions:</span>
       </p>
-      <p
-        *ngFor="let q of template.questions;let i=index"
-        class="_tip questions"
-      >
+      <p *ngFor="let q of template.questions;let i=index" class="_tip questions">
         <span class="firstWord">Q.{{i+1}}:</span>
         <span> {{q}}</span>
       </p>
@@ -41,9 +36,7 @@
         </p>
       </div>
       <div *ngIf="type!='observation'&&template.linkTitle.length">
-        <button ion-button round color="light" full (click)="downloadPdf()">
-          {{template.linkTitle}}
-        </button>
+        <button ion-button round color="light" full (click)="downloadPdf()">{{template.linkTitle}}</button>
       </div>
     </div>
   </div>
@@ -52,7 +45,7 @@
 <ion-footer no-shadow>
   <ion-toolbar class="_toolbar-background-md" position="bottom">
     <div class="_flex-box _justify-content-center">
-      <button ion-button round (click)="goToUseTemplate()">
+      <button ion-button round (click)="goToUseTemplate()" *ngIf="template?.allowImport!=false">
         {{'buttons.useForm' | translate}}
       </button>
     </div>

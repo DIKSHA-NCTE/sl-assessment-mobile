@@ -53,7 +53,9 @@ import { ReportEntityListComponent } from "../pages/reports/component/report-ent
 import { ExpansionTableComponent } from "./expansion-table/expansion-table";
 import { PollOptionComponent } from "../pages/feedback-poll/component/poll-option/poll-option";
 import { ThanksComponent } from "./thanks/thanks";
-import { ResultGraphComponent } from '../pages/feedback-poll/component/result-graph/result-graph';
+import { ResultGraphComponent } from "../pages/feedback-poll/component/result-graph/result-graph";
+import { SimpleListComponent } from "./simple-list/simple-list";
+import { SurveyMsgComponent } from "./survey-msg/survey-msg";
 import { StateModalComponent } from './state-modal/state-modal';
 
 @NgModule({
@@ -103,6 +105,8 @@ import { StateModalComponent } from './state-modal/state-modal';
     PollOptionComponent,
     ThanksComponent,
     ResultGraphComponent,
+    SimpleListComponent,
+    SurveyMsgComponent,
     StateModalComponent,
   ],
   imports: [
@@ -160,6 +164,8 @@ import { StateModalComponent } from './state-modal/state-modal';
     PollOptionComponent,
     ThanksComponent,
     ResultGraphComponent,
+    SimpleListComponent,
+    SurveyMsgComponent,
     StateModalComponent,
   ],
   entryComponents: [
@@ -175,7 +181,8 @@ import { StateModalComponent } from './state-modal/state-modal';
     PlayVideoComponent,
     ViewDetailComponent,
     ThanksComponent,
-    ResultGraphComponent
+    ResultGraphComponent,
+    SurveyMsgComponent,
   ],
   providers: [Network, DatePipe, SlackProvider],
 })

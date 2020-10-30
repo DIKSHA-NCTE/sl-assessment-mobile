@@ -44,6 +44,7 @@ export class CreatePollPage {
       ionicon: "",
     },
   ];
+  allowNavigation: boolean;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -78,6 +79,10 @@ export class CreatePollPage {
     }
 
     this.getPollMeta();
+  }
+
+  ionViewWillEnter() {
+    this.allowNavigation=false
   }
 
   addOption(): void {
@@ -178,12 +183,18 @@ export class CreatePollPage {
   }
 
   share(): void {
+    let time = new Date().toUTCString();
     const form = this.pollForm.getRawValue();
     form.options = this.options;
     form.selectedResponseType = this.selectedResponseType;
     form.type = "create";
-    form.time = this.draft ? this.draft.time : null;
+    form.time = this.draft ? this.draft.time : time;
+    if (!this.draft) {
+      this.draft = form;
+    }
+    this.saveToDraft(null, form.time, false);
     console.log(form);
+    this.allowNavigation = true;
     this.navCtrl.push(PollPreviewPage, { form: form });
   }
 
@@ -213,12 +224,15 @@ export class CreatePollPage {
     confirm.present();
   }
 
-  saveToDraft(deleteDraft?: any): void {
-    console.log("draft");
+  saveToDraft(deleteDraft?: any, time = new Date().toUTCString(), pop = true): void {
+   
+    console.log(this.pollForm);
+
     const draft = this.pollForm.getRawValue();
+    console.log(draft);
     draft["options"] = this.options;
     draft["selectedResponseType"] = this.selectedResponseType;
-    draft["time"] = new Date().toUTCString();
+    draft["time"] = time;
     deleteDraft ? null : this.utils.startLoader();
     this.pollProvider
       .getPollDraft()
@@ -234,7 +248,8 @@ export class CreatePollPage {
         deleteDraft ? null : this.utils.openToast("Saved Draft");
       })
       .then(() => {
-        this.navCtrl.pop();
+         this.allowNavigation = true;
+        pop ? this.navCtrl.pop() : null;
         deleteDraft ? null : this.utils.stopLoader();
       });
   }
@@ -267,5 +282,11 @@ export class CreatePollPage {
         this.utils.stopLoader();
       })
       .catch(() => this.utils.stopLoader());
+  }
+
+  ionViewCanLeave() {
+    if (this.pollForm.value.question && !this.allowNavigation) {
+      this.saveToDraft(null,undefined,false);
+    }
   }
 }

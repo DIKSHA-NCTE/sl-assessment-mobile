@@ -36,6 +36,8 @@ export class EvidenceAllListComponent {
     const entityId = this.navParams.get("entityId");
     const questionExternalId = this.navParams.get("questionExternalId");
     const entityType = this.navParams.get("entityType");
+    const surveyEvidence = this.navParams.get("surveyEvidence"); // for survey evidence true/false
+    const solutionId = this.navParams.get("solutionId");
     this.data = this.navParams.get("data");
     this.payload = {
       submissionId: submissionId,
@@ -43,8 +45,13 @@ export class EvidenceAllListComponent {
       observationId: observationId,
       entityId: entityId,
       entityType: entityType,
+      solutionId: solutionId,
     };
-    this.data ? this.setAllEvidence() : this.getAllEvidence();
+    if (this.data) {
+      this.setAllEvidence();
+    } else {
+      surveyEvidence ? this.getSurveyEvidence() : this.getAllEvidence();
+    }
   }
 
   onTabChange(tabName) {
@@ -62,6 +69,37 @@ export class EvidenceAllListComponent {
 
   getAllEvidence() {
     let url = AppConfigs.observationReports.allEvidence;
+    this.utils.startLoader();
+
+    this.apiService.httpPost(
+      url,
+      this.payload,
+      (success) => {
+        this.utils.stopLoader();
+        console.log(JSON.stringify(success));
+
+        if (success.result === true && success.data) {
+          this.images = success.data.images;
+          this.videos = success.data.videos;
+          this.documents = success.data.documents;
+          this.remarks = success.data.remarks;
+          this.audios = success.data.audios;
+        } else {
+          this.utils.openToast(success.data);
+        }
+      },
+      (error) => {
+        this.utils.openToast(error.message);
+
+        this.utils.stopLoader();
+      },
+      { baseUrl: "dhiti", version: "v1" }
+    );
+  }
+
+  //for surveyEvidence
+  getSurveyEvidence() {
+    const url = AppConfigs.surveyFeedback.listAllEvidences;
     this.utils.startLoader();
 
     this.apiService.httpPost(

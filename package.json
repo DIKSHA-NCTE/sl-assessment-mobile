@@ -130,7 +130,7 @@
     "@typescript-eslint/eslint-plugin": "^3.6.1",
     "@typescript-eslint/parser": "^3.6.1",
     "eslint": "^7.5.0",
-    "ionic": "5.4.16",
+    "ionic": "^5.4.16",
     "typescript": "2.6.2"
   },
   "description": "An Ionic project",

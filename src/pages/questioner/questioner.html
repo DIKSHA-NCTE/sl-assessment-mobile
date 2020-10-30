@@ -10,14 +10,9 @@
 </ion-header>
 
 <ion-content padding class="_questioner-padding" #pageTop>
-  <div
-    class="disableOverLay"
-    *ngIf="isCurrentEvidenceSubmitted || isViewOnly "
-  ></div>
+  <div class="disableOverLay" *ngIf="isCurrentEvidenceSubmitted || isViewOnly "></div>
   <div class="_container" *ngIf="submissionId">
-    <ng-container
-      *ngFor="let question of questions| slice:start:end; let i=index"
-    >
+    <ng-container *ngFor="let question of questions| slice:start:end; let i=index">
       <ng-container [ngSwitch]="question.responseType.toLowerCase()">
         <input-type
           [inputIndex]="start + 1"
@@ -119,5 +114,6 @@
   [questionCount]="questions?.length"
   (nextAction)="next()"
   (backAction)="back()"
+  (openSheetAction)="openActionSheet()"
 >
 </footer-buttons>

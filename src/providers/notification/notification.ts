@@ -5,7 +5,7 @@ import { ApiProvider } from "../api/api";
 import { AppConfigs } from "../appConfig";
 import { LocalStorageProvider } from "../local-storage/local-storage";
 import { ObservationServiceProvider } from "../observation-service/observation-service";
-import { App, NavController } from "ionic-angular";
+import { App, NavController, ModalController } from "ionic-angular";
 import { UtilsProvider } from "../utils/utils";
 import { AssessmentServiceProvider } from "../assessment-service/assessment-service";
 import { EntityListingPage } from "../../pages/entity-listing/entity-listing";
@@ -18,6 +18,11 @@ import { storageKeys } from "../storageKeys";
 import { ProgramSolutionEntityPage } from "../../pages/programs/program-solution-entity/program-solution-entity";
 import { ProgramSolutionObservationDetailPage } from "../../pages/programs/program-solution-observation-detail/program-solution-observation-detail";
 import { ProgramServiceProvider } from "../../pages/programs/program-service";
+import { SurveyProvider } from "../../pages/feedbacksurvey/provider/survey/survey";
+import { HomePage } from "../../pages/home/home";
+import { FeedbacksurveyPage } from "../../pages/feedbacksurvey/feedbacksurvey";
+import { QuestionerPage } from "../../pages/questioner/questioner";
+import { SurveyMsgComponent } from "../../components/survey-msg/survey-msg";
 
 @Injectable()
 export class NotificationProvider {
@@ -47,7 +52,9 @@ export class NotificationProvider {
     private appBadge: AppIconBadgeProvider,
     private appVersion: AppVersion,
     private assessmentService: AssessmentServiceProvider,
-    private programService: ProgramServiceProvider
+    private programService: ProgramServiceProvider,
+    private surveyService: SurveyProvider, // public navCtrl: NavController,
+    public modalCtrl: ModalController
   ) {
     console.log("Hello NotificationProvider Provider");
     //offline event
@@ -185,6 +192,10 @@ export class NotificationProvider {
         this.getMappedInstitutionalAssessment(notificationMeta);
         break;
     } */
+    if (notificationMeta.payload.type == "survey") {
+      this.goToSurvey(notificationMeta.payload);
+      return;
+    }
     this.utils.startLoader();
     this.programService
       .refreshObservationList()
@@ -280,6 +291,7 @@ export class NotificationProvider {
   //?AO-Assessment or obseravtion
   goToMappedAO(notificationMeta) {
     let { payload } = notificationMeta;
+
     this.localStorage
       .getLocalStorage(storageKeys.programList)
       .then((programs) => {
@@ -308,6 +320,32 @@ export class NotificationProvider {
       .catch((err) => {
         this.utils.stopLoader();
       });
+  }
+
+  goToSurvey(payload) {
+    // this.utils.stopLoader();
+    this.surveyService.getDetailsById(payload["survey_id"]).then((data) => {
+      if (data.result == false) {
+        this.showMsg("surveyExpired");
+        return;
+      }
+      if (data.result.status && data.result.status == "completed") {
+        this.showMsg("surveyCompleted");
+        return;
+      }
+      this.surveyService.storeSurvey(data.result.assessment.submissionId, data.result).then((data) => {
+        this.app.getRootNav().push(QuestionerPage, {
+          _id: data.assessment.submissionId,
+          selectedEvidence: 0,
+          selectedSection: 0,
+        });
+      });
+    });
+  }
+
+  showMsg(option): void {
+    const modal = this.modalCtrl.create(SurveyMsgComponent, { option: option });
+    modal.present();
   }
 
   /*

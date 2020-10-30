@@ -66,7 +66,9 @@
     "deleteDraft": "Delete Draft Item",
     "ratingNotSaved": "Rating not saved ",
     "deletePreviosOptions": "Previous options will be erased",
-    "sharePoll": "Do you want to share the poll?"
+    "sharePoll": "Do you want to share the poll?",
+    "solutionWillNotBeAccessible": "The solution will no longer be accessible",
+    "solutionWillBeRemovedFromHome": "The solution will no longer appear on the home screen"
   },
   "buttons": {
     "observeAgain": "Observe Again",
@@ -138,7 +140,12 @@
     "share": "Share",
     "create": "Create",
     "myCreation": "My Creations",
-    "myResults": "My Results"
+    "myResults": "My Results",
+    "deletePermanently": "Delete Permanently",
+    "restore": "Restore",
+    "removeFromHome": "Remove from home",
+    "moveToTrash": "Move To Trash",
+    "continue": "Continue"
 
 
   },
@@ -170,7 +177,9 @@
     "allSolutions": "All Solutions",
     "feedback": "Feedback",
     "polls": "Polls",
-    "profile":"Profile"
+    "profile":"Profile",
+    "feedbackSurveys": "Feedback and Surveys",
+    "trash": "Trash"
   },
   "headings": {
     "zone": "Zones",
@@ -247,6 +256,7 @@
     "library": "Library",
     "observationSolutions": "Observation Solutions",
     "assessmentForm": "Assessment Form",
+    "surveyFeedback": "Survey and Feedbacks",
     "draft": "Drafts",
     "search": "Search",
     "manualRating": "Manual Rating",
@@ -255,7 +265,10 @@
     "myCreations": "My Creations",
     "result": "Result",
     "myResults": "My Results",
-    "polls": "Polls"
+    "polls": "Polls",
+    "myForms": "My Forms",
+    "totalSubmissions": "Total Submissions",
+    "trash": "Trash"
   },
   "bottomNav": {
     "institution": "Institution",
@@ -288,6 +301,7 @@
     "selectState": "Select State *",
     "instanceName": "Instance Name",
     "viewAllEvidences": "View All Evidences",
+    "viewAllResponses": "View All Responses",
     "suggestedIMPs": "Suggested IMP's",
     "noSuggestedIMPs": "No IMP's Found",
     "createNewProgram": " Create New Program",
@@ -336,6 +350,7 @@
     "noEntity": "No Entity",
     "no": "No",
     "noSolutionFound": "No Solutions",
+    "noSurveyFound": "No Survey",
     "noImpovementProjectFound": "No Impovement Project Found",
     "noProgramsFound": "No Programs found.",
     "deleteObservation": "Are you sure you want to delete the observation?",
@@ -351,7 +366,9 @@
     "noPolls": "No Polls",
     "noFeedbacks": "No Feedbacks",
     "thankyou": "Thank You !",
-    "responseSubmitted": "Your Response is submitted"
+    "responseSubmitted": "Your Response is submitted",
+    "canNotOpenLink": "Can not open link.",
+    "emptyTrash": "Empty"
 
   },
   "toastMessage": {
