@@ -1,9 +1,16 @@
 page-library {
+  .parentContainer {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
   .card-container {
     justify-content: center;
     flex-direction: column;
     display: flex;
     align-items: center;
+    flex: 50%;
 
     .cardDetails {
       display: flex;
@@ -25,13 +32,13 @@ page-library {
   .iconName {
     width: min-content;
     text-align: center;
-    line-height: 1.4;
+    // line-height: 1.4;
     font-weight: 500;
   }
 
   .ionCard {
-    height: 20vw;
-    width: 20vw;
+    height: 15vw;
+    width: 15vw;
     border-radius: 20%;
   }
 }

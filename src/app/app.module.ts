@@ -132,7 +132,10 @@ import { LoginProvider } from '../providers/login/login';
 import { WebviewRunnerProvider } from '../providers/webview-runner/webview-runner';
 import { OnboardingPageModule } from "../pages/onboarding/onboarding.module";
 import { OnboardingProvider } from '../providers/onboarding/onboarding';
-
+import { FeedbacksurveyPageModule } from "../pages/feedbacksurvey/feedbacksurvey.module";
+import { DeepLinkRedirectPage } from "../pages/deep-link-redirect/deep-link-redirect";
+import { DeeplinkProvider } from '../providers/deeplink/deeplink';
+import { TrashPageModule } from "../pages/trash/trash.module";
 @NgModule({
   declarations: [
     MyApp,
@@ -166,6 +169,7 @@ import { OnboardingProvider } from '../providers/onboarding/onboarding';
     QuestionListPage,
     TutorialVideoListingPage,
     CriteriaListPage,
+    DeepLinkRedirectPage,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -204,6 +208,8 @@ import { OnboardingProvider } from '../providers/onboarding/onboarding';
     ManualRatingPageModule,
     FeedbackPollPageModule,
     OnboardingPageModule,
+    FeedbacksurveyPageModule,
+    TrashPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -239,6 +245,8 @@ import { OnboardingProvider } from '../providers/onboarding/onboarding';
     TutorialVideoListingPage,
     EvidenceAllListComponent,
     CriteriaListPage,
+    DeepLinkRedirectPage,
+  
   ],
   providers: [
     StatusBar,
@@ -307,6 +315,7 @@ import { OnboardingProvider } from '../providers/onboarding/onboarding';
     LoginProvider,
     WebviewRunnerProvider,
     OnboardingProvider,
+    DeeplinkProvider,
   ],
 })
 export class AppModule {}

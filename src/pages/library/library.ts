@@ -31,7 +31,7 @@ export class LibraryPage {
     public libraryProvider: LibraryProvider,
     public localStorage: LocalStorageProvider,
     public utils: UtilsProvider
-  ) { }
+  ) {}
 
   ionViewDidLoad() {
     console.log("ionViewDidLoad LibraryPage");
@@ -58,9 +58,7 @@ export class LibraryPage {
 
   goToComponent(type) {
     switch (true) {
-      case type == "observation" ||
-        type == "institutional" ||
-        type == "individual":
+      case type == "observation" || type == "institutional" || type == "individual" || type == "survey":
         // this.app.getRootNav().push(LibrarySolutionPage, { type: type });
         this.navCtrl.push(LibrarySolutionPage, { type: type });
         break;

@@ -53,12 +53,12 @@
   <ion-toolbar class="_toolbar-background-md" position="bottom">
     <ion-row>
       <ion-col>
-        <button ion-button full (click)="saveToDraft()" class="btnText">{{'buttons.draft' | translate}}</button>
+        <button ion-button full (click)="saveToDraft()" class="btnText" [disabled]="!pollForm?.value.question">{{'buttons.draft' | translate}}</button>
       </ion-col>
 
       <ion-col>
         <button ion-button full (click)="share()" class="btnText" [disabled]="!pollForm?.valid || !options?.length">
-          {{'buttons.share' | translate}}
+          {{'buttons.publish' | translate}}
         </button>
       </ion-col>
     </ion-row>

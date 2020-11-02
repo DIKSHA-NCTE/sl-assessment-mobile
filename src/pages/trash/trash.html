@@ -1,0 +1,33 @@
+<ion-header>
+  <header [title]="'headings.trash'|translate" [hideBack]="false"></header>
+</ion-header>
+
+<ion-content padding>
+ 
+  <div *ngIf="trashSolList">
+    <ion-card *ngFor="let item of trashSolList">
+      <ion-item text-wrap>
+        <div class="_flex-box">
+          <div style="flex: 1">
+            <h2>{{item.name}}</h2>
+          </div>
+          <button
+            icon-only
+            color="light"
+            class="basicButton"
+            *ngIf="1"
+            (click)="$event.stopPropagation();openActionMenu($event,item._id)"
+          >
+            <ion-icon name="more"></ion-icon>
+          </button>
+        </div>
+      </ion-item>
+    </ion-card>
+  </div>
+
+  <div *ngIf="trashSolList && !trashSolList?.length">
+    <div class="_flex-box _justify-content-center">
+      <h3>{{'message.emptyTrash' | translate}}</h3>
+    </div>
+  </div>
+</ion-content>

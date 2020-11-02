@@ -305,6 +305,53 @@ export class ProgramServiceProvider {
       .catch((error) => {});
   }
 
+  // remove solution from home screen
+
+  removesolFromHome(solutionId) {
+    const url = AppConfigs.programs.removesolFromHome + solutionId;
+    return new Promise((resolve, reject) => {
+      this.apiService.httpGet(
+        url,
+        (success) => {
+          resolve(success);
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
+  }
+  // delete solution permanently
+  deleteSolPermanently(solutionId) {
+    const url = AppConfigs.programs.deleteSolPermanently + solutionId;
+    return new Promise((resolve, reject) => {
+      this.apiService.httpGet(
+        url,
+        (success) => {
+          resolve(success);
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
+  }
+
+  trashSol(solutionId) {
+    const url = AppConfigs.programs.moveToTrash + solutionId;
+    return new Promise((resolve, reject) => {
+      this.apiService.httpGet(
+        url,
+        (success) => {
+          resolve(success);
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
+  }
+
   /* 
     only for migration purpose to make downloaded = true for already downloaded entities in 
     previous app version before flow change 

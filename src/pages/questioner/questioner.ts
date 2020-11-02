@@ -146,7 +146,7 @@ export class QuestionerPage {
     } else if (status === 'completed') {
       this.schoolData['assessment']['evidences'][this.selectedEvidenceIndex].sections[this.selectedSectionIndex].progressStatus = this.getSectionStatus();
       this.localStorage.setLocalStorage(this.utils.getAssessmentLocalStorageKey(this.submissionId), this.schoolData).then(success => {
-        this.schoolData.observation ? this.checkForAllEcmCompletion() : this.navCtrl.pop();
+        this.schoolData.observation || this.schoolData.survey ? this.checkForAllEcmCompletion() : this.navCtrl.pop();
       })
     } else {
       this.next('completed')

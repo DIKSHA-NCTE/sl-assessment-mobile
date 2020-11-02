@@ -23,6 +23,9 @@ import { storageKeys } from "../../providers/storageKeys";
 import { ProgramServiceProvider } from "../programs/program-service";
 import { AlertController } from 'ionic-angular';
 import { OnboardingProvider } from "../../providers/onboarding/onboarding";
+import { error } from "highcharts";
+import { PollPreviewPage } from "../feedback-poll/pages/poll-preview/poll-preview";
+import { FeedbacksurveyPage } from "../feedbacksurvey/feedbacksurvey";
 
 declare var cordova: any;
 
@@ -254,6 +257,7 @@ export class HomePage {
     // this.getIndividualAssessmentFromLocal();
     // this.getObservationListFromLocal();
     this.getProgramFromStorage();
+
     this.programService.migrationFuntion();
   }
 
@@ -399,10 +403,12 @@ export class HomePage {
       .then((programs) => {
         this.programList = programs;
         this.utils.stopLoader();
+         this.checkIfDeeplinkPresent();
       })
       .catch((error) => {
         this.programList = null;
         this.utils.stopLoader();
+         this.checkIfDeeplinkPresent();
       });
   }
 
@@ -418,4 +424,19 @@ export class HomePage {
         this.utils.stopLoader();
       });
   }
+
+  checkIfDeeplinkPresent() {
+     let appName = AppConfigs.appName;
+     appName = appName.toLowerCase().replace(/([^a-zA-Z])/g, "");
+     const paths = {};
+     paths[`/${appName}/take-poll/:pollId`] = PollPreviewPage;
+     paths[`/${appName}/take-survey/:surveyId`] = FeedbacksurveyPage;
+    this.localStorage.getLocalStorage('deeplink').then(res => {
+      if (paths[res.matchPath]) {
+        this.navCtrl.push(paths[res.matchPath], res.args).then(() => {
+          this.localStorage.deleteOneStorage('deeplink')
+        });
+      }
+  }).catch(err=>{})
+}
 }

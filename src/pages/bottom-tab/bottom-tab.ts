@@ -10,6 +10,8 @@ import { RoleListingPage } from "../role-listing/role-listing";
 import { ReportEntityListingPage } from "../reports/report-entity-listing/report-entity-listing";
 import { Subject } from "rxjs/Subject";
 import { storageKeys } from "../../providers/storageKeys";
+import { SurveyProvider } from "../feedbacksurvey/provider/survey/survey";
+import { SurveyMsgComponent } from "../../components/survey-msg/survey-msg";
 
 /**
  * Generated class for the BottomTabPage tabs.
@@ -39,15 +41,18 @@ export class BottomTabPage {
     public sideMenuProvide: SidemenuProvider,
     public localStorage: LocalStorageProvider,
     public utils: UtilsProvider,
-    private app: App
+    private app: App,
+    private surveyProvider: SurveyProvider
   ) {
     /* 
     show report and dashboard is same page only name is different
      */
-    this.sideMenuSubscription = this.sideMenuProvide.$showDashboard.subscribe((showDashboard) => {
+    
+     this.sideMenuSubscription = this.sideMenuProvide.$showDashboard.subscribe((showDashboard) => {
       this.showReport = showDashboard;
       this.getProfileroles();
     });
+    
   }
   ionViewDidLoad() {}
 
@@ -56,7 +61,11 @@ export class BottomTabPage {
       .getLocalStorage(storageKeys.profileRole)
       .then((success) => {
         let roles = success;
-
+        if (!roles.roles.length) {
+          this.data = { option: "entityNotMapped",showMenu:true };
+          this.reportsRoot = SurveyMsgComponent;
+          return;
+        }
         if (roles.roles.length > 1) {
           // this.data = { from: "dashboard" };
           this.reportsRoot = RoleListingPage;

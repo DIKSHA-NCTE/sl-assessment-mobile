@@ -1,0 +1,25 @@
+<ion-header>
+  <header [title]="'headings.myForms'|translate" [hideBack]="false"></header>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="surveyList">
+    <simple-list
+      *ngFor="let item of surveyList"
+      [heading]="item?.name"
+      [subheading]="item?.subheading"
+      [forwardIcon]="item?.status!='completed' && item.submissionId"
+      [viewReport]="item?.status=='completed' || !item.submissionId"
+      [status]="item?.status"
+      (reportAction)="checkReport(item)"
+      (click)="onSurveyClick(item)" 
+    ></simple-list>
+  </div>
+  <!-- item.status=='completed'? surveyProvider.showMsg('surveyCompleted'): item?.downloaded?redirect(item.submissionId):getSurveyById(item.surveyId)" -->
+
+  <div *ngIf="surveyList && !surveyList?.length">
+    <div class="_flex-box _justify-content-center">
+      <h3>{{'message.noSurveyFound' | translate}}</h3>
+    </div>
+  </div>
+</ion-content>

@@ -28,6 +28,7 @@ export class SidemenuProvider {
       .getLocalStorage(storageKeys.profileRole)
       .then((success) => {
         this.profileRoles = success;
+       
         this.$showDashboard.next(success.roles.length > 0 ? true : false);
       })
       .catch((error) => {
@@ -43,7 +44,10 @@ export class SidemenuProvider {
       async (success) => {
         this.profileRoles = success.result;
         await this.localStorage.setLocalStorage("profileRole", this.profileRoles);
-        this.$showDashboard.next(success.result.roles && success.result.roles.length > 0 ? true : false);
+
+       
+        this.$showDashboard.next(success.result.roles && success.result.roles.length > 0 ? true : false); 
+      
 
         if (this.profileRoles.relatedEntities && this.profileRoles.relatedEntities.length) {
           let relatedEntities = this.profileRoles.relatedEntities;
