@@ -120,7 +120,7 @@ export class ProgramSolutionObservationDetailPage {
 
   addEntity(...params) {
     // console.log(JSON.stringify(params))
-    const type = this.selectedSolution.entities[0].entityType;
+    const type = this.selectedSolution.entityType;
     let entityListModal;
     if (type == "state") {
       
