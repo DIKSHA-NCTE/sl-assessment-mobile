@@ -4,25 +4,20 @@ import { Subject } from "rxjs/Subject";
 import { ApiProvider } from "../api/api";
 import { AppConfigs } from "../appConfig";
 import { LocalStorageProvider } from "../local-storage/local-storage";
-import { ObservationServiceProvider } from "../observation-service/observation-service";
-import { App, NavController, ModalController } from "ionic-angular";
+import { App, ModalController } from "ionic-angular";
 import { UtilsProvider } from "../utils/utils";
-import { AssessmentServiceProvider } from "../assessment-service/assessment-service";
-import { EntityListingPage } from "../../pages/entity-listing/entity-listing";
 import { NetworkGpsProvider } from "../network-gps/network-gps";
 import { EvidenceProvider } from "../evidence/evidence";
 import { AppIconBadgeProvider } from "../app-icon-badge/app-icon-badge";
-import { SubmissionListPage } from "../../pages/submission-list/submission-list";
 import { AppVersion } from "@ionic-native/app-version";
 import { storageKeys } from "../storageKeys";
 import { ProgramSolutionEntityPage } from "../../pages/programs/program-solution-entity/program-solution-entity";
 import { ProgramSolutionObservationDetailPage } from "../../pages/programs/program-solution-observation-detail/program-solution-observation-detail";
 import { ProgramServiceProvider } from "../../pages/programs/program-service";
 import { SurveyProvider } from "../../pages/feedbacksurvey/provider/survey/survey";
-import { HomePage } from "../../pages/home/home";
-import { FeedbacksurveyPage } from "../../pages/feedbacksurvey/feedbacksurvey";
 import { QuestionerPage } from "../../pages/questioner/questioner";
 import { SurveyMsgComponent } from "../../components/survey-msg/survey-msg";
+import { CurrentUserProvider } from "../current-user/current-user";
 
 @Injectable()
 export class NotificationProvider {
@@ -46,15 +41,14 @@ export class NotificationProvider {
     private localStorage: LocalStorageProvider,
     private app: App,
     private utils: UtilsProvider,
-    private observationProvider: ObservationServiceProvider,
     private ngps: NetworkGpsProvider,
     private evindenceProvider: EvidenceProvider,
     private appBadge: AppIconBadgeProvider,
     private appVersion: AppVersion,
-    private assessmentService: AssessmentServiceProvider,
     private programService: ProgramServiceProvider,
     private surveyService: SurveyProvider, // public navCtrl: NavController,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    private currentUser: CurrentUserProvider
   ) {
     console.log("Hello NotificationProvider Provider");
     //offline event
@@ -74,7 +68,9 @@ export class NotificationProvider {
   startNotificationPooling() {
     this.timeInterval = setInterval(() => {
       if (this.networkAvailable) {
-        this.checkForNotificationApi();
+        this.currentUser.checkForTokens().then(data => {
+          !data.isDeactivated ? this.checkForNotificationApi() : null;
+        })
       }
       // else {
       //   console.log("no internet");
@@ -89,41 +85,45 @@ export class NotificationProvider {
   }
 
   checkForNotificationApi() {
-    this.apiService.httpGet(
-      AppConfigs.notification.getUnreadNotificationCount,
-      (success) => {
-        this.notificationsData = success.result;
-        success.result.count ? this.appBadge.setBadge(success.result.count) : this.appBadge.clearTheBadge();
-        // success.result.data = [
-        //   {
-        //     "is_read": false,
-        //     "internal": true,
-        //     "payload": {
-        //       "appVersion": "1.1.4",
-        //       "updateType": "minor/major",
-        //       "type": "appUpdate",
-        //       "platform": "ios/android"
-        //     },
-        //     "appName": "samiksha",
-        //     "action": "alertModal",
-        //     "created_at": "2019-11-25T23:30:02.292Z",
-        //     "text": "A new version of this app is available.",
-        //     "id": 303,
-        //     "type": "Information",
-        //     "title": "New update available !"
-        //   }
-        // ]
-        if (success.result.data && success.result.data.length) {
-          this.internalNotificationsHandler(success.result.data);
-        }
-        this.$notificationSubject.next(success.result);
-      },
-      (error) => {
-        this.notificationsData = {};
-        this.$notificationSubject.next({});
-      },
-      { baseUrl: "kendra" }
-    );
+    this.currentUser.checkForTokens().then(data => {
+      if (!data.isDeactivated && this.networkAvailable) {
+        this.apiService.httpGet(
+          AppConfigs.notification.getUnreadNotificationCount,
+          (success) => {
+            this.notificationsData = success.result;
+            success.result.count ? this.appBadge.setBadge(success.result.count) : this.appBadge.clearTheBadge();
+            // success.result.data = [
+            //   {
+            //     "is_read": false,
+            //     "internal": true,
+            //     "payload": {
+            //       "appVersion": "1.1.4",
+            //       "updateType": "minor/major",
+            //       "type": "appUpdate",
+            //       "platform": "ios/android"
+            //     },
+            //     "appName": "samiksha",
+            //     "action": "alertModal",
+            //     "created_at": "2019-11-25T23:30:02.292Z",
+            //     "text": "A new version of this app is available.",
+            //     "id": 303,
+            //     "type": "Information",
+            //     "title": "New update available !"
+            //   }
+            // ]
+            if (success.result.data && success.result.data.length) {
+              this.internalNotificationsHandler(success.result.data);
+            }
+            this.$notificationSubject.next(success.result);
+          },
+          (error) => {
+            this.notificationsData = {};
+            this.$notificationSubject.next({});
+          },
+          { baseUrl: "kendra" }
+        );
+      }
+    })
   }
 
   internalNotificationsHandler(notifications) {

@@ -40,6 +40,7 @@ export class ProgramSolutionObservationDetailPage {
   selectedSolution: any;
   submissionCount: any;
   showActionsheet: boolean;
+  search: string;
 
   constructor(
     public navCtrl: NavController,
@@ -83,7 +84,8 @@ export class ProgramSolutionObservationDetailPage {
       });
   }
 
-  goToObservationSubmission(entityIndex) {
+  goToObservationSubmission(entity) {
+    let entityIndex = this.selectedSolution.entities.findIndex((e) => e._id == entity._id);
     let data = {
       programIndex: this.programIndex,
       solutionIndex: this.solutionIndex,
@@ -123,13 +125,11 @@ export class ProgramSolutionObservationDetailPage {
     const type = this.selectedSolution.entityType;
     let entityListModal;
     if (type == "state") {
-      
       entityListModal = this.modalCtrl.create(StateModalComponent, {
         data: this.selectedSolution._id,
         solutionId: this.selectedSolution.solutionId,
       });
     } else {
-      
       entityListModal = this.modalCtrl.create(EntityListPage, {
         data: this.selectedSolution._id,
         solutionId: this.selectedSolution.solutionId,
@@ -143,15 +143,13 @@ export class ProgramSolutionObservationDetailPage {
           data: [],
         };
         entityList.forEach((element) => {
+          //if coming from state list page
+          if (type == "state") {
+            element.selected ? payload.data.push(element._id) : null;
+            return;
+          }
 
-          //if coming from state list page 
-          if (type == 'state' ) {
-           element.selected? payload.data.push(element._id):null;
-           return;
-          } 
-            
-            payload.data.push(element._id); // if coming from EntityListPage
-          
+          payload.data.push(element._id); // if coming from EntityListPage
         });
         // this.utils.startLoader();
         this.apiProviders.httpPost(
@@ -181,7 +179,8 @@ export class ProgramSolutionObservationDetailPage {
     entityListModal.present();
   }
 
-  removeEntity(entityIndex) {
+  removeEntity(entity) {
+    let entityIndex = this.selectedSolution.entities.findIndex((e) => e._id == entity._id);
     console.log("remove entity called");
     let translateObject;
     this.translate

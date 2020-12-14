@@ -78,7 +78,7 @@
             <ion-item text-wrap>
               <div
                 class="_flex-box"
-                (click)="goToObservationSubmission(entityIndex)"
+                (click)="goToObservationSubmission(entity)"
               >
                 <div style="flex: 1;" text-capitalize>
                   {{entity.name}}
@@ -87,7 +87,7 @@
                   *ngIf="!(entity?.submissions.length > 0)"
                   name="trash"
                   class="downloadIcon"
-                  (click)="$event.stopPropagation() ;removeEntity(entityIndex)"
+                  (click)="$event.stopPropagation() ;removeEntity(entity)"
                   margin-left
                 ></ion-icon>
                 <ion-icon

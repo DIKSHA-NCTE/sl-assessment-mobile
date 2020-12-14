@@ -11,7 +11,7 @@
 
 <ion-content padding class="_questioner-padding" #pageTop>
   <div class="disableOverLay" *ngIf="isCurrentEvidenceSubmitted || isViewOnly "></div>
-  <div class="_container" *ngIf="submissionId">
+  <div class="_container" id="stop" *ngIf="submissionId">
     <ng-container *ngFor="let question of questions| slice:start:end; let i=index">
       <ng-container [ngSwitch]="question.responseType.toLowerCase()">
         <input-type

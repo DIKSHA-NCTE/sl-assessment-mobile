@@ -94,6 +94,10 @@ export class QuestionerPage {
         currentViewIndex: this.start
       }
       this.isCurrentEvidenceSubmitted = currentEvidences[this.selectedEvidenceIndex].isSubmitted
+      if (this.isCurrentEvidenceSubmitted || this.isViewOnly) {
+        document.getElementById('stop').style.pointerEvents = 'none';
+
+      }
       this.utils.stopLoader();
     }).catch(error => {
       this.utils.stopLoader();
